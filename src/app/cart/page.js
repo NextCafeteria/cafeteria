@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { calculatePriceForList, getItemsWithPrice } from "../utils/price";
+import { calculatePriceForList, getItemsWithPrice, calculateTax, calculateTotalPriceWithTax } from "../utils/price";
 
 export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -47,6 +47,7 @@ export default function Cart() {
                   }
                   )
                 }
+                <p className="text-sm">Quantity: {item.quantity}</p>
                 <p className="absolute right-0 top-0 text-sm float-right">${item.price}</p>
                 {/* Remove button */}
                 <button className="absolute right-0 bottom-0 text-md text-gray-500 float-right" onClick={() => {
@@ -60,11 +61,17 @@ export default function Cart() {
             </div>
           );
         })}
+        <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
+          <div className="flex flex-col items-begin justify-center w-full relative">
+            <p className="text-xl font-bold">Tax</p>
+            <p className="absolute right-0 top-0 text-sm float-right">${calculateTax(totalPrice).toFixed(2)}</p>
+          </div>
+        </div>
       </div>
 
       <div className="w-full max-w-[700px] fixed bottom-2 h-[50px] border-2 border-gray-600 p-2 bg-blue-200 rounded-md">
         <span className="text-2xl">Total</span>
-        <span className="text-2xl float-right">${totalPrice?.toFixed(2)}</span>
+        <span className="text-2xl float-right">${calculateTotalPriceWithTax(totalPrice).toFixed(2)}</span>
       </div>
     </main>
   );

@@ -1,16 +1,21 @@
 "use client";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { calculatePriceForList, calculateTotalPriceWithTax } from "./utils/price";
 
 export default function Home() {
   const itemsOptions = require("./food_options.json");
   const router = useRouter();
+  const [cart, setCart] = useState([]);
+  const [cartTotalPrice, setCartTotalPrice] = useState(0.0);
 
   // Read cart from local storage
-  let cart = [];
   useEffect(() => {
-    cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    let items = JSON.parse(localStorage.getItem("cart") || "[]");
+    let cartTotalPrice = calculateTotalPriceWithTax(calculatePriceForList(items));
+    setCart(items);
+    setCartTotalPrice(cartTotalPrice);
   }, []);
 
   return (
@@ -54,7 +59,7 @@ export default function Home() {
       }>
         <span className="text-2xl">Cart</span>
         <span className="text-sm"> • {cart.length} item</span>
-        <span className="text-2xl float-right">$0.00</span>
+        <span className="text-2xl float-right">${cartTotalPrice.toFixed(2)}</span>
       </div>
     </main>
   );

@@ -1,5 +1,7 @@
 const itemsOptions = require("../food_options.json");
+const settings = require("../settings.json");
 
+const taxRate = settings.tax_rate;
 
 export function getItemOptionsById(id) {
     let itemOptions = null;
@@ -35,6 +37,14 @@ export function calculatePriceForList(items) {
         totalPrice += calculatePrice(item.id, item.selectedOptions, item.quantity);
     });
     return totalPrice;
+}
+
+export function calculateTax(totalPrice) {
+    return totalPrice * taxRate;
+}
+
+export function calculateTotalPriceWithTax(totalPrice) {
+    return totalPrice + calculateTax(totalPrice);
 }
 
 export function getItemsWithPrice(items) {
