@@ -1,6 +1,7 @@
 [
     {
-        "item": "Hot",
+        "name": "Hot",
+        "description": "Hot coffee",
         "price": 2,
         "customizations": [
             {
@@ -73,7 +74,8 @@
         ]
     },
     {
-        "item": "Cold",
+        "name": "Cold",
+        "description": "Cold coffee",
         "price": 2,
         "customizations": [
             {
@@ -113,7 +115,8 @@
         ]
     },
     {
-        "item": "Blended",
+        "name": "Blended",
+        "description": "Blended coffee",
         "price": 2,
         "customizations": [
             {
@@ -153,7 +156,8 @@
         ]
     },
     {
-        "item": "Milk Tea",
+        "name": "Milk Tea",
+        "description": "Milk tea",
         "price": 2.25,
         "customizations": [
             {
@@ -206,7 +210,8 @@
         ]
     },
     {
-        "item": "Sandwich",
+        "name": "Sandwich",
+        "description": "Sandwich for breakfast",
         "price": 3.0,
         "customizations": [
             {
@@ -225,7 +230,8 @@
         ]
     },
     {
-        "item": "Bagel",
+        "name": "Bagel",
+        "description": "Bagel for breakfast",
         "price": 3.0,
         "customizations": [
             {

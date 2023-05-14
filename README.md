@@ -2,6 +2,10 @@
 
 This is a cafeteria app that allows users to order food from a cafeteria. It is built with Next.js, TypeScript, and Tailwind CSS.
 
+**UI Design (Figma):**
+
+[![](docs/figma-design.png)](https://www.figma.com/file/NWU9BqtgXH4WZmBuEWUlVH/Cafeteria?type=design&node-id=0%3A1&t=2CNfDxghbK04aOCP-1)
+
 ## Getting Started
 
 First, run the development server:
