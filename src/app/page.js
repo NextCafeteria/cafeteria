@@ -26,7 +26,7 @@ export default function Home() {
         </p>
         <div className="flex flex-wrap justify-center w-full">
           {itemsOptions.map((foodOption, key) => (
-            <div key={key} className="flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[200px] my-1 mx-1 rounded-md" onClick={
+            <div key={key} className="flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md" onClick={
               () => {
                 router.push("/pick-item-options?itemId=" + key);
               }
@@ -37,13 +37,13 @@ export default function Home() {
                   alt={foodOption.name}
                   width={128}
                   height={128}
-                  className="absolute right-0 top-0 w-24 h-auto rounded-sm"
+                  className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
                 />
                 <p className="text-xl font-bold">{foodOption.name}</p>
                 <p className="text-sm">{foodOption.description}</p>
                 <p className="text-sm">${foodOption.price}</p>
                 <button
-                  className="px-2 py-1 mt-4 text-sm text-gray-800 bg-gray-300 rounded-md w-[140px]"
+                  className="px-2 py-1 mt-4 text-sm text-gray-800 bg-gray-200 rounded-md w-[140px]"
                 >
                   Add to cart
                 </button>
@@ -52,7 +52,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className="w-full max-w-[700px] fixed bottom-2 h-[50px] border-2 border-gray-600 p-2 bg-orange-100 rounded-md" onClick={
+      <div className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 md:rounded-md" onClick={
         () => {
           router.push("/cart");
         }

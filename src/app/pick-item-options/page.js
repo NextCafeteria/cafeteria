@@ -79,7 +79,7 @@ export default function PickOptions({ searchParams }) {
 
   return (itemOptions &&
     <main className="flex justify-center p-2 pb-[100px]">
-      <div className="max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           Options
           <Link href="/">
@@ -103,7 +103,6 @@ export default function PickOptions({ searchParams }) {
           {/* Show customizations */}
           {itemOptions.customizations &&
             <div className="flex flex-col items-begin justify-center w-full mt-4">
-              <p className="text-xl font-bold">Customizations</p>
               {itemOptions.customizations.map((customization, customizationIndex) => (
                 <div key={customizationIndex} className="flex flex-col items-begin justify-center w-full mt-2 border-[1px] border-gray-600 rounded-md px-2 py-2">
                   <p className="text-sm font-bold">{customization.name}</p>
@@ -128,7 +127,7 @@ export default function PickOptions({ searchParams }) {
 
           {/* Show quantity */}
           <div className="flex flex-col items-begin justify-center w-full mt-4">
-            <p className="text-xl font-bold">Quantity</p>
+            <p className="text-lg font-bold text-center mb-2">Quantity</p>
             <div className="flex flex-row items-center justify-center w-full mt-2">
               <button className="w-10 h-10 border-2 border-gray-600 rounded-md" onClick={() => {
                 if (quantity > 1) {
@@ -146,7 +145,7 @@ export default function PickOptions({ searchParams }) {
         </div>
       </div>
 
-      <div className="w-full max-w-[700px] fixed bottom-2 h-[50px] border-2 border-gray-600 p-2 bg-green-200 rounded-md" onClick={addToCart}>
+      <div className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-200 md:rounded-md" onClick={addToCart}>
         <span className="text-2xl">+ Add to cart</span>
         <span className="text-2xl float-right">${totalPrice?.toFixed(2)}</span>
       </div>

@@ -2,9 +2,23 @@
 
 This is a cafeteria app that allows users to order food from a cafeteria. It is built with Next.js, TypeScript, and Tailwind CSS.
 
-**UI Design (Figma):**
+Deployed at: [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
+
+## Design
+
+**UI Mockup (Figma):** 
 
 [![](docs/figma-design.png)](https://www.figma.com/file/NWU9BqtgXH4WZmBuEWUlVH/Cafeteria?type=design&node-id=0%3A1&t=2CNfDxghbK04aOCP-1)
+
+**Pricing Logics:**
+
+- The pricing logic is based on the requirements from Excercise 1.
+- The food & drink options are stored in `src/app/food_options.json`.
+- The logic for calculating the price is in `src/app/utils/price.js`.
+
+**Note:**
+
+- The "quantity" field was added to help user order multiple items at once.
 
 ## Getting Started
 
@@ -22,19 +36,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Roboto, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
