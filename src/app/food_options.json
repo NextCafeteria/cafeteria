@@ -1,5 +1,6 @@
 [
     {
+        "id": "hot",
         "name": "Hot",
         "description": "Hot coffee",
         "image": "/hot-coffee.jpeg",
@@ -30,12 +31,12 @@
                 "name": "Whipped Cream",
                 "options": [
                     {
-                        "name": "Yes",
-                        "price": 0.5
-                    },
-                    {
                         "name": "No",
                         "price": 0
+                    },
+                    {
+                        "name": "Yes",
+                        "price": 0.5
                     }
                 ]
             },
@@ -75,9 +76,10 @@
         ]
     },
     {
+        "id": "cold",
         "name": "Cold",
         "description": "Cold coffee",
-        "image": "/hot-coffee.jpeg",
+        "image": "/cold-coffee.jpg",
         "price": 2,
         "customizations": [
             {
@@ -105,21 +107,22 @@
                 "name": "Whipped Cream",
                 "options": [
                     {
-                        "name": "Yes",
-                        "price": 0.5
-                    },
-                    {
                         "name": "No",
                         "price": 0
+                    },
+                    {
+                        "name": "Yes",
+                        "price": 0.5
                     }
                 ]
             }
         ]
     },
     {
+        "id": "blended",
         "name": "Blended",
         "description": "Blended coffee",
-        "image": "/hot-coffee.jpeg",
+        "image": "/blended-coffee.jpg",
         "price": 2,
         "customizations": [
             {
@@ -147,21 +150,22 @@
                 "name": "Whipped Cream",
                 "options": [
                     {
-                        "name": "Yes",
-                        "price": 0.5
-                    },
-                    {
                         "name": "No",
                         "price": 0
+                    },
+                    {
+                        "name": "Yes",
+                        "price": 0.5
                     }
                 ]
             }
         ]
     },
     {
+        "id": "milk_tea",
         "name": "Milk Tea",
         "description": "Milk tea",
-        "image": "/hot-coffee.jpeg",
+        "image": "/milktea.jpeg",
         "price": 2.25,
         "customizations": [
             {
@@ -189,12 +193,12 @@
                 "name": "Whipped Cream",
                 "options": [
                     {
-                        "name": "Yes",
-                        "price": 0.5
-                    },
-                    {
                         "name": "No",
                         "price": 0
+                    },
+                    {
+                        "name": "Yes",
+                        "price": 0.5
                     }
                 ]
             },
@@ -202,26 +206,31 @@
                 "name": "Almond Milk",
                 "options": [
                     {
-                        "name": "Yes",
-                        "price": 0.5
-                    },
-                    {
                         "name": "No",
                         "price": 0
+                    },
+                    {
+                        "name": "Yes",
+                        "price": 0.5
                     }
                 ]
             }
         ]
     },
     {
+        "id": "sandwich",
         "name": "Sandwich",
         "description": "Sandwich for breakfast",
-        "image": "/hot-coffee.jpeg",
+        "image": "/sandwich.jpeg",
         "price": 3.0,
         "customizations": [
             {
                 "name": "Topping",
                 "options": [
+                    {
+                        "name": "No",
+                        "price": 0
+                    },
                     {
                         "name": "Egg",
                         "price": 1
@@ -235,14 +244,19 @@
         ]
     },
     {
+        "id": "bagel",
         "name": "Bagel",
         "description": "Bagel for breakfast",
-        "image": "/hot-coffee.jpeg",
+        "image": "/bagel.jpg",
         "price": 3.0,
         "customizations": [
             {
                 "name": "Topping",
                 "options": [
+                    {
+                        "name": "No",
+                        "price": 0
+                    },
                     {
                         "name": "Butter",
                         "price": 0.5
