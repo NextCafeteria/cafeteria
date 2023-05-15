@@ -31,11 +31,11 @@ export default function Home({ params: { lng } }) {
           {t("title")}
           <div className="float-right">
             <a href="/vi" className="text-sm">
-              VI
+              <span className={lng === "vi" ? " font-bold" : ""}>VI</span>
             </a>
             <span className="text-sm"> | </span>
             <a href="/en" className="text-sm">
-              EN
+              <span className={lng === "en" ? " font-bold" : ""}>EN</span>
             </a>
           </div>
         </div>

@@ -112,7 +112,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                       key={customizationIndex}
                       className="flex flex-col items-begin justify-center w-full mt-2 border-[1px] border-gray-600 rounded-md px-2 py-2"
                     >
-                      <p className="text-sm font-bold">{customization.name}</p>
+                      <p className="text-sm font-bold">{t(customization.name)}</p>
                       <div className="flex flex-col items-center justify-center w-full mt-2">
                         {customization.options.map((option, index) => (
                           <div
