@@ -75,7 +75,7 @@ export default function Home({ params: { lng } }) {
         }}
       >
         <span className="text-2xl">{t("Cart")}</span>
-        <span className="text-sm"> • {cart.length} item</span>
+        <span className="text-sm"> • {cart.length} {t("item")}</span>
         <span className="text-2xl float-right">
           ${cartTotalPrice.toFixed(2)}
         </span>
