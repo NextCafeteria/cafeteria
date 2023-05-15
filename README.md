@@ -19,6 +19,7 @@ Deployed at: [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
 **Note:**
 
 - The "quantity" field was added to help user order multiple items at once.
+- **Multi-language** is supported.
 
 ## Getting Started
 
