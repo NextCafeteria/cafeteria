@@ -6,7 +6,7 @@ Deployed at: [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
 
 ## Design
 
-**UI Mockup (Figma):** 
+**UI Mockup (Figma):**
 
 [![](docs/figma-design.png)](https://www.figma.com/file/NWU9BqtgXH4WZmBuEWUlVH/Cafeteria?type=design&node-id=0%3A1&t=2CNfDxghbK04aOCP-1)
 
@@ -37,4 +37,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Roboto, a custom Google Font.
-
