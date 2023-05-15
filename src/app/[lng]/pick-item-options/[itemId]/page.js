@@ -91,14 +91,16 @@ export default function PickOptions({ params: { lng, itemId } }) {
             <div className="flex flex-col items-begin justify-center w-full relative">
               <Image
                 src={itemOptions.image}
-                alt={itemOptions.name}
+                alt={t(itemOptions.name)}
                 width={128}
                 height={128}
                 className="absolute right-0 top-0 w-24 h-auto rounded-sm"
               />
-              <p className="text-xl font-bold">{itemOptions?.name}</p>
-              <p className="text-sm">{itemOptions?.description}</p>
-              <p className="text-sm">Base price: ${itemOptions?.price}</p>
+              <p className="text-xl font-bold">{t(itemOptions?.name)}</p>
+              <p className="text-sm">{t(itemOptions?.description)}</p>
+              <p className="text-sm">
+                {t("Base price")}: ${itemOptions?.price}
+              </p>
             </div>
 
             {/* Show customizations */}
@@ -119,9 +121,9 @@ export default function PickOptions({ params: { lng, itemId } }) {
                           >
                             <input
                               type="radio"
-                              id={option.name}
-                              name={customization.name}
-                              value={option.name}
+                              id={t(option.name)}
+                              name={t(customization.name)}
+                              value={t(option.name)}
                               checked={
                                 selectedOptions[customizationIndex] === index
                               }
@@ -131,8 +133,11 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                 }
                               }}
                             />
-                            <label className="pl-2 w-100" htmlFor={option.name}>
-                              {option.name} (${option.price})
+                            <label
+                              className="pl-2 w-100"
+                              htmlFor={t(option.name)}
+                            >
+                              {t(option.name)} (${option.price})
                             </label>
                           </div>
                         ))}

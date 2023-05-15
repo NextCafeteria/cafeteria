@@ -46,23 +46,25 @@ export default function Cart({ params: { lng } }) {
               className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2"
             >
               <div className="flex flex-col items-begin justify-center w-full relative">
-                <p className="text-xl font-bold">{item.name}</p>
-                <p className="text-sm">{item.description}</p>
+                <p className="text-xl font-bold">{t(item.name)}</p>
+                <p className="text-sm">{t(item.description)}</p>
                 {item.customizations.map(
                   (customization, customizationIndex) => {
                     return (
                       <p key={customizationIndex} className="text-sm">
-                        {customization.name}:{" "}
-                        {
+                        {t(customization.name)}:{" "}
+                        {t(
                           customization.options[
                             item.selectedOptions[customizationIndex]
                           ]?.name
-                        }
+                        )}
                       </p>
                     );
                   }
                 )}
-                <p className="text-sm">Quantity: {item.quantity}</p>
+                <p className="text-sm">
+                  {t("Quantity")}: {item.quantity}
+                </p>
                 <p className="absolute right-0 top-0 text-sm float-right">
                   ${item.price}
                 </p>
@@ -85,7 +87,7 @@ export default function Cart({ params: { lng } }) {
         })}
         <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
           <div className="flex flex-col items-begin justify-center w-full relative">
-            <p className="text-xl font-bold">Tax</p>
+            <p className="text-xl font-bold">{t("Tax")}</p>
             <p className="absolute right-0 top-0 text-sm float-right">
               ${calculateTax(totalPrice).toFixed(2)}
             </p>
@@ -94,7 +96,7 @@ export default function Cart({ params: { lng } }) {
       </div>
 
       <div className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-blue-100 md:rounded-md">
-        <span className="text-2xl">Total</span>
+        <span className="text-2xl">{t("Total")}</span>
         <span className="text-2xl float-right">
           ${calculateTotalPriceWithTax(totalPrice).toFixed(2)}
         </span>
