@@ -1,6 +1,6 @@
 # Cafeteria App
 
-This is a cafeteria app that allows users to order food from a cafeteria. It is built with Next.js, TypeScript, and Tailwind CSS.
+This is a cafeteria app that allows users to order food from a cafeteria. It is built with Next.js, Javascript, and Tailwind CSS.
 
 Deployed at: [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
 
@@ -13,8 +13,8 @@ Deployed at: [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
 **Pricing Logics:**
 
 - The pricing logic is based on the requirements from Excercise 1.
-- The food & drink options are stored in `src/app/food_options.json`.
-- The logic for calculating the price is in `src/app/utils/price.js`.
+- The food & drink options are stored in `src/app/[lng]/food_options.json`.
+- The logic for calculating the price is in `src/app/[lng]/utils/price.js`.
 
 **Note:**
 

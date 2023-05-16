@@ -16,14 +16,6 @@
           {
             "name": "M",
             "price": 0.5
-          },
-          {
-            "name": "L",
-            "price": 1
-          },
-          {
-            "name": "XL",
-            "price": 1.5
           }
         ]
       },
