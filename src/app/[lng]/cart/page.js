@@ -7,6 +7,7 @@ import {
   calculateTotalPriceWithTax,
 } from "../utils/price";
 import { useTranslation } from "../../i18n/client";
+import { PlaceOrder } from "@/lib/orders";
 
 export default function Cart({ params: { lng } }) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -28,6 +29,11 @@ export default function Cart({ params: { lng } }) {
   useEffect(() => {
     getItemsWithPriceFromLocalStorage();
   }, []);
+
+  function handlePlaceOrder() {
+    const cart = JSON.parse(localStorage.getItem("cart", "[]"));
+    PlaceOrder(cart);
+  }
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -96,7 +102,9 @@ export default function Cart({ params: { lng } }) {
       </div>
 
       <div className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-blue-100 md:rounded-md">
-        <span className="text-2xl">{t("Total")}</span>
+        <span className="text-2xl" onClick={handlePlaceOrder}>
+          {t("Order Now!")}
+        </span>
         <span className="text-2xl float-right">
           ${calculateTotalPriceWithTax(totalPrice).toFixed(2)}
         </span>

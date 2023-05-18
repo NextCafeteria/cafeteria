@@ -1,3 +1,6 @@
+"use client";
+import { SessionProvider } from "next-auth/react";
+
 import "../globals.css";
 import { Roboto } from "next/font/google";
 
@@ -14,15 +17,17 @@ const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
 });
 
-export const metadata = {
-  title: "Cafeteria App",
-  description: "Cafeteria App for small business",
-};
+// export const metadata = {
+//   title: "Cafeteria App",
+//   description: "Cafeteria App for small business",
+// };
 
 export default function RootLayout({ children, params: { lng } }) {
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <SessionProvider>{children}</SessionProvider>
+      </body>
     </html>
   );
 }
