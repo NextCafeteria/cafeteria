@@ -1,4 +1,4 @@
-export async function PlaceOrder(items) {
+export async function PlaceOrder(items, onSuccess=null, onError=null) {
   // Call the API to place the order
   const response = await fetch("/api/customers/orders", {
     method: "POST",
@@ -10,10 +10,12 @@ export async function PlaceOrder(items) {
 
   const data = await response.json();
   if (data?.success) {
-    // Clear the cart
-    // localStorage.setItem('cart', JSON.stringify([]));
-    alert("Order placed successfully"); // TODO: Redirect to order page, Use toast
+    if (onSuccess) {
+      onSuccess(data?.data);
+    }
   } else {
-    alert("Order failed. Error: " + data?.error); // TODO: Use toast
+    if (onError) {
+      onError(data);
+    }
   }
 }

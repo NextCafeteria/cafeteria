@@ -28,3 +28,17 @@
 - GET /api/customers/orders
 - Implementation: `src/pages/api/customers/orders.js`.
 - Try at: `/api/customers/orders`.
+
+## Staffs
+
+### 1. Get the list of last orders
+
+- GET /api/staffs/orders
+- Implementation: `src/pages/api/staffs/orders/index.js`.
+
+### 2. Set order status
+
+- POST /api/staffs/orders/:id/set_status
+{
+    "status": "queued|confirmed|preparing|completed|cancelled"
+}
