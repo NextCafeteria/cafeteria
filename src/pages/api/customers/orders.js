@@ -45,8 +45,8 @@ export default async function handler(req, res) {
       timestamp: Date.now(),
       status: OrderStatus.QUEUED,
     });
-    const doc = (await getDocs(docRef)).docs[0];
 
-    return res.status(200).json({ success: true, data: doc.data() || {} });
+    const data = {...req.body, id: docRef.id}
+    return res.status(200).json({ success: true, data: data || {} });
   }
 }

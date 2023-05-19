@@ -34,14 +34,9 @@ export default function Cart({ params: { lng } }) {
 
   function handlePlaceOrder() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
-    PlaceOrder(cart, (data) => {
-      console.log(data)
+    PlaceOrder(cart, onSuccess=() => {
       localStorage.setItem("cart", "[]");
       router.push(`/${lng}/orders`);
-      alert("Order placed successfully");
-    }, (e) => {
-      console.log(e);
-      alert("Order failed");
     });
   }
 
@@ -50,7 +45,7 @@ export default function Cart({ params: { lng } }) {
     <main className="flex justify-center p-2 pb-[100px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
-          {t("Cart")}
+          {t("Orders")}
           <a href={`/${lng}`}>
             <span>X</span>
           </a>
