@@ -68,37 +68,6 @@ export default function Home({ params: { lng } }) {
           ))}
         </div>
       </div>
-      <div
-        className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 md:rounded-md" style={{...{width: '30%'}, ...{transform: 'translateX(105%)'}}}
-        onClick={() => {
-          router.push(`/${lng}/cart`);
-        }}
-      >
-        <span className="flex justify-center text-2xl">{t("User")}</span>
-      </div>
-      <div
-        className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 md:rounded-md" style={{...{width: '30%'}, ...{transform: 'translateX(0%)'}}}
-        onClick={() => {
-          router.push(`/${lng}/cart`);
-        }}
-      >
-        <span className="text-2xl">{t("Cart")}</span>
-        <span className="text-sm">
-          {" "}
-          • {cart.length} {t("item")}
-        </span>
-        <span className="text-2xl float-right">
-          ${cartTotalPrice.toFixed(2)}
-        </span>
-      </div>
-      <div
-        className="w-full max-w-[700px] fixed bottom-0 md:bottom-2 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 md:rounded-md" style={{...{width: '30%'}, ...{transform: 'translateX(-105%)'}}}
-        onClick={() => {
-          router.push(`/${lng}/cart`);
-        }}
-      >
-        <span className="flex justify-center text-2xl">{t("Orders")}</span>
-      </div>
     </main>
   );
 }

@@ -16,6 +16,7 @@ const roboto = Roboto({
   subsets: ["latin-ext"],
   weight: ["100", "300", "400", "500", "700", "900"],
 });
+import Footer from "./components/Footer"
 
 // export const metadata = {
 //   title: "Cafeteria App",
@@ -26,8 +27,11 @@ export default function RootLayout({ children, params: { lng } }) {
   return (
     <html lang={lng} dir={dir(lng)}>
       <body className={roboto.className}>
-        <SessionProvider>{children}</SessionProvider>
-      </body>
-    </html>
+        <SessionProvider>
+          {children}
+          <Footer lng={lng}/>
+        </SessionProvider>
+        </body>
+     </html>
   );
 }
