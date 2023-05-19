@@ -19,7 +19,6 @@ export async function PlaceOrder(items, onSuccess = null, onError = null) {
   }
 }
 
-
 export async function GetOrders(onSuccess = null, onError = null) {
   const response = await fetch("/api/customers/orders", {
     method: "GET",
