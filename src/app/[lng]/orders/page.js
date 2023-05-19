@@ -7,8 +7,16 @@ import {
   ORDER_STATUS_TO_TEXT,
 } from "@/lib/order_status";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Cart({ params: { lng } }) {
+  const router = useRouter();
+  const session = useSession();
+  if (session && session.status === "unauthenticated") {
+    router.push(`/${lng}/login`);
+  }
+
   const [orderItems, setOrderItems] = useState(null);
 
   useEffect(() => {
@@ -18,7 +26,6 @@ export default function Cart({ params: { lng } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not get orders");
       }
     );
   }, []);

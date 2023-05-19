@@ -9,9 +9,14 @@ import {
 } from "@/lib/price";
 import { useTranslation } from "../../i18n/client";
 import { PlaceOrder } from "@/lib/requests/orders";
+import { useSession } from "next-auth/react";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
+  const session = useSession();
+  if (session && session.status === "unauthenticated") {
+    router.push(`/${lng}/login`);
+  }
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemsWithPrice, setItemsWithPrice] = useState([]);
 

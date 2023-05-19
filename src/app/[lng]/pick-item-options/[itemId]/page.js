@@ -1,13 +1,17 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 const itemsOptions = require("../../food_options.json");
 import { useTranslation } from "../../../i18n/client";
+import { useSession } from "next-auth/react";
 
 export default function PickOptions({ params: { lng, itemId } }) {
   const router = useRouter();
+  const session = useSession();
+  if (session && session.status === "unauthenticated") {
+    router.push(`/${lng}/login`);
+  }
 
   // If item id is not valid, redirect to home page
   if (!itemId || !itemsOptions[itemId]) {

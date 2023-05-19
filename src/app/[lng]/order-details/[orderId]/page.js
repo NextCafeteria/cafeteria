@@ -9,9 +9,14 @@ import {
   OrderStatus,
 } from "@/lib/order_status";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Cart({ params: { lng, orderId } }) {
   const router = useRouter();
+  const session = useSession();
+  if (session && session.status === "unauthenticated") {
+    router.push(`/${lng}/login`);
+  }
   const [orderData, setOrderData] = useState(null);
 
   useEffect(() => {
