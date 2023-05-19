@@ -13,7 +13,7 @@ export default function Footer({ lng }) {
         className="flex justify-evenly w-full fixed bottom-0 md:bottom-0 h-[90px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 "
       >
         <div
-          className="flex flex-col items-center p-2"
+          className="flex flex-col items-center p-2 clickable"
           onClick={() => {
             router.push(`/${lng}/`);
           }}
@@ -25,7 +25,7 @@ export default function Footer({ lng }) {
 
         </div>
         <div
-          className="flex flex-col items-center p-2"
+          className="flex flex-col items-center p-2 clickable"
           onClick={() => {
             router.push(`/${lng}/orders`);
           }}
@@ -36,7 +36,7 @@ export default function Footer({ lng }) {
           <span className="flex justify-center text-2xl">{t("Orders")}</span>
         </div>
         <div
-          className="flex flex-col items-center p-2"
+          className="flex flex-col items-center p-2 clickable"
           onClick={() => {
             router.push(`/${lng}/cart`);
           }}
@@ -47,7 +47,7 @@ export default function Footer({ lng }) {
           <span className="flex justify-center text-2xl">{t("Cart")}</span>
         </div>
         <div
-          className="flex flex-col items-center p-2"
+          className="flex flex-col items-center p-2 clickable"
           onClick={() => {
             router.push(`/${lng}/user`);
           }}
@@ -62,3 +62,11 @@ export default function Footer({ lng }) {
     </>
   )
 }
+
+
+//implement a div that can be clicked
+//when hovered over, it will show pointer to indicate it can be clicked
+
+
+
+

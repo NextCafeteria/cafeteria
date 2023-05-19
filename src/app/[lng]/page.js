@@ -44,7 +44,7 @@ export default function Home({ params: { lng } }) {
           {itemsOptions.map((foodOption, key) => (
             <div
               key={key}
-              className="flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
+              className="clickable flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
               onClick={() => {
                 router.push(`/${lng}/pick-item-options/${key}`);
               }}
