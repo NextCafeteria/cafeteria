@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import DefaultImage from "@public/default.png";
+import Link from "next/link";
 
 export default function Page({ params: { lng } }) {
   const router = useRouter();
@@ -60,9 +61,25 @@ export default function Page({ params: { lng } }) {
         </div>
       </div>
       <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
-        {t("My orders")}
+        <Link href={`/${lng}`}>
+          {t("Browse products")}
+        </Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl">{t("Contact")}</div>
+      <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
+        <Link href={`/${lng}/orders`}>
+          {t("My orders")}
+        </Link>
+      </div>
+      <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
+        <Link href={`/${lng}/cart`}>
+          {t("Cart")}
+        </Link>
+      </div>
+      <div className="min-h-20 p-4 border-b-2 text-xl">
+        <Link href="https://github.com/vietanhdev/cafeteria/issues" target="_blank">
+          {t("Support & Bug report")}
+        </Link>
+      </div>
       <button
         className="bottom-0 absolute w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded mt-4"
         onClick={() => signOut()}
