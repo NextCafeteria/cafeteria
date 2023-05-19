@@ -25,7 +25,9 @@ export default async function handler(req, res) {
 
     // Return order data
     const docs = (await getDocs(q)).docs;
-    const data = docs.map((doc) => { return {...doc.data(), id: doc.id}});
+    const data = docs.map((doc) => {
+      return { ...doc.data(), id: doc.id };
+    });
     return res.status(200).json({ success: true, data: data });
   }
 }

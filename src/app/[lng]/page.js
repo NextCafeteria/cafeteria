@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import {
   calculatePriceForList,
   calculateTotalPriceWithTax,
-} from "./utils/price";
+} from "../../lib/price";
 import { useTranslation } from "../i18n/client";
 const itemsOptions = require("./food_options.json");
 
@@ -60,7 +60,7 @@ export default function Home({ params: { lng } }) {
                 <p className="text-xl font-bold">{t(foodOption.name)}</p>
                 <p className="text-sm">{t(foodOption.description)}</p>
                 <p className="text-sm">${foodOption.price}</p>
-                <button className="px-2 py-1 mt-4 text-sm text-gray-800 bg-gray-200 rounded-md w-[140px]">
+                <button className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#A3DE69] rounded-md w-[140px]">
                   {t("Add to cart")}
                 </button>
               </div>
