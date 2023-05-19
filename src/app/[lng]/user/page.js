@@ -61,22 +61,19 @@ export default function Page({ params: { lng } }) {
         </div>
       </div>
       <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
-        <Link href={`/${lng}`}>
-          {t("Browse products")}
-        </Link>
+        <Link href={`/${lng}`}>{t("Browse products")}</Link>
       </div>
       <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
-        <Link href={`/${lng}/orders`}>
-          {t("My orders")}
-        </Link>
+        <Link href={`/${lng}/orders`}>{t("My orders")}</Link>
       </div>
       <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
-        <Link href={`/${lng}/cart`}>
-          {t("Cart")}
-        </Link>
+        <Link href={`/${lng}/cart`}>{t("Cart")}</Link>
       </div>
       <div className="min-h-20 p-4 border-b-2 text-xl">
-        <Link href="https://github.com/vietanhdev/cafeteria/issues" target="_blank">
+        <Link
+          href="https://github.com/vietanhdev/cafeteria/issues"
+          target="_blank"
+        >
           {t("Support & Bug report")}
         </Link>
       </div>
