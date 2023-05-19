@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import googleLogo from "@public/google-18px.svg";
 import githubLogo from "@public/github-18px.svg";
 import Image from "next/image";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useTranslation } from "@/app/i18n/client";
 import Banner from "@public/banner.png";
 
@@ -50,10 +51,11 @@ function LoadingSvg() {
 }
 
 export default function Page({ params: { lng } }) {
-  const callbackUrl = "/";
+  const callbackUrl = `/${lng}`;
+  const router = useRouter();
   const session = useSession();
-  if (session?.status === "authenticated") {
-    // signOut();
+  if (session && session.status === "authenticated") {
+    router.push(`/${lng}`);
   }
   const [loading, setLoading] = useState("");
   const error = null; // TODO: Get error from url query
@@ -75,15 +77,11 @@ export default function Page({ params: { lng } }) {
         </div>
 
         <Image alt="Logo" src={Banner} className="rounded-md overflow-hidden" />
-
-        {callbackUrl != "/" && (
-          <p className="text-center text-gray-400">Please login to continue.</p>
-        )}
         <div className="mt-12"></div>
         <div
           className={
             "m-6 flex w-full items-center justify-center gap-3 border-2 border-gray-600 py-3 px-2 rounded-md" +
-            (loading === "google" ? " bg-gray-600" : "") +
+            (loading === "google" ? " bg-gray-200" : "") +
             (useGoogleLogin ? "" : " hidden")
           }
           onClick={() => {
@@ -109,7 +107,7 @@ export default function Page({ params: { lng } }) {
         <div
           className={
             "m-2 flex w-full max-w-[320px] items-center justify-center gap-3 border-2 py-3 px-6 rounded-md" +
-            (loading === "github" ? " bg-gray-400" : "") +
+            (loading === "github" ? " bg-gray-200" : "") +
             (useGithubLogin ? "" : " hidden")
           }
           onClick={() => {

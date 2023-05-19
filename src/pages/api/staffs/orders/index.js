@@ -1,16 +1,7 @@
 import { db } from "@/lib/firebase";
-import {
-  addDoc,
-  getDocs,
-  collection,
-  query,
-  where,
-  orderBy,
-  limit,
-} from "firebase/firestore";
+import { getDocs, collection, query, orderBy, limit } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]";
-import { OrderStatus } from "@/lib/order_status";
+import { authOptions } from "../../auth/[...nextauth]";
 
 export default async function handler(req, res) {
   // Check authentication
@@ -20,12 +11,11 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Login is required" });
   }
   if (req.method === "GET") {
-    // Query progress by userId and sort by timestamp
+    // Query progress and sort by timestamp
     const q = query(
       collection(db, "orders"),
-      where("userId", "==", currentUser.id),
       orderBy("timestamp", "desc"),
-      limit(20)
+      limit(100)
     );
 
     // Return empty array if no order found
@@ -37,16 +27,5 @@ export default async function handler(req, res) {
     const docs = (await getDocs(q)).docs;
     const data = docs.map((doc) => { return {...doc.data(), id: doc.id}});
     return res.status(200).json({ success: true, data: data });
-  } else if (req.method === "POST") {
-    // Create a new order
-    const docRef = await addDoc(collection(db, "orders"), {
-      userId: currentUser.id,
-      data: req.body,
-      timestamp: Date.now(),
-      status: OrderStatus.QUEUED,
-    });
-    const doc = (await getDocs(docRef)).docs[0];
-
-    return res.status(200).json({ success: true, data: doc.data() || {} });
   }
 }
