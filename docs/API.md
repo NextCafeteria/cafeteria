@@ -39,6 +39,6 @@
 ### 2. Set order status
 
 - POST /api/staffs/orders/:id/set_status
-{
-    "status": "queued|confirmed|preparing|completed|cancelled"
-}
+  {
+  "status": "queued|confirmed|preparing|completed|cancelled"
+  }

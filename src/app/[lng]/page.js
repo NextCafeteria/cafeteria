@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import {
   calculatePriceForList,
   calculateTotalPriceWithTax,
-} from "./utils/price";
+} from "../../lib/price";
 import { useTranslation } from "../i18n/client";
 const itemsOptions = require("./food_options.json");
 

@@ -6,9 +6,9 @@ import {
   getItemsWithPrice,
   calculateTax,
   calculateTotalPriceWithTax,
-} from "../utils/price";
+} from "@/lib/price";
 import { useTranslation } from "../../i18n/client";
-import { PlaceOrder } from "@/lib/orders";
+import { PlaceOrder } from "@/lib/requests/orders";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -34,15 +34,19 @@ export default function Cart({ params: { lng } }) {
 
   function handlePlaceOrder() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
-    PlaceOrder(cart, (data) => {
-      console.log(data)
-      localStorage.setItem("cart", "[]");
-      router.push(`/${lng}/orders`);
-      alert("Order placed successfully");
-    }, (e) => {
-      console.log(e);
-      alert("Order failed");
-    });
+    PlaceOrder(
+      cart,
+      (data) => {
+        console.log(data);
+        localStorage.setItem("cart", "[]");
+        router.push(`/${lng}/orders`);
+        alert("Order placed successfully");
+      },
+      (e) => {
+        console.log(e);
+        alert("Order failed");
+      }
+    );
   }
 
   const { t } = useTranslation(lng, "common");

@@ -1,4 +1,4 @@
-export async function PlaceOrder(items, onSuccess=null, onError=null) {
+export async function PlaceOrder(items, onSuccess = null, onError = null) {
   // Call the API to place the order
   const response = await fetch("/api/customers/orders", {
     method: "POST",

@@ -11,6 +11,12 @@ import {
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 import { OrderStatus } from "@/lib/order_status";
+import {
+  calculatePriceForList,
+  calculateTax,
+  calculateTotalPriceWithTax,
+  getItemsWithPrice,
+} from "@/lib/price";
 
 export default async function handler(req, res) {
   // Check authentication
@@ -35,18 +41,30 @@ export default async function handler(req, res) {
 
     // Return order data
     const docs = (await getDocs(q)).docs;
-    const data = docs.map((doc) => { return {...doc.data(), id: doc.id}});
+    const data = docs.map((doc) => {
+      return { ...doc.data(), id: doc.id };
+    });
     return res.status(200).json({ success: true, data: data });
   } else if (req.method === "POST") {
+    // Calculate total price
+    const items = req.body;
+    const price = calculatePriceForList(items);
+    const tax = calculateTax(price);
+    const totalPrice = calculateTotalPriceWithTax(price, tax);
+    const itemsWithPrice = getItemsWithPrice(items);
+
     // Create a new order
     const docRef = await addDoc(collection(db, "orders"), {
       userId: currentUser.id,
-      data: req.body,
+      items: itemsWithPrice,
+      price: price,
+      tax: tax,
+      totalPrice: totalPrice,
       timestamp: Date.now(),
       status: OrderStatus.QUEUED,
     });
 
-    const data = {...req.body, id: docRef.id}
+    const data = { ...req.body, id: docRef.id };
     return res.status(200).json({ success: true, data: data || {} });
   }
 }
