@@ -9,7 +9,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]";
+import { authOptions } from "../../auth/[...nextauth]";
 import { OrderStatus } from "@/lib/order_status";
 import {
   calculatePriceForList,

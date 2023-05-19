@@ -12,21 +12,18 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Login is required" });
   }
   if (req.method === "POST") {
-    const status = req.body.status;
-    const statusList = Object.values(OrderStatus);
-    if (!statusList.includes(status)) {
-      return res.status(400).json({ error: "Invalid status" });
-    }
-
     const orderId = req.query.orderId;
     const docRef = doc(db, "orders", orderId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return res.status(404).json({ error: "Order not found" });
     }
+    if (docSnap.data().userId !== currentUser.id) {
+      return res.status(403).json({ error: "Order not found" });
+    }
 
     await updateDoc(docRef, {
-      status: status,
+      status: OrderStatus.CANCELLED,
     });
 
     return res.status(200).json({ success: true });

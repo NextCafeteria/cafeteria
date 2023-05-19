@@ -6,6 +6,7 @@ import {
   ORDER_STATUS_TO_BG_COLOR,
   ORDER_STATUS_TO_TEXT,
 } from "@/lib/order_status";
+import Link from "next/link";
 
 export default function Cart({ params: { lng } }) {
   const [orderItems, setOrderItems] = useState(null);
@@ -44,54 +45,56 @@ export default function Cart({ params: { lng } }) {
             const itemStatusText = ORDER_STATUS_TO_TEXT[status];
 
             return (
-              <div
-                key={orderId}
-                className={
-                  "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-200" +
-                  (orderId % 2 === 0 ? " bg-gray-100" : "")
-                }
-              >
-                <div className="flex flex-col items-begin justify-center w-full relative">
-                  <p className="text-sm font-bold mb-2">
-                    <span
-                      className="p-1 rounded-md"
-                      style={{ background: orderStatusBg }}
-                    >
-                      {itemStatusText}
-                    </span>
-                  </p>
-                  <p className="text-sm">{orderTime}</p>
-                  <p className="text-sm">
-                    {t("Number of items")}: {itemsWithPrice.length}
-                  </p>
-                  {itemsWithPrice.map((item, itemId) => {
-                    const price = item.price;
-                    const name = item.name;
-                    const quantity = item.quantity;
-                    const itemTotalPrice = price * quantity;
-
-                    return (
-                      <div
-                        key={itemId}
-                        className="flex flex-row items-center justify-between w-full"
+              <Link href={`/${lng}/order-details/${order.id}`}>
+                <div
+                  key={orderId}
+                  className={
+                    "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-200" +
+                    (orderId % 2 === 0 ? " bg-gray-100" : "")
+                  }
+                >
+                  <div className="flex flex-col items-begin justify-center w-full relative">
+                    <p className="text-sm font-bold mb-2">
+                      <span
+                        className="p-1 rounded-md"
+                        style={{ background: orderStatusBg }}
                       >
-                        <p className="text-sm">{name}</p>
-                        <p className="text-sm">
-                          {quantity} x ${price.toFixed(2)} = $
-                          {itemTotalPrice.toFixed(2)}
-                        </p>
-                      </div>
-                    );
-                  })}
-                  <div className="flex flex-row items-center justify-between w-full">
-                    <p className="text-sm font-bold">{t("Tax")}</p>
-                    <p className="text-sm">${tax.toFixed(2)}</p>
+                        {itemStatusText}
+                      </span>
+                    </p>
+                    <p className="text-sm">{orderTime}</p>
+                    <p className="text-sm">
+                      {t("Number of items")}: {itemsWithPrice.length}
+                    </p>
+                    {itemsWithPrice.map((item, itemId) => {
+                      const price = item.price;
+                      const name = item.name;
+                      const quantity = item.quantity;
+                      const itemTotalPrice = price * quantity;
+
+                      return (
+                        <div
+                          key={itemId}
+                          className="flex flex-row items-center justify-between w-full"
+                        >
+                          <p className="text-sm">{name}</p>
+                          <p className="text-sm">
+                            {quantity} x ${price.toFixed(2)} = $
+                            {itemTotalPrice.toFixed(2)}
+                          </p>
+                        </div>
+                      );
+                    })}
+                    <div className="flex flex-row items-center justify-between w-full">
+                      <p className="text-sm font-bold">{t("Tax")}</p>
+                      <p className="text-sm">${tax.toFixed(2)}</p>
+                    </div>
+                    <p className="absolute right-0 top-0 text-sm float-right font-bold">
+                      {t("Total")}: ${totalPrice.toFixed(2)}
+                    </p>
                   </div>
-                  <p className="absolute right-0 top-0 text-sm float-right font-bold">
-                    {t("Total")}: ${totalPrice.toFixed(2)}
-                  </p>
                 </div>
-              </div>
+              </Link>
             );
           })
         ) : orderItems === null ? (

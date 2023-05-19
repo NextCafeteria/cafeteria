@@ -38,3 +38,43 @@ export async function GetOrders(onSuccess = null, onError = null) {
     }
   }
 }
+
+export async function GetOrder(orderId, onSuccess = null, onError = null) {
+  const response = await fetch(`/api/customers/orders/${orderId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+  if (data?.success) {
+    if (onSuccess) {
+      onSuccess(data.data);
+    }
+  } else {
+    if (onError) {
+      onError(data);
+    }
+  }
+}
+
+export async function CancelOrder(orderId, onSuccess = null, onError = null) {
+  const response = await fetch(`/api/customers/orders/${orderId}/cancel`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+  if (data?.success) {
+    if (onSuccess) {
+      onSuccess(data.data);
+    }
+  } else {
+    if (onError) {
+      onError(data);
+    }
+  }
+}
