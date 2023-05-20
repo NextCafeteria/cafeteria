@@ -64,60 +64,74 @@ export default function Cart({ params: { lng } }) {
             <span>X</span>
           </a>
         </p>
-        {itemsWithPrice.map((item, itemId) => {
-          return (
-            <div
-              key={itemId}
-              className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2"
-            >
-              <div className="flex flex-col items-begin justify-center w-full relative">
-                <p className="text-xl font-bold">{t(item.name)}</p>
-                <p className="text-sm">{t(item.description)}</p>
-                {item.customizations.map(
-                  (customization, customizationIndex) => {
-                    return (
-                      <p key={customizationIndex} className="text-sm">
-                        {t(customization.name)}:{" "}
-                        {t(
-                          customization.options[
-                            item.selectedOptions[customizationIndex]
-                          ]?.name
-                        )}
-                      </p>
-                    );
-                  }
-                )}
-                <p className="text-sm">
-                  {t("Quantity")}: {item.quantity}
-                </p>
-                <p className="absolute right-0 top-0 text-sm float-right">
-                  ${item.price}
-                </p>
-                {/* Remove button */}
-                <button
-                  className="absolute right-0 bottom-0 text-md text-gray-500 float-right"
-                  onClick={() => {
-                    let cart = JSON.parse(localStorage.getItem("cart", "[]"));
-                    cart.splice(itemId, 1);
-                    localStorage.setItem("cart", JSON.stringify(cart));
-                    setItemsWithPrice(getItemsWithPrice(cart));
-                    updateTotalPrice();
-                  }}
+        {itemsWithPrice.length === 0 ? (
+          <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
+            <div className="flex flex-col items-begin justify-center w-full relative">
+              <p className="text-md">
+                {t("Your cart is empty. Go to Home to pick something.")}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {itemsWithPrice.map((item, itemId) => {
+              return (
+                <div
+                  key={itemId}
+                  className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2"
                 >
-                  {t("Remove")}
-                </button>
+                  <div className="flex flex-col items-begin justify-center w-full relative">
+                    <p className="text-xl font-bold">{t(item.name)}</p>
+                    <p className="text-sm">{t(item.description)}</p>
+                    {item.customizations.map(
+                      (customization, customizationIndex) => {
+                        return (
+                          <p key={customizationIndex} className="text-sm">
+                            {t(customization.name)}:{" "}
+                            {t(
+                              customization.options[
+                                item.selectedOptions[customizationIndex]
+                              ]?.name
+                            )}
+                          </p>
+                        );
+                      }
+                    )}
+                    <p className="text-sm">
+                      {t("Quantity")}: {item.quantity}
+                    </p>
+                    <p className="absolute right-0 top-0 text-sm float-right">
+                      ${item.price}
+                    </p>
+                    {/* Remove button */}
+                    <button
+                      className="absolute right-0 bottom-0 text-md text-gray-500 float-right"
+                      onClick={() => {
+                        let cart = JSON.parse(
+                          localStorage.getItem("cart", "[]")
+                        );
+                        cart.splice(itemId, 1);
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        setItemsWithPrice(getItemsWithPrice(cart));
+                        updateTotalPrice();
+                      }}
+                    >
+                      {t("Remove")}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+            <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
+              <div className="flex flex-col items-begin justify-center w-full relative">
+                <p className="text-xl font-bold">{t("Tax")}</p>
+                <p className="absolute right-0 top-0 text-sm float-right">
+                  ${calculateTax(totalPrice).toFixed(2)}
+                </p>
               </div>
             </div>
-          );
-        })}
-        <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
-          <div className="flex flex-col items-begin justify-center w-full relative">
-            <p className="text-xl font-bold">{t("Tax")}</p>
-            <p className="absolute right-0 top-0 text-sm float-right">
-              ${calculateTax(totalPrice).toFixed(2)}
-            </p>
-          </div>
-        </div>
+          </>
+        )}
       </div>
 
       <div className="w-full max-w-[700px] fixed bottom-24 md:bottom-22 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md">

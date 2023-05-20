@@ -29,13 +29,13 @@ export default function Page({ params: { lng } }) {
           </a>
         </div>
       </div>
-      <div className="min-h-20 p-2 mt-4 border-b-2 border-gray-800 relative">
+      <div className="min-h-20 p-2 mt-4 border-b-2 border-gray-800 relative mb-8">
         <div className="flex flex-row">
           <Image
             alt={
               session?.status === "authenticated"
                 ? session.data.user.name
-                : "Loading..."
+                : t("Loading...")
             }
             src={
               session?.status === "authenticated"
@@ -50,7 +50,7 @@ export default function Page({ params: { lng } }) {
             <p className="text-left text-gray-800 font-bold text-2xl">
               {session?.status === "authenticated"
                 ? session.data.user.name
-                : "Loading..."}
+                : t("Loading...")}
             </p>
             <p className="text-left text-gray-800">
               {session?.status === "authenticated"
@@ -60,16 +60,16 @@ export default function Page({ params: { lng } }) {
           </div>
         </div>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
+      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
         <Link href={`/${lng}`}>{t("Browse products")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
+      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
         <Link href={`/${lng}/orders`}>{t("My orders")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl mt-4">
+      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
         <Link href={`/${lng}/cart`}>{t("Cart")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl">
+      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
         <Link
           href="https://github.com/vietanhdev/cafeteria/issues"
           target="_blank"
@@ -79,9 +79,13 @@ export default function Page({ params: { lng } }) {
       </div>
       <button
         className="bottom-0 absolute w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded mt-4"
-        onClick={() => signOut()}
+        onClick={() => {
+          signOut().then(() => {
+            router.push(`/${lng}/login`);
+          });
+        }}
       >
-        Sign out
+        {t("Sign out")}
       </button>
     </main>
   );
