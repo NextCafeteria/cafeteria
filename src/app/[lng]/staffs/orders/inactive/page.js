@@ -54,7 +54,7 @@ export default function Cart({ params: { lng } }) {
             {t("Processing")}
           </span>
           <span
-            className="w-full text-center p-1 rounded-md hover:bg-gray-200 clickable"
+            className="w-full text-center p-1 rounded-md bg-gray-200 clickable"
             onClick={() => {
               router.push(`/${lng}/staffs/orders/inactive`);
             }}

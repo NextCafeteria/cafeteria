@@ -52,7 +52,7 @@ export default function Cart({ params: { lng } }) {
 
         <div className="flex items-center justify-around w-full p-4 min-h-[50px] mx-1 border-b-2">
           <span
-            className="w-full text-center p-1 rounded-md hover:bg-gray-200 clickable"
+            className="w-full text-center p-1 rounded-md bg-gray-200 clickable"
             onClick={() => {
               router.push(`/${lng}/staffs/orders/new`);
             }}

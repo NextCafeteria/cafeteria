@@ -77,7 +77,7 @@ export default function Cart({ params: { lng } }) {
             {t("New")}
           </span>
           <span
-            className="w-full text-center p-1 rounded-md hover:bg-gray-200 clickable"
+            className="w-full text-center p-1 rounded-md bg-gray-200 clickable"
             onClick={() => {
               router.push(`/${lng}/staffs/orders/processing`);
             }}
@@ -157,7 +157,7 @@ export default function Cart({ params: { lng } }) {
                       <button
                         className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#A3DE69] rounded-md w-[140px]"
                         onClick={() => {
-                          handleCompleteOrder({ orderId: itemId });
+                          handleCompleteOrder({ orderId: order.id });
                         }}
                       >
                         {t("Complete")}
@@ -166,7 +166,7 @@ export default function Cart({ params: { lng } }) {
                       <button
                         className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#97ff63] rounded-md w-[140px]"
                         onClick={() => {
-                          handlePrepareOrder({ orderId: itemId });
+                          handlePrepareOrder({ orderId: order.id });
                         }}
                       >
                         {t("Prepare")}
