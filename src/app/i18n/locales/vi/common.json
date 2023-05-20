@@ -73,5 +73,12 @@
   "Type your address:": "Nhập địa chỉ của bạn:",
   "Delivery Address": "Địa chỉ giao hàng",
   "Address": "Địa chỉ",
-  "Manage orders (Staff Only)": "Quản lý đơn hàng (Nhân viên)"
+  "Manage orders (Staff Only)": "Quản lý đơn hàng (Nhân viên)",
+  "New": "Mới",
+  "Processing": "Đang xử lý",
+  "Inactive": "Đã xong",
+  "Confirm": "Xác nhận",
+  "Process >>": "Xử lý >>",
+  "Prepare": "Chuẩn bị",
+  "Complete": "Hoàn thành"
 }
