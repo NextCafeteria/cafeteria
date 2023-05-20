@@ -1,8 +1,28 @@
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { useTranslation } from "../../i18n/client";
-
 export default function Footer({ lng }) {
+  const router = useRouter();
+  const currentPath = usePathname();
+
+  const { t } = useTranslation(lng, "common");
+
+  return (
+    <>
+      {currentPath.includes("/staff") ? (
+        <FooterStaff lng={lng} />
+      ) : (
+        <FooterUser lng={lng} />
+      )}
+    </>
+  );
+}
+
+//implement a div that can be clicked
+//when hovered over, it will show pointer to indicate it can be clicked
+
+function FooterUser({ lng }) {
   const router = useRouter();
 
   const { t } = useTranslation(lng, "common");
@@ -104,5 +124,57 @@ export default function Footer({ lng }) {
   );
 }
 
-//implement a div that can be clicked
-//when hovered over, it will show pointer to indicate it can be clicked
+function FooterStaff({ lng }) {
+  const router = useRouter();
+
+  const { t } = useTranslation(lng, "common");
+
+  return (
+    <>
+      <div className="flex justify-evenly w-full fixed bottom-0 md:bottom-0 h-[90px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 ">
+        <div
+          className="flex flex-col items-center p-2 clickable"
+          onClick={() => {
+            router.push(`/${lng}/orders`);
+          }}
+        >
+          <svg
+            width="17"
+            height="23"
+            viewBox="0 0 17 23"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M-6.125 0.0993254C-5.59375 -0.0758699 -4.96875 -0.0129793 -4.525 0.261044L-2 1.81534L0.525 0.261044C1.0875 -0.0848543 1.91875 -0.0848543 2.475 0.261044L5 1.81534L7.525 0.261044C8.0875 -0.0848543 8.91875 -0.0848543 9.475 0.261044L12 1.81534L14.525 0.261044C14.9688 -0.0129793 15.5938 -0.0758699 16.125 0.0993254C16.6562 0.274521 17 0.656357 17 1.07862V21.9224C17 22.3446 16.6562 22.7265 16.125 22.9017C15.5938 23.0769 14.9688 23.014 14.525 22.74L12 21.1857L9.475 22.74C8.9125 23.0858 8.08125 23.0858 7.525 22.74L5 21.1857L2.475 22.74C1.9125 23.0858 1.08125 23.0858 0.525 22.74L-2 21.1857L-4.525 22.74C-4.96875 23.014 -5.59375 23.0769 -6.125 22.9017C-6.65625 22.7265 -7 22.3446 -7 21.9224V1.07862C-7 0.656357 -6.65625 0.274521 -6.125 0.0993254ZM-1 6.46925C-1.55 6.46925 -2 6.79268 -2 7.188C-2 7.58331 -1.55 7.90675 -1 7.90675H11C11.55 7.90675 12 7.58331 12 7.188C12 6.79268 11.55 6.46925 11 6.46925H-1ZM-2 15.813C-2 16.2083 -1.55 16.5317 -1 16.5317H11C11.55 16.5317 12 16.2083 12 15.813C12 15.4177 11.55 15.0942 11 15.0942H-1C-1.55 15.0942 -2 15.4177 -2 15.813ZM-1 10.7817C-1.55 10.7817 -2 11.1052 -2 11.5005C-2 11.8958 -1.55 12.2192 -1 12.2192H11C11.55 12.2192 12 11.8958 12 11.5005C12 11.1052 11.55 10.7817 11 10.7817H-1Z"
+              fill="black"
+            />
+          </svg>
+          <span className="flex justify-center text-2xl">{t("Orders")}</span>
+        </div>
+
+        <div
+          className="flex flex-col items-center p-2 clickable"
+          onClick={() => {
+            router.push(`/${lng}/user`);
+          }}
+        >
+          <svg
+            width="20"
+            height="24"
+            viewBox="0 0 20 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.0457 12.384C11.5144 12.384 12.923 11.7734 13.9616 10.6864C15.0001 9.5994 15.5836 8.12512 15.5836 6.58788C15.5836 5.05064 15.0001 3.57637 13.9616 2.48937C12.923 1.40238 11.5144 0.791718 10.0457 0.791718C8.577 0.791718 7.16843 1.40238 6.12989 2.48937C5.09134 3.57637 4.50789 5.05064 4.50789 6.58788C4.50789 8.12512 5.09134 9.5994 6.12989 10.6864C7.16843 11.7734 8.577 12.384 10.0457 12.384ZM8.06855 14.5576C3.80701 14.5576 0.354523 18.1712 0.354523 22.6315C0.354523 23.3741 0.929938 23.9764 1.63947 23.9764H18.452C19.1615 23.9764 19.7369 23.3741 19.7369 22.6315C19.7369 18.1712 16.2844 14.5576 12.0229 14.5576H8.06855Z"
+              fill="black"
+            />
+          </svg>
+
+          <span className="flex justify-center text-2xl">{t("User")}</span>
+        </div>
+      </div>
+    </>
+  );
+}
