@@ -9,6 +9,8 @@ import {
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../auth/[...nextauth]";
+import {  OrderStatus } from "@/lib/order_status";
+
 
 export default async function handler(req, res) {
   // Check authentication
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
     // Query progress and sort by timestamp
     const q = query(
       collection(db, "orders"),
-      where("status", "==", "queued"),
+      where("status", "==", OrderStatus.QUEUED),
       orderBy("timestamp", "desc"),
       limit(100)
     );

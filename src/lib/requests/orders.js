@@ -1,3 +1,5 @@
+import { OrderStatus } from "../order_status";
+
 export async function PlaceOrder(items, onSuccess = null, onError = null) {
   const response = await fetch("/api/customers/orders", {
     method: "POST",
@@ -145,7 +147,7 @@ export async function ConfirmOrder(orderId, onSuccess = null, onError = null) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      status: "confirmed",
+      status: OrderStatus.CONFIRMED,
     }),
   });
 
@@ -168,7 +170,7 @@ export async function PrepareOrder(orderId, onSuccess = null, onError = null) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      status: "preparing",
+      status: OrderStatus.PREPARING,
     }),
   });
 
@@ -191,7 +193,7 @@ export async function CompleteOrder(orderId, onSuccess = null, onError = null) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      status: "completed",
+      status: OrderStatus.COMPLETED,
     }),
   });
 

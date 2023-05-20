@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     // Query progress and sort by timestamp
     const q = query(
       collection(db, "orders"),
-      where("status", "in", ["preparing", "confirmed"]),
+      where("status", "in", [OrderStatus.PREPARING, OrderStatus.CONFIRMED]),
       orderBy("timestamp", "desc"),
       limit(100)
     );

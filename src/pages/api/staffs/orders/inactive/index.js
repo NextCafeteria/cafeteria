@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../auth/[...nextauth]";
+import {  OrderStatus } from "@/lib/order_status";
 
 export default async function handler(req, res) {
   // Check authentication
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
     // filter status equal "completed" or "cacelled"
     const q = query(
       collection(db, "orders"),
-      where("status", "in", ["completed", "cancelled"]),
+      where("status", "in", [OrderStatus.COMPLETED, OrderStatus.CANCELLED]),
       orderBy("timestamp", "desc"),
       limit(100)
     );
