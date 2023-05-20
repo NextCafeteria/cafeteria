@@ -9,6 +9,7 @@ import {
   ORDER_STATUS_TO_TEXT,
 } from "@/lib/order_status";
 import Link from "next/link";
+import { countTotalItems } from "@/lib/products";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -109,7 +110,7 @@ export default function Cart({ params: { lng } }) {
                     </p>
                     <p className="text-sm">{orderTime}</p>
                     <p className="text-sm">
-                      {t("Number of items")}: {itemsWithPrice.length}
+                      {t("Number of items")}: {countTotalItems(itemsWithPrice)}
                     </p>
                     {itemsWithPrice.map((item, itemId) => {
                       const price = item.price;

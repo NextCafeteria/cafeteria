@@ -193,7 +193,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
 
       {orderData?.status === OrderStatus.QUEUED && (
         <div
-          className="flex justify-center w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 md:rounded-md"
+          className="flex justify-center w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 md:rounded-md"
           onClick={() => {
             handleConfirmOrder({ orderId: orderId });
           }}
@@ -207,7 +207,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
 
       {orderData?.status === OrderStatus.CONFIRMED && (
         <div
-          className="flex justify-center w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 md:rounded-md"
+          className="flex justify-center w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 md:rounded-md"
           onClick={() => {
             handlePrepareOrder({ orderId: orderId });
           }}
@@ -221,7 +221,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
 
       {orderData?.status === OrderStatus.PREPARING && (
         <div
-          className="flex justify-center w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 md:rounded-md"
+          className="flex justify-center w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 md:rounded-md"
           onClick={() => {
             handleCompleteOrder({ orderId: orderId });
           }}

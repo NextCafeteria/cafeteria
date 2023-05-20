@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { countItemsByName, countTotalItems } from "@/lib/products";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -63,15 +64,8 @@ export default function Cart({ params: { lng } }) {
             const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[status];
             const itemStatusText = ORDER_STATUS_TO_TEXT[status];
             const translatedStatus = t(itemStatusText);
-            const itemNames = itemsWithPrice.map((item) => item.name);
-            const itemNamesWithCount = itemNames.reduce((acc, cur) => {
-              if (acc[cur]) {
-                acc[cur] += 1;
-              } else {
-                acc[cur] = 1;
-              }
-              return acc;
-            }, {});
+            const itemNamesWithCount = countItemsByName(itemsWithPrice);
+            const totalNumberOfItems = countTotalItems(itemsWithPrice);
 
             return (
               <Link href={`/${lng}/order-details/${order.id}`}>
@@ -93,7 +87,7 @@ export default function Cart({ params: { lng } }) {
                     </p>
                     <p className="text-sm">{orderTime}</p>
                     <p className="text-sm">
-                      {t("Number of items")}: {itemsWithPrice.length}
+                      {t("Number of items")}: {totalNumberOfItems}
                     </p>
                     <p className="text-sm mt-2 mb-2">
                       {itemNamesWithCount &&
