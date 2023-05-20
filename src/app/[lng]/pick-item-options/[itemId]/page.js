@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-const itemsOptions = require("../../food_options.json");
+const itemsOptions = require("@/data/food_options.json");
 import { useTranslation } from "../../../i18n/client";
 import { useSession } from "next-auth/react";
 
@@ -83,12 +83,25 @@ export default function PickOptions({ params: { lng, itemId } }) {
   const { t } = useTranslation(lng, "common");
   return (
     itemOptions && (
-      <main className="flex justify-center p-2 pb-[100px]">
+      <main className="flex justify-center p-2 pb-[200px]">
         <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
           <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
             {t("Options")}
             <a href={`/${lng}`}>
-              <span>X</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </a>
           </p>
           <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 rounded-md">
@@ -192,7 +205,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
         </div>
 
         <div
-          className="w-full max-w-[700px] fixed bottom-24 md:bottom-22 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md"
+          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>

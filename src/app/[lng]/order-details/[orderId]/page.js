@@ -42,6 +42,7 @@ export default function Cart({ params: { lng, orderId } }) {
   const tax = orderData?.tax;
   const totalPrice = orderData?.totalPrice;
   const itemsWithPrice = orderData?.items;
+  const deliveryAddress = orderData?.deliveryAddress;
 
   function handleCancelOrder() {
     CancelOrder(
@@ -57,7 +58,7 @@ export default function Cart({ params: { lng, orderId } }) {
   }
 
   return (
-    <main className="flex justify-center p-2 pb-[100px]">
+    <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <p className="flex w-full border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           <Link href={`/${lng}/orders`} className="mr-2">
@@ -79,7 +80,7 @@ export default function Cart({ params: { lng, orderId } }) {
           {t("Order")}
         </p>
         {orderStatusBg && itemStatusText && (
-          <p className="text-sm font-bold mb-2">
+          <p className="text-sm font-bold mb-2 mt-4">
             <span
               className="p-1 rounded-md mr-2"
               style={{ background: orderStatusBg }}
@@ -93,13 +94,19 @@ export default function Cart({ params: { lng, orderId } }) {
           itemsWithPrice.map((item, index) => {
             const { name, price, quantity } = item;
             return (
-              <div className="border-b-2  mb-2 pb-2" key={index}>
-                <div className="flex justify-between w-full pb-3 pt-2">
+              <div
+                className={
+                  "p-4 border-b-2" + (index % 2 === 0 ? " bg-gray-100" : "")
+                }
+                key={index}
+              >
+                <div className="flex justify-between w-full pb-1 pt-2">
                   <p className="text-sm font-bold">{t(name)}</p>
                   <p className="text-sm font-bold">
                     {quantity} x ${price}
                   </p>
                 </div>
+                <img src={item.image} className="w-16 h-auto rounded-md mb-4" />
                 {item.customizations.map(
                   (customization, customizationIndex) => {
                     return (
@@ -140,14 +147,20 @@ export default function Cart({ params: { lng, orderId } }) {
         ) : (
           <p className="text-sm">{t("No data")}</p>
         )}
+        {deliveryAddress && (
+          <div className="flex flex-col items-begin justify-center w-full mt-4">
+            <p className="text-sm font-bold">{t("Delivery Address")}</p>
+            <p className="text-sm">{t(deliveryAddress)}</p>
+          </div>
+        )}
       </div>
 
       {orderData?.status === OrderStatus.QUEUED && (
         <div
-          className="w-full max-w-[700px] fixed bottom-24 md:bottom-22 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
+          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
           onClick={handleCancelOrder}
         >
-          <span className="text-2xl">{t("Cancel")}</span>
+          <span className="text-2xl">{t("Cancel order")}</span>
         </div>
       )}
     </main>

@@ -17,19 +17,19 @@ export default function Page({ params: { lng } }) {
 
   const { t } = useTranslation(lng, "common");
   return (
-    <main className="flex flex-col justify-center p-2 pb-[100px] w-full max-w-[600px] md:w-[600px] mx-auto relative">
+    <main className="flex flex-col justify-center p-2 pb-[200px] w-full max-w-[600px] md:w-[600px] mx-auto relative">
       <div className="block w-full justify-centerpb-3 pt-2 text-2xl px-2 mb-2">
         <div className="float-right">
-          <a href="/vi" className="text-sm">
+          <a href="/vi/user" className="text-sm p-2">
             <span className={lng === "vi" ? " font-bold" : ""}>VI</span>
           </a>
           <span className="text-sm"> | </span>
-          <a href="/en" className="text-sm">
+          <a href="/en/user" className="text-sm p-2">
             <span className={lng === "en" ? " font-bold" : ""}>EN</span>
           </a>
         </div>
       </div>
-      <div className="min-h-20 p-2 mt-4 border-b-2 border-gray-800 relative mb-8">
+      <div className="min-h-20 p-4 mt-4 border-b-2 border-gray-800 relative mb-8">
         <div className="flex flex-row">
           <Image
             alt={
@@ -60,16 +60,16 @@ export default function Page({ params: { lng } }) {
           </div>
         </div>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link href={`/${lng}`}>{t("Browse products")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link href={`/${lng}/orders`}>{t("My orders")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link href={`/${lng}/cart`}>{t("Cart")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-xl hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link
           href="https://github.com/vietanhdev/cafeteria/issues"
           target="_blank"
@@ -78,7 +78,7 @@ export default function Page({ params: { lng } }) {
         </Link>
       </div>
       <button
-        className="bottom-0 absolute w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded mt-4"
+        className="w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded mt-4"
         onClick={() => {
           signOut().then(() => {
             router.push(`/${lng}/login`);

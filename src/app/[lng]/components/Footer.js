@@ -29,7 +29,7 @@ function FooterUser({ lng }) {
 
   return (
     <>
-      <div className="flex justify-evenly w-full fixed bottom-0 md:bottom-0 h-[90px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-100 ">
+      <div className="flex justify-evenly w-full fixed bottom-0 md:bottom-0 h-[90px] border-t-[1px] border-gray-600 p-2 bg-orange-100 ">
         <div
           className="flex flex-col items-center p-2 clickable"
           onClick={() => {
@@ -48,7 +48,9 @@ function FooterUser({ lng }) {
               fill="black"
             />
           </svg>
-          <span className="flex justify-center text-2xl">{t("Home")}</span>
+          <span className="flex justify-center text-md md:text-xl mt-2">
+            {t("Home")}
+          </span>
         </div>
         <div
           className="flex flex-col items-center p-2 clickable"
@@ -68,7 +70,9 @@ function FooterUser({ lng }) {
               fill="black"
             />
           </svg>
-          <span className="flex justify-center text-2xl">{t("Orders")}</span>
+          <span className="flex justify-center text-md md:text-xl mt-2">
+            {t("Orders")}
+          </span>
         </div>
         <div
           className="flex flex-col items-center p-2 clickable"
@@ -88,7 +92,9 @@ function FooterUser({ lng }) {
               fill="black"
             />
           </svg>
-          <span className="flex justify-center text-2xl">{t("Cart")}</span>
+          <span className="flex justify-center text-md md:text-xl mt-2">
+            {t("Cart")}
+          </span>
         </div>
         <div
           className="flex flex-col items-center p-2 clickable"
@@ -109,7 +115,9 @@ function FooterUser({ lng }) {
             />
           </svg>
 
-          <span className="flex justify-center text-2xl">{t("User")}</span>
+          <span className="flex justify-center text-md md:text-xl mt-2">
+            {t("User")}
+          </span>
         </div>
       </div>
     </>

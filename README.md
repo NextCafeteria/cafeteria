@@ -1,40 +1,38 @@
 # Cafeteria App
 
-This is a cafeteria app that allows users to order food from a cafeteria. It is built with Next.js, Javascript, and Tailwind CSS.
+This is a cafeteria app that allows users to order food from a cafeteria.
 
-Deployed at: [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
+- **Deployed at:** [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
+- **Frontend:** Next.js with Javascript, Tailwind CSS.
+- **Database:** Google Firebase.
+- **Authentication:** NextAuth.js with Google OAuth.
+- **Deployment:** Vercel.
+- **Developers:**
+  - [Viet Anh Nguyen](https://github.com/vietanhdev).
+  - [Trinh Thu Hai](https://github.com/haitt00).
 
-## Design
+<img style="max-width: 500px" src="docs/screenshot.png" alt="Cafeteria"/>
 
-**UI Mockup (Figma):**
+## 1. Design
 
-[![](docs/figma-design.png)](https://www.figma.com/file/NWU9BqtgXH4WZmBuEWUlVH/Cafeteria?type=design&node-id=0%3A1&t=2CNfDxghbK04aOCP-1)
+**UI Design:** [Open in Figma](https://www.figma.com/file/NWU9BqtgXH4WZmBuEWUlVH/Cafeteria?type=design&node-id=0%3A1&t=2CNfDxghbK04aOCP-1)
 
-**Pricing Logics:**
-
-- The pricing logic is based on the requirements from Excercise 1.
-- The food & drink options are stored in `src/app/[lng]/food_options.json`.
-- The logic for calculating the price is in `src/app/[lng]/utils/price.js`.
-
-**Note:**
-
-- The "quantity" field was added to help user order multiple items at once.
-- **Multi-language** is supported.
-
-## Getting Started
+## 2. Getting Started
 
 First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 3. Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Roboto, a custom Google Font.
+Build the app:
+
+```bash
+npm run build
+```
+
+This app is deployed at [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).

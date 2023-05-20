@@ -1,7 +1,11 @@
-const itemsOptions = require("../app/[lng]/food_options.json");
-const settings = require("../app/[lng]/settings.json");
+const itemsOptions = require("@/data/food_options.json");
+const settings = require("@/data/settings.json");
 
 const taxRate = settings.tax_rate;
+
+function roundUp(value, decimals = 2) {
+  return Number(Math.ceil(value + "e" + decimals) + "e-" + decimals);
+}
 
 export function getItemOptionsById(id) {
   let itemOptions = null;
@@ -28,7 +32,7 @@ export function calculatePrice(id, selectedOptions, quantity = 1) {
     totalPrice += option.price;
   });
 
-  return totalPrice * quantity;
+  return roundUp(totalPrice * quantity);
 }
 
 export function calculatePriceForList(items) {
@@ -36,15 +40,15 @@ export function calculatePriceForList(items) {
   items.forEach((item) => {
     totalPrice += calculatePrice(item.id, item.selectedOptions, item.quantity);
   });
-  return totalPrice;
+  return roundUp(totalPrice);
 }
 
 export function calculateTax(totalPrice) {
-  return totalPrice * taxRate;
+  return roundUp(totalPrice * taxRate);
 }
 
 export function calculateTotalPriceWithTax(totalPrice) {
-  return totalPrice + calculateTax(totalPrice);
+  return roundUp(totalPrice + calculateTax(totalPrice));
 }
 
 export function getItemsWithPrice(items) {
