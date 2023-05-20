@@ -37,7 +37,20 @@ export default function Cart({ params: { lng } }) {
         <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Order History")}
           <a href={`/${lng}`}>
-            <span>X</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </a>
         </p>
         {orderItems && orderItems.length > 0 ? (
