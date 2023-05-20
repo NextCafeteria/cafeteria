@@ -19,10 +19,11 @@ export default async function handler(req, res) {
     }
 
     const orderId = req.query.orderId;
+    console.log("orderId:", orderId);
     const docRef = doc(db, "orders", orderId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
-      return res.status(404).json({ error: "Order not found" });
+      return res.status(404).json({ error: `Order not found ${orderId}` });
     }
 
     await updateDoc(docRef, {
@@ -30,5 +31,16 @@ export default async function handler(req, res) {
     });
 
     return res.status(200).json({ success: true });
+  }
+  if (req.method === "GET") {
+    const orderId = req.query.orderId;
+    const docRef = doc(db, "orders", orderId);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // Return all details of the order
+    return res.status(200).json({ success: true, data: docSnap.data() });
   }
 }
