@@ -1,10 +1,18 @@
-export async function PlaceOrder(items, onSuccess = null, onError = null) {
+export async function PlaceOrder(
+  items,
+  deliveryAddress,
+  onSuccess = null,
+  onError = null
+) {
   const response = await fetch("/api/customers/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(items),
+    body: JSON.stringify({
+      items: items,
+      deliveryAddress: deliveryAddress,
+    }),
   });
 
   const data = await response.json();
