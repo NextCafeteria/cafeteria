@@ -35,7 +35,7 @@ export default function Cart({ params: { lng } }) {
     <main className="flex justify-center p-2 pb-[100px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
-          {t("Orders")}
+          {t("Order History")}
           <a href={`/${lng}`}>
             <span>X</span>
           </a>
@@ -50,6 +50,7 @@ export default function Cart({ params: { lng } }) {
             const tax = order.tax;
             const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[status];
             const itemStatusText = ORDER_STATUS_TO_TEXT[status];
+            const translatedStatus = t(itemStatusText);
 
             return (
               <Link href={`/${lng}/order-details/${order.id}`}>
@@ -66,7 +67,7 @@ export default function Cart({ params: { lng } }) {
                         className="p-1 rounded-md"
                         style={{ background: orderStatusBg }}
                       >
-                        {itemStatusText}
+                        {translatedStatus}
                       </span>
                     </p>
                     <p className="text-sm">{orderTime}</p>
@@ -84,7 +85,7 @@ export default function Cart({ params: { lng } }) {
                           key={itemId}
                           className="flex flex-row items-center justify-between w-full"
                         >
-                          <p className="text-sm">{name}</p>
+                          <p className="text-sm">{t(name)}</p>
                           <p className="text-sm">
                             {quantity} x ${price.toFixed(2)} = $
                             {itemTotalPrice.toFixed(2)}
@@ -107,7 +108,9 @@ export default function Cart({ params: { lng } }) {
         ) : orderItems === null ? (
           <p className="text-md">{t("Loading...")}</p>
         ) : (
-          <p className="text-sm">{t("No orders")}</p>
+          <p className="text-sm">
+            {t("You have no order. Please go to Home to pick something.")}
+          </p>
         )}
       </div>
     </main>

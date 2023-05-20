@@ -36,6 +36,7 @@ export default function Cart({ params: { lng, orderId } }) {
   const { t } = useTranslation(lng, "common");
   const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[orderData?.status];
   const itemStatusText = ORDER_STATUS_TO_TEXT[orderData?.status];
+  const translatedStatus = t(itemStatusText);
   const orderTime = new Date(orderData?.timestamp).toLocaleString();
   const price = orderData?.price;
   const tax = orderData?.tax;
@@ -83,7 +84,7 @@ export default function Cart({ params: { lng, orderId } }) {
               className="p-1 rounded-md mr-2"
               style={{ background: orderStatusBg }}
             >
-              {itemStatusText}
+              {translatedStatus}
             </span>
             <span>{orderTime}</span>
           </p>
@@ -92,14 +93,27 @@ export default function Cart({ params: { lng, orderId } }) {
           itemsWithPrice.map((item, index) => {
             const { name, price, quantity } = item;
             return (
-              <div
-                key={index}
-                className="flex justify-between w-full border-b-2 border-gray-800 pb-3 pt-2"
-              >
-                <p className="text-sm font-bold mb-2">{name}</p>
-                <p className="text-sm font-bold mb-2">
-                  {quantity} x ${price}
-                </p>
+              <div className="border-b-2  mb-2 pb-2" key={index}>
+                <div className="flex justify-between w-full pb-3 pt-2">
+                  <p className="text-sm font-bold">{t(name)}</p>
+                  <p className="text-sm font-bold">
+                    {quantity} x ${price}
+                  </p>
+                </div>
+                {item.customizations.map(
+                  (customization, customizationIndex) => {
+                    return (
+                      <p key={customizationIndex} className="text-sm">
+                        {t(customization.name)}:{" "}
+                        {t(
+                          customization.options[
+                            item.selectedOptions[customizationIndex]
+                          ]?.name
+                        )}
+                      </p>
+                    );
+                  }
+                )}
               </div>
             );
           })}
