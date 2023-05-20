@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-const itemsOptions = require("../../food_options.json");
+const itemsOptions = require("@/data/food_options.json");
 import { useTranslation } from "../../../i18n/client";
 import { useSession } from "next-auth/react";
 

@@ -66,5 +66,11 @@
   "Order failed": "Đặt hàng không thành công",
   "Cancel order": "Hủy đơn hàng",
   "Home": "Trang chủ",
-  "User": "Người dùng"
+  "User": "Người dùng",
+  "Pick a delivery address:": "Giao hàng:",
+  "At the counter": "Nhận tại quầy",
+  "Deliver to my address": "Giao đến địa chỉ của tôi",
+  "Type your address:": "Nhập địa chỉ của bạn:",
+  "Delivery Address": "Địa chỉ giao hàng",
+  "Address": "Địa chỉ"
 }

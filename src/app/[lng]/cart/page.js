@@ -10,6 +10,8 @@ import {
 import { useTranslation } from "../../i18n/client";
 import { PlaceOrder } from "@/lib/requests/orders";
 import { useSession } from "next-auth/react";
+import AddressPicker from "@/components/AddressPicker";
+const addressOptions = require("@/data/address_options.json");
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -19,6 +21,19 @@ export default function Cart({ params: { lng } }) {
   }
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemsWithPrice, setItemsWithPrice] = useState([]);
+  const [deliveryAddress, setDeliveryAddress] = useState(() => {
+    let address = localStorage.getItem("lastDeliveryAddress", null);
+    if (address) {
+      return address;
+    }
+    if (session?.data?.user?.lastDeliveryAddress) {
+      address = session.data.user.lastDeliveryAddress;
+    } else {
+      address = addressOptions[0];
+    }
+    localStorage.setItem("lastDeliveryAddress", address);
+    return address;
+  });
 
   function updateTotalPrice() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
@@ -40,15 +55,15 @@ export default function Cart({ params: { lng } }) {
   const { t } = useTranslation(lng, "common");
   function handlePlaceOrder() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
+    localStorage.setItem("lastDeliveryAddress", deliveryAddress);
     PlaceOrder(
       cart,
+      deliveryAddress,
       (data) => {
-        console.log(data);
         localStorage.setItem("cart", "[]");
         router.push(`/${lng}/orders`);
       },
       (e) => {
-        console.log(e);
         alert(t("Order failed"));
       }
     );
@@ -158,6 +173,12 @@ export default function Cart({ params: { lng } }) {
                 </p>
               </div>
             </>
+            <AddressPicker
+              lng={lng}
+              addressOptions={addressOptions}
+              defaultAddress={deliveryAddress}
+              setAddressCb={setDeliveryAddress}
+            ></AddressPicker>
           </>
         )}
       </div>

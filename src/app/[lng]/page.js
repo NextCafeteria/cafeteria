@@ -6,7 +6,7 @@ import {
   calculateTotalPriceWithTax,
 } from "../../lib/price";
 import { useTranslation } from "../i18n/client";
-const itemsOptions = require("./food_options.json");
+const itemsOptions = require("@/data/food_options.json");
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();

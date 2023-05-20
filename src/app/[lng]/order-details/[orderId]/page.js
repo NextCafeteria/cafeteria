@@ -42,6 +42,7 @@ export default function Cart({ params: { lng, orderId } }) {
   const tax = orderData?.tax;
   const totalPrice = orderData?.totalPrice;
   const itemsWithPrice = orderData?.items;
+  const deliveryAddress = orderData?.deliveryAddress;
 
   function handleCancelOrder() {
     CancelOrder(
@@ -145,6 +146,12 @@ export default function Cart({ params: { lng, orderId } }) {
           <p className="text-md">{t("Loading...")}</p>
         ) : (
           <p className="text-sm">{t("No data")}</p>
+        )}
+        {deliveryAddress && (
+          <div className="flex flex-col items-begin justify-center w-full mt-4">
+            <p className="text-sm font-bold">{t("Delivery Address")}</p>
+            <p className="text-sm">{t(deliveryAddress)}</p>
+          </div>
         )}
       </div>
 
