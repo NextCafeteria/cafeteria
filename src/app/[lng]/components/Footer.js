@@ -28,7 +28,7 @@ export default function Footer({ lng }) {
               fill="black"
             />
           </svg>
-          <span className="flex justify-center text-2xl">{t("Home")}</span>
+          <span className="flex justify-center text-xl mt-2">{t("Home")}</span>
         </div>
         <div
           className="flex flex-col items-center p-2 clickable"
@@ -48,7 +48,9 @@ export default function Footer({ lng }) {
               fill="black"
             />
           </svg>
-          <span className="flex justify-center text-2xl">{t("Orders")}</span>
+          <span className="flex justify-center text-xl mt-2">
+            {t("Orders")}
+          </span>
         </div>
         <div
           className="flex flex-col items-center p-2 clickable"
@@ -68,7 +70,7 @@ export default function Footer({ lng }) {
               fill="black"
             />
           </svg>
-          <span className="flex justify-center text-2xl">{t("Cart")}</span>
+          <span className="flex justify-center text-xl mt-2">{t("Cart")}</span>
         </div>
         <div
           className="flex flex-col items-center p-2 clickable"
@@ -89,7 +91,7 @@ export default function Footer({ lng }) {
             />
           </svg>
 
-          <span className="flex justify-center text-2xl">{t("User")}</span>
+          <span className="flex justify-center text-xl mt-2">{t("User")}</span>
         </div>
       </div>
     </>

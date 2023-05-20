@@ -144,10 +144,10 @@ export default function Cart({ params: { lng, orderId } }) {
 
       {orderData?.status === OrderStatus.QUEUED && (
         <div
-          className="w-full max-w-[700px] fixed bottom-24 md:bottom-22 h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
+          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
           onClick={handleCancelOrder}
         >
-          <span className="text-2xl">{t("Cancel")}</span>
+          <span className="text-2xl">{t("Cancel order")}</span>
         </div>
       )}
     </main>
