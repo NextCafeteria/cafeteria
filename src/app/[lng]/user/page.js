@@ -69,6 +69,13 @@ export default function Page({ params: { lng } }) {
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link href={`/${lng}/cart`}>{t("Cart")}</Link>
       </div>
+      {session?.data?.user?.isStaff && (
+        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+          <Link href={`/${lng}/staffs/orders`}>
+            {t("Manage orders (Staff Only)")}
+          </Link>
+        </div>
+      )}
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link
           href="https://github.com/vietanhdev/cafeteria/issues"

@@ -17,6 +17,10 @@ export default function StaffOrder({ params: { lng, orderId } }) {
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
+  const isStaff = session?.data?.user?.isStaff;
+  if (session?.data?.user && !isStaff) {
+    router.push(`/${lng}`);
+  }
   const [orderData, setOrderData] = useState(null);
 
   function handleConfirmOrder({ orderId }) {

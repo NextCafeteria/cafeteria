@@ -11,6 +11,9 @@ export default async function handler(req, res) {
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
   }
+  if (!currentUser?.isStaff) {
+    return res.status(401).json({ error: "Staff is required" });
+  }
   if (req.method === "POST") {
     const status = req.body.status;
     const statusList = Object.values(OrderStatus);

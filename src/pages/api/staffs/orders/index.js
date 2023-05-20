@@ -10,6 +10,9 @@ export default async function handler(req, res) {
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
   }
+  if (!currentUser?.isStaff) {
+    return res.status(401).json({ error: "Staff is required" });
+  }
   if (req.method === "GET") {
     // Query progress and sort by timestamp
     const q = query(

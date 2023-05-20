@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../auth/[...nextauth]";
-import {  OrderStatus } from "@/lib/order_status";
+import { OrderStatus } from "@/lib/order_status";
 
 export default async function handler(req, res) {
   // Check authentication
@@ -17,6 +17,9 @@ export default async function handler(req, res) {
   const currentUser = session?.user;
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
+  }
+  if (!currentUser?.isStaff) {
+    return res.status(401).json({ error: "Staff is required" });
   }
   if (req.method === "GET") {
     console.log("req:", req);
