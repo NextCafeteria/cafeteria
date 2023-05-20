@@ -87,6 +87,7 @@ export default function Cart({ params: { lng } }) {
             const tax = order.tax;
             const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[status];
             const itemStatusText = ORDER_STATUS_TO_TEXT[status];
+            const translatedStatus = t(itemStatusText);
 
             return (
               <Link href={`/${lng}/staffs/order-details/${order.id}`}>
@@ -103,7 +104,7 @@ export default function Cart({ params: { lng } }) {
                         className="p-1 rounded-md"
                         style={{ background: orderStatusBg }}
                       >
-                        {itemStatusText}
+                        {translatedStatus}
                       </span>
                     </p>
                     <p className="text-sm">{orderTime}</p>
