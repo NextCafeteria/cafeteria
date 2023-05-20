@@ -93,7 +93,7 @@ export default function Page({ params: { lng } }) {
           }}
         >
           <Image src={googleLogo} width="18" height="18" alt="Google" />
-          <p className="text-sm font-semibold">Login with Google</p>
+          <p className="text-sm font-semibold">{t("Login with Google")}</p>
           <div
             role="status"
             className={loading === "google" ? "" : " invisible"}
@@ -119,7 +119,7 @@ export default function Page({ params: { lng } }) {
           }}
         >
           <Image src={githubLogo} width="18" height="18" alt="Github" />
-          <p className="text-sm font-semibold">Login with Github</p>
+          <p className="text-sm font-semibold">{t("Login with Github")}</p>
           <div
             role="status"
             className={loading === "github" ? "" : " invisible"}
