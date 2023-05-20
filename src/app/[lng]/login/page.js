@@ -62,7 +62,7 @@ export default function Page({ params: { lng } }) {
   const errorMessage = error && (AUTH_ERRORS[error] ?? AUTH_ERRORS.default);
   const { t } = useTranslation(lng, "common");
   return (
-    <main className="flex justify-center p-2 pb-[100px]">
+    <main className="flex justify-center p-2 pb-[200px]">
       <div className="relative flex min-h-[100%] w-full max-w-[640px] flex-col items-center bg-white py-12 px-2 pb-20 md:min-h-[400px] md:px-4 rounded-lg">
         <div className="block w-full justify-centerpb-3 pt-2 text-2xl px-2 mb-2">
           <div className="float-right">

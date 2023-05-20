@@ -48,6 +48,10 @@ export default async function handler(req, res) {
   } else if (req.method === "POST") {
     // Calculate total price
     const items = req.body;
+    // Check if items is empty
+    if (items.length === 0) {
+      return res.status(400).json({ error: "Items cannot be empty" });
+    }
     const price = calculatePriceForList(items);
     const tax = calculateTax(price);
     const totalPrice = calculateTotalPriceWithTax(price, tax);

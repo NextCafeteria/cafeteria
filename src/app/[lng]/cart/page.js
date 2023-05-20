@@ -53,8 +53,17 @@ export default function Cart({ params: { lng } }) {
       }
     );
   }
+
+  function handeDelete(itemId) {
+    let cart = JSON.parse(localStorage.getItem("cart", "[]"));
+    cart.splice(itemId, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setItemsWithPrice(getItemsWithPrice(cart));
+    updateTotalPrice();
+  }
+
   return (
-    <main className="flex justify-center p-2 pb-[100px]">
+    <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Cart")}
@@ -76,7 +85,7 @@ export default function Cart({ params: { lng } }) {
           </a>
         </p>
         {itemsWithPrice.length === 0 ? (
-          <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
+          <div className="flex flex-col items-center justify-center w-full min-h-[100px] my-1 mx-1 border-b-2">
             <div className="flex flex-col items-begin justify-center w-full relative">
               <p className="text-md">
                 {t("Your cart is empty. Go to Home to pick something.")}
@@ -85,15 +94,27 @@ export default function Cart({ params: { lng } }) {
           </div>
         ) : (
           <>
-            {itemsWithPrice.map((item, itemId) => {
-              return (
-                <div
-                  key={itemId}
-                  className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2"
-                >
-                  <div className="flex flex-col items-begin justify-center w-full relative">
-                    <p className="text-xl font-bold">{t(item.name)}</p>
-                    <p className="text-sm">{t(item.description)}</p>
+            {itemsWithPrice &&
+              itemsWithPrice.map((item, index) => {
+                const { name, price, quantity } = item;
+                return (
+                  <div
+                    className={
+                      "p-4 border-b-2 relative" +
+                      (index % 2 === 0 ? " bg-gray-100" : "")
+                    }
+                    key={index}
+                  >
+                    <div className="flex justify-between w-full pb-1 pt-2">
+                      <p className="text-sm font-bold">{t(name)}</p>
+                      <p className="text-sm font-bold">
+                        {quantity} x ${price}
+                      </p>
+                    </div>
+                    <img
+                      src={item.image}
+                      className="w-16 h-auto rounded-md mb-4"
+                    />
                     {item.customizations.map(
                       (customization, customizationIndex) => {
                         return (
@@ -108,51 +129,49 @@ export default function Cart({ params: { lng } }) {
                         );
                       }
                     )}
-                    <p className="text-sm">
-                      {t("Quantity")}: {item.quantity}
-                    </p>
-                    <p className="absolute right-0 top-0 text-sm float-right">
-                      ${item.price}
-                    </p>
-                    {/* Remove button */}
                     <button
-                      className="absolute right-0 bottom-0 text-md text-gray-500 float-right"
+                      className="absolute right-2 bottom-2 text-md text-gray-500 float-right"
                       onClick={() => {
-                        let cart = JSON.parse(
-                          localStorage.getItem("cart", "[]")
-                        );
-                        cart.splice(itemId, 1);
-                        localStorage.setItem("cart", JSON.stringify(cart));
-                        setItemsWithPrice(getItemsWithPrice(cart));
-                        updateTotalPrice();
+                        handeDelete(index);
                       }}
                     >
                       {t("Remove")}
                     </button>
                   </div>
-                </div>
-              );
-            })}
-            <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 border-b-2">
-              <div className="flex flex-col items-begin justify-center w-full relative">
-                <p className="text-xl font-bold">{t("Tax")}</p>
-                <p className="absolute right-0 top-0 text-sm float-right">
-                  ${calculateTax(totalPrice).toFixed(2)}
+                );
+              })}
+            <>
+              <div className="flex justify-between w-full pt-4">
+                <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
+                <p className="text-sm font-bold mb-2">${totalPrice}</p>
+              </div>
+              <div className="flex justify-between w-full">
+                <p className="text-sm font-bold mb-2">{t("Tax")}</p>
+                <p className="text-sm font-bold mb-2">
+                  ${calculateTax(totalPrice)}
                 </p>
               </div>
-            </div>
+              <div className="flex justify-between w-full border-b-2 border-gray-800">
+                <p className="text-sm font-bold mb-2">{t("Total")}</p>
+                <p className="text-sm font-bold mb-2">
+                  ${calculateTotalPriceWithTax(totalPrice)}
+                </p>
+              </div>
+            </>
           </>
         )}
       </div>
 
-      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md">
-        <span className="text-2xl" onClick={handlePlaceOrder}>
-          {t("Place Order!")}
-        </span>
-        <span className="text-2xl float-right">
-          ${calculateTotalPriceWithTax(totalPrice).toFixed(2)}
-        </span>
-      </div>
+      {itemsWithPrice.length != 0 && (
+        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md">
+          <span className="text-2xl" onClick={handlePlaceOrder}>
+            {t("Place Order!")}
+          </span>
+          <span className="text-2xl float-right">
+            ${calculateTotalPriceWithTax(totalPrice).toFixed(2)}
+          </span>
+        </div>
+      )}
     </main>
   );
 }
