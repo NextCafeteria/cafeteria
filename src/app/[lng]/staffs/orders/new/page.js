@@ -10,6 +10,7 @@ import {
 } from "@/lib/order_status";
 import Link from "next/link";
 import { countTotalItems } from "@/lib/products";
+import XButton from "@/components/buttons/XButton";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -44,12 +45,10 @@ export default function Cart({ params: { lng } }) {
   return (
     <main className="flex justify-center p-2 pb-[100px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
-        <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
+        <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Orders")}
-          <a href={`/${lng}`}>
-            <span>X</span>
-          </a>
-        </p>
+          <XButton />
+        </div>
 
         <div className="flex items-center justify-around w-full p-4 min-h-[50px] mx-1 border-b-2">
           <span

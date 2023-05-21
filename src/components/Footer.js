@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from "next/navigation";
 
-import { useTranslation } from "../../i18n/client";
+import { useTranslation } from "../app/i18n/client";
 export default function Footer({ lng }) {
   const currentPath = usePathname();
   return (

@@ -7,6 +7,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import DefaultImage from "@public/default.png";
 import Link from "next/link";
+import LangSelector from "@/components/LangSelector";
 
 export default function Page({ params: { lng } }) {
   const router = useRouter();
@@ -20,13 +21,7 @@ export default function Page({ params: { lng } }) {
     <main className="flex flex-col justify-center p-2 pb-[200px] w-full max-w-[600px] md:w-[600px] mx-auto relative">
       <div className="block w-full justify-centerpb-3 pt-2 text-2xl px-2 mb-2">
         <div className="float-right">
-          <a href="/vi/user" className="text-sm p-2">
-            <span className={lng === "vi" ? " font-bold" : ""}>VI</span>
-          </a>
-          <span className="text-sm"> | </span>
-          <a href="/en/user" className="text-sm p-2">
-            <span className={lng === "en" ? " font-bold" : ""}>EN</span>
-          </a>
+          <LangSelector />
         </div>
       </div>
       <div className="min-h-20 p-4 mt-4 border-b-2 border-gray-800 relative mb-8">

@@ -8,8 +8,8 @@ import {
   ORDER_STATUS_TO_TEXT,
   OrderStatus,
 } from "@/lib/order_status";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
+import BackButton from "@/components/buttons/BackButton";
 
 export default function Cart({ params: { lng, orderId } }) {
   const router = useRouter();
@@ -60,25 +60,10 @@ export default function Cart({ params: { lng, orderId } }) {
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
-        <p className="flex w-full border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
-          <Link href={`/${lng}/orders`} className="mr-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-              />
-            </svg>
-          </Link>
+        <div className="flex w-full border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
+          <BackButton href={`/${lng}/orders`} />
           {t("Order")}
-        </p>
+        </div>
         {orderStatusBg && itemStatusText && (
           <p className="text-sm font-bold mb-2 mt-4">
             <span
