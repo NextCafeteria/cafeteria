@@ -12,6 +12,7 @@ import { PlaceOrder } from "@/lib/requests/orders";
 import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";
 const addressOptions = require("@/data/address_options.json");
+import XButton from "@/components/buttons/XButton";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -80,25 +81,10 @@ export default function Cart({ params: { lng } }) {
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
-        <p className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
+        <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Cart")}
-          <a href={`/${lng}`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-8 h-8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </a>
-        </p>
+          <XButton href={`/${lng}`} />
+        </div>
         {itemsWithPrice.length === 0 ? (
           <div className="flex flex-col items-center justify-center w-full min-h-[100px] my-1 mx-1 border-b-2">
             <div className="flex flex-col items-begin justify-center w-full relative">

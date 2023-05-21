@@ -9,15 +9,7 @@ export default function AddressPicker({
   setAddressCb,
 }) {
   const { t } = useTranslation(lng, "common");
-  const [selectedAddress, setSelectedAddress] = useState(() => {
-    if (defaultAddress) {
-      setAddressCb(defaultAddress);
-      return defaultAddress;
-    } else {
-      setAddressCb(addressOptions[0]);
-      return addressOptions[0];
-    }
-  });
+  const [selectedAddress, setSelectedAddress] = useState(defaultAddress);
   const selectedOption =
     addressOptions.find((option) => option === selectedAddress) || null;
 

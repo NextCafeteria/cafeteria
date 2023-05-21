@@ -7,6 +7,7 @@ import {
 } from "../../lib/price";
 import { useTranslation } from "../i18n/client";
 const itemsOptions = require("@/data/food_options.json");
+import LangSelector from "@/components/LangSelector";
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
@@ -29,15 +30,7 @@ export default function Home({ params: { lng } }) {
       <div className="max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <div className="block w-full justify-center border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("title")}
-          <div className="float-right">
-            <a href="/vi" className="text-sm p-2">
-              <span className={lng === "vi" ? " font-bold" : ""}>VI</span>
-            </a>
-            <span className="text-sm"> | </span>
-            <a href="/en" className="text-sm p-2">
-              <span className={lng === "en" ? " font-bold" : ""}>EN</span>
-            </a>
-          </div>
+          <LangSelector />
         </div>
 
         <div className="flex flex-wrap justify-center w-full">

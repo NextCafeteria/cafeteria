@@ -17,7 +17,7 @@ const roboto = Roboto({
   subsets: ["latin-ext"],
   weight: ["100", "300", "400", "500", "700", "900"],
 });
-import Footer from "./components/Footer";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({ children, params: { lng } }) {
   const { t } = useTranslation(lng, "common");
