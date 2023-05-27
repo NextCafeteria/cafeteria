@@ -37,7 +37,7 @@ export function calculatePrice(id, selectedOptions, quantity = 1) {
 
 export function calculatePriceForList(items) {
   let totalPrice = 0;
-  if (items=== null) return 0;
+  if (items === null) return 0;
   items.forEach((item) => {
     totalPrice += calculatePrice(item.id, item.selectedOptions, item.quantity);
   });
