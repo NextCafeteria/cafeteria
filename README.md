@@ -18,7 +18,7 @@
 ## 1. Design
 
 **UI Design:** [Open in Figma](https://www.figma.com/file/NWU9BqtgXH4WZmBuEWUlVH/Cafeteria?type=design&node-id=0%3A1&t=2CNfDxghbK04aOCP-1)
-
+git 
 ## 2. Getting Started
 
 Copy `.env.example` to `.env` and fill in the environment variables.
@@ -37,6 +37,31 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## 3. Deployment
 
+### 3.0 Install Dependencies
+Make sure to install the dependencies:
+
+#### yarn
+```
+yarn install
+```
+#### npm
+```
+npm install
+```
+#### pnpm
+```
+pnpm install
+```
+#### Install Next.js
+
+```bash
+npm install next
+```
+#### Install Tailwind CSS
+
+```bash
+npm install tailwindcss
+```
 ### 3.1. Local build and check
 
 Build the app:
