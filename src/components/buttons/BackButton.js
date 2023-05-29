@@ -4,15 +4,16 @@ export default function BackButton(params) {
   const router = useRouter();
 
   return (
-    <div className="mr-2" onClick={
-      () => {
+    <div
+      className="mr-2"
+      onClick={() => {
         if (params.href) {
           router.push(params.href);
         } else {
           router.back();
         }
-      }
-    }>
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

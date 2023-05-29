@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import LangSelector from "@/components/LangSelector";

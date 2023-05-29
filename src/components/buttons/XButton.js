@@ -4,15 +4,15 @@ export default function XButton(params) {
   const router = useRouter();
 
   return (
-    <div onClick={
-      () => {
+    <div
+      onClick={() => {
         if (params.href) {
           router.push(params.href);
         } else {
           router.back();
         }
-      }
-    }>
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

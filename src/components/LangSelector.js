@@ -9,11 +9,23 @@ export default function LangSelector({ className }) {
   return (
     <div className={className ? className : "float-right"}>
       <Link href={`/${lng === "vi" ? "en" : "vi"}/${path}`}>
-        <div className={"p-2 inline-block text-sm" + (lng === "vi" ? " font-bold" : "")}>VI</div>
+        <div
+          className={
+            "p-2 inline-block text-sm" + (lng === "vi" ? " font-bold" : "")
+          }
+        >
+          VI
+        </div>
       </Link>
       <div className="py-2 inline-block text-sm mx-1">|</div>
       <Link href={`/${lng === "en" ? "vi" : "en"}/${path}`}>
-        <div className={"p-2 inline-block text-sm" + (lng === "en" ? " font-bold" : "")}>EN</div>
+        <div
+          className={
+            "p-2 inline-block text-sm" + (lng === "en" ? " font-bold" : "")
+          }
+        >
+          EN
+        </div>
       </Link>
     </div>
   );
