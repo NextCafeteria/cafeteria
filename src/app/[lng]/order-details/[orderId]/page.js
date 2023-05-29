@@ -57,6 +57,19 @@ export default function Cart({ params: { lng, orderId } }) {
     );
   }
 
+  function handleReorder() {
+    const cart = itemsWithPrice.map((item) => {
+      const { id, quantity, selectedOptions } = item;
+      return {
+        id,
+        quantity,
+        selectedOptions,
+      };
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    router.push(`/${lng}/cart`);
+  }
+
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
@@ -140,14 +153,26 @@ export default function Cart({ params: { lng, orderId } }) {
         )}
       </div>
 
-      {orderData?.status === OrderStatus.QUEUED && (
-        <div
-          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
-          onClick={handleCancelOrder}
-        >
-          <span className="text-2xl">{t("Cancel order")}</span>
-        </div>
-      )}
+      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px]">
+        {orderData?.status === OrderStatus.QUEUED && (
+          <div
+            className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
+            onClick={handleCancelOrder}
+          >
+            <span className="text-2xl">{t("Cancel order")}</span>
+          </div>
+        )}
+        {[OrderStatus.CANCELLED, OrderStatus.COMPLETED].includes(
+          orderData?.status
+        ) && (
+          <div
+            className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-400 md:rounded-md"
+            onClick={handleReorder}
+          >
+            <span className="text-2xl">{t("Re-order")}</span>
+          </div>
+        )}
+      </div>
     </main>
   );
 }
