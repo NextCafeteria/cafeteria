@@ -5,6 +5,31 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  headers: async () => {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: "camera=(); battery=(self); geolocation=(); microphone=('https://cafe.vietanh.dev')",
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -17,7 +42,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "**.neural.vn",
+        hostname: "**.vietanh.dev",
       },
       {
         protocol: "https",
@@ -26,10 +51,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "**.githubusercontent.com",
-      },
-      {
-        protocol: "https",
-        hostname: "nrl.ai",
       },
       {
         protocol: "https",
@@ -42,10 +63,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "**.googleusercontent.com",
-      },
-      {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
       },
       {
         protocol: "https",
