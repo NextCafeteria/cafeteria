@@ -18,19 +18,22 @@ export default function Page({ params: { lng } }) {
     router.push(`/${lng}/login`);
   }
   const [nameEditing, setNameEditing] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   function handleAccountUpdate() {
+    setIsUpdating(true);
     const name = document.getElementById("update-account-name").value;
     UpdateAccount(
       name,
       (data) => {
         setNameEditing(false);
-        //update name of user in session
+        setIsUpdating(false);
         session.data.user.name = data.user.name;
       },
       (error) => {
         console.log(error);
         setNameEditing(false);
+        setIsUpdating(false);
       }
     );
   }
@@ -97,16 +100,26 @@ export default function Page({ params: { lng } }) {
                       className="text-gray-800 font-bold text-xl bg-gray-50 border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       defaultValue={session.data.user.name}
                       required
+                      readOnly={isUpdating}
                     />
-                    <button
-                      type="submit"
-                      className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      onClick={() => {
-                        handleAccountUpdate();
-                      }}
-                    >
-                      {t("Save")}
-                    </button>
+                    {isUpdating ? (
+                      <button
+                        type="submit"
+                        className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        {t("Updating...")}
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onClick={() => {
+                          handleAccountUpdate();
+                        }}
+                      >
+                        {t("Save")}
+                      </button>
+                    )}
                   </div>
                 )
               ) : (
