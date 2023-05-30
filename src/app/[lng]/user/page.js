@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import DefaultImage from "@public/default.png";
 import Link from "next/link";
 import LangSelector from "@/components/LangSelector";
+import { UpdateAccount } from "@/lib/requests/account";
 
 export default function Page({ params: { lng } }) {
   const router = useRouter();
@@ -18,6 +19,21 @@ export default function Page({ params: { lng } }) {
   }
   const [nameEditing, setNameEditing] = useState(false);
 
+  function handleAccountUpdate() {
+    const name = document.getElementById("update-account-name").value;
+    UpdateAccount(
+      name,
+      (data) => {
+        setNameEditing(false);
+        //update name of user in session
+        session.data.user.name = data.user.name;
+      },
+      (error) => {
+        console.log(error);
+        setNameEditing(false);
+      }
+    );
+  }
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex flex-col justify-center p-2 pb-[200px] w-full max-w-[600px] md:w-[600px] mx-auto relative">
@@ -51,11 +67,12 @@ export default function Page({ params: { lng } }) {
                     <span className="text-gray-800 font-bold text-2xl">
                       {session.data.user.name}
                     </span>
-                    <button className="float-right ml-2" onClick={
-                      () => {
+                    <button
+                      className="float-right ml-2"
+                      onClick={() => {
                         setNameEditing(true);
-                      }
-                    }>
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -73,12 +90,24 @@ export default function Page({ params: { lng } }) {
                     </button>
                   </>
                 ) : (
-                  <form className="flex items-center">
-                    <input type="text" className="text-gray-800 font-bold text-xl bg-gray-50 border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={session.data.user.name} required/>
-                    <button type="submit" className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <div className="flex items-center">
+                    <input
+                      id="update-account-name"
+                      type="text"
+                      className="text-gray-800 font-bold text-xl bg-gray-50 border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      defaultValue={session.data.user.name}
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      onClick={() => {
+                        handleAccountUpdate();
+                      }}
+                    >
                       {t("Save")}
                     </button>
-                  </form>
+                  </div>
                 )
               ) : (
                 t("Loading...")
