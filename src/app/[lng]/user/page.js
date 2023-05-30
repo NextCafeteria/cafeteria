@@ -10,6 +10,9 @@ import DefaultImage from "@public/default.png";
 import Link from "next/link";
 import LangSelector from "@/components/LangSelector";
 import { UpdateAccount } from "@/lib/requests/account";
+import { filestorage } from "@/lib/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { get } from "https";
 
 export default function Page({ params: { lng } }) {
   const router = useRouter();
@@ -18,25 +21,78 @@ export default function Page({ params: { lng } }) {
     router.push(`/${lng}/login`);
   }
   const [nameEditing, setNameEditing] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdatingName, setIsUpdatingName] = useState(false);
 
-  function handleAccountUpdate() {
-    setIsUpdating(true);
-    const name = document.getElementById("update-account-name").value;
+  const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
+  const [updateAvatarProgress, setUpdateAvatarProgress] = useState(0);
+
+  function handleAccountUpdate(name, avatarUrl) {
     UpdateAccount(
-      name,
+      name == null ? session.data.user.name : name,
+      avatarUrl == null ? session.data.user.image : avatarUrl,
       (data) => {
-        setNameEditing(false);
-        setIsUpdating(false);
         session.data.user.name = data.user.name;
+        session.data.user.image = data.user.image;
+        setNameEditing(false);
+        setIsUpdatingName(false);
+        setIsUpdatingAvatar(false);
       },
       (error) => {
         console.log(error);
         setNameEditing(false);
-        setIsUpdating(false);
+        setIsUpdatingName(false);
+        setIsUpdatingAvatar(false);
       }
     );
   }
+
+  function uploadImage() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = function () {
+      verifyImage(this);
+    };
+    input.click();
+  }
+
+  function verifyImage(input) {
+    setIsUpdatingAvatar(true);
+    const file = input.files[0];
+    const fileType = file.type;
+    const fileSize = file.size;
+    const allowedTypes = ["image/jpeg", "image/png"];
+    const maxSize = 1024 * 1024; // 1MB
+    if (!allowedTypes.includes(fileType)) {
+      alert("Invalid file type. Only JPEG and PNG image files are allowed");
+    } else if (fileSize > maxSize) {
+      alert("File size too large. Only files up to 1MB are allowed");
+    } else {
+      const storageRef = ref(filestorage, file.name);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setUpdateAvatarProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            setIsUpdatingAvatar(true);
+            handleAccountUpdate(session.data.user.name, url);
+          });
+        }
+      );
+    }
+  }
+
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex flex-col justify-center p-2 pb-[200px] w-full max-w-[600px] md:w-[600px] mx-auto relative">
@@ -47,21 +103,51 @@ export default function Page({ params: { lng } }) {
       </div>
       <div className="min-h-20 p-4 mt-4 border-b-2 border-gray-800 relative mb-8">
         <div className="flex flex-row">
-          <Image
-            alt={
-              session?.status === "authenticated"
-                ? session.data.user.name
-                : t("Loading...")
-            }
-            src={
-              session?.status === "authenticated"
-                ? session?.data?.user?.image
-                : DefaultImage
-            }
-            width={100}
-            height={100}
-            className="overflow-hidden rounded-full shadow-md w-[75px] h-[75px]"
-          />
+          <div className="rounded-full w-[75px] h-[75px] relative overflow-hidden">
+            {isUpdatingAvatar ? (
+              <div className="flex absolute left-[0%] bottom-[0%] bg-gray-100 w-[75px] h-[75px] justify-center opacity-70 transition-opacity duration-[0.2s] ease-[ease-in-out] content-center items-center">
+                {updateAvatarProgress + "%"}
+              </div>
+            ) : (
+              <Image
+                alt={
+                  session?.status === "authenticated"
+                    ? session.data.user.name
+                    : t("Loading...")
+                }
+                src={
+                  session?.status === "authenticated"
+                    ? session?.data?.user?.image
+                    : DefaultImage
+                }
+                width={100}
+                height={100}
+                className="overflow-hidden rounded-full shadow-md w-[75px] h-[75px]"
+              />
+            )}
+
+            <button
+              className="flex absolute left-[0%] bottom-[0%] bg-gray-100 w-[75px] h-[30px] justify-center opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
+              onClick={() => uploadImage()}
+              disabled={isUpdatingAvatar}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                />
+              </svg>
+            </button>
+          </div>
+
           <div className="p-4">
             <div className="text-left">
               {session?.status === "authenticated" ? (
@@ -71,7 +157,7 @@ export default function Page({ params: { lng } }) {
                       {session.data.user.name}
                     </span>
                     <button
-                      className="float-right ml-2"
+                      className="ml-2"
                       onClick={() => {
                         setNameEditing(true);
                       }}
@@ -91,18 +177,19 @@ export default function Page({ params: { lng } }) {
                         />
                       </svg>
                     </button>
+                    {/* <input type="file" accept="image/*" onchange="verifyImage(this)"></input> */}
                   </>
                 ) : (
                   <div className="flex items-center">
                     <input
                       id="update-account-name"
                       type="text"
-                      className="text-gray-800 font-bold text-xl bg-gray-50 border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="text-gray-800 font-bold text-xl bg-white border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       defaultValue={session.data.user.name}
                       required
-                      readOnly={isUpdating}
+                      readOnly={isUpdatingName}
                     />
-                    {isUpdating ? (
+                    {isUpdatingName ? (
                       <button
                         type="submit"
                         className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -114,7 +201,12 @@ export default function Page({ params: { lng } }) {
                         type="submit"
                         className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         onClick={() => {
-                          handleAccountUpdate();
+                          setIsUpdatingName(true);
+                          handleAccountUpdate(
+                            document.getElementById("update-account-name")
+                              .value,
+                            session.data.user.image
+                          );
                         }}
                       >
                         {t("Save")}

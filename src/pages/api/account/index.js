@@ -22,11 +22,17 @@ export default async function handler(req, res) {
 
     await updateDoc(docRef, {
       name: req.body.name,
+      image: req.body.image,
     });
 
     return res.status(200).json({
       success: true,
-      data: { user: { name: req.body.name } },
+      data: {
+        user: {
+          name: req.body.name,
+          image: req.body.image,
+        },
+      },
     });
   }
 }
