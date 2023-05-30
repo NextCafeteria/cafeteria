@@ -10,9 +10,7 @@ import DefaultImage from "@public/default.png";
 import Link from "next/link";
 import LangSelector from "@/components/LangSelector";
 import { UpdateAccount } from "@/lib/requests/account";
-import { filestorage } from "@/lib/firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { get } from "https";
+import ImageUploader from "@/components/ImageUploader";
 
 export default function Page({ params: { lng } }) {
   const router = useRouter();
@@ -44,53 +42,6 @@ export default function Page({ params: { lng } }) {
         setIsUpdatingAvatar(false);
       }
     );
-  }
-
-  function uploadImage() {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.onchange = function () {
-      verifyImage(this);
-    };
-    input.click();
-  }
-
-  function verifyImage(input) {
-    setIsUpdatingAvatar(true);
-    const file = input.files[0];
-    const fileType = file.type;
-    const fileSize = file.size;
-    const allowedTypes = ["image/jpeg", "image/png"];
-    const maxSize = 1024 * 1024; // 1MB
-    if (!allowedTypes.includes(fileType)) {
-      alert("Invalid file type. Only JPEG and PNG image files are allowed");
-    } else if (fileSize > maxSize) {
-      alert("File size too large. Only files up to 1MB are allowed");
-    } else {
-      const storageRef = ref(filestorage, file.name);
-
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setUpdateAvatarProgress(progress);
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setIsUpdatingAvatar(true);
-            handleAccountUpdate(session.data.user.name, url);
-          });
-        }
-      );
-    }
   }
 
   const { t } = useTranslation(lng, "common");
@@ -126,26 +77,18 @@ export default function Page({ params: { lng } }) {
               />
             )}
 
-            <button
-              className="flex absolute left-[0%] bottom-[0%] bg-gray-100 w-[75px] h-[30px] justify-center opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
-              onClick={() => uploadImage()}
-              disabled={isUpdatingAvatar}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                />
-              </svg>
-            </button>
+            <ImageUploader
+              styles="absolute left-[0%] bottom-[0%] bg-gray-100 w-[75px] h-[30px] opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
+              handleUploadStart={() => {
+                setIsUpdatingAvatar(true);
+              }}
+              handleUploadSuccess={(url) => {
+                handleAccountUpdate(session.data.user.name, url);
+              }}
+              handleUploadProgress={(progress) => {
+                setUpdateAvatarProgress(progress);
+              }}
+            />
           </div>
 
           <div className="p-4">
@@ -177,7 +120,6 @@ export default function Page({ params: { lng } }) {
                         />
                       </svg>
                     </button>
-                    {/* <input type="file" accept="image/*" onchange="verifyImage(this)"></input> */}
                   </>
                 ) : (
                   <div className="flex items-center">
