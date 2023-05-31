@@ -7,24 +7,20 @@ import {
   GetStaffProcessingOrders,
   PrepareOrder,
 } from "@/lib/requests/orders";
-import {
-  ORDER_STATUS_TO_BG_COLOR,
-  ORDER_STATUS_TO_TEXT,
-  OrderStatus,
-} from "@/lib/order_status";
-import Link from "next/link";
-import { countTotalItems } from "@/lib/products";
+import { OrderStatus } from "@/lib/order_status";
 import XButton from "@/components/buttons/XButton";
+import OrderCardStaff from "@/components/orders/OrderCardStaff";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
   const [orderItems, setOrderItems] = useState(null);
+  const [loading, setLoading] = useState({});
 
-  function handleCompleteOrder({ orderId }) {
+  function handleCompleteOrder(orderId) {
     CompleteOrder(
       orderId,
       () => {
-        router.push(`/${lng}/staffs/orders/processing`);
+        router.push(`/${lng}/staffs/orders/inactive`);
       },
       (e) => {
         console.log(e);
@@ -33,11 +29,12 @@ export default function Cart({ params: { lng } }) {
     );
   }
 
-  function handlePrepareOrder({ orderId }) {
+  function handlePrepareOrder(orderId) {
+    setLoading({ ...loading, [orderId]: true });
     PrepareOrder(
       orderId,
       () => {
-        router.push(`/${lng}/staffs/orders/processing`);
+        fetchOrders();
       },
       (e) => {
         console.log(e);
@@ -46,16 +43,23 @@ export default function Cart({ params: { lng } }) {
     );
   }
 
-  useEffect(() => {
+  function fetchOrders() {
     GetStaffProcessingOrders(
       (orders) => {
         setOrderItems(orders);
+        orders &&
+          orders.length > 0 &&
+          setLoading(orders.map((order) => ({ [order.id]: false })));
       },
       (e) => {
         console.log(e);
         alert("Could not get orders");
       }
     );
+  }
+
+  useEffect(() => {
+    fetchOrders();
   }, []);
 
   const { t } = useTranslation(lng, "common");
@@ -94,92 +98,34 @@ export default function Cart({ params: { lng } }) {
           </span>
         </div>
 
-        {orderItems && orderItems.length > 0 ? (
-          orderItems.map((order, orderId) => {
-            const status = order.status;
-            const totalPrice = order.totalPrice;
-            const timestamp = order.timestamp;
-            const orderTime = new Date(timestamp).toLocaleString();
-            const itemsWithPrice = order.items;
-            const tax = order.tax;
-            const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[status];
-            const itemStatusText = ORDER_STATUS_TO_TEXT[status];
-            const translatedStatus = t(itemStatusText);
-
-            return (
-              <Link href={`/${lng}/staffs/order-details/${order.id}`}>
-                <div
-                  key={orderId}
-                  className={
-                    "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-200" +
-                    (orderId % 2 === 0 ? " bg-gray-100" : "")
-                  }
-                >
-                  <div className="flex flex-col items-begin justify-center w-full relative">
-                    <p className="text-sm font-bold mb-2">
-                      <span
-                        className="p-1 rounded-md"
-                        style={{ background: orderStatusBg }}
-                      >
-                        {translatedStatus}
-                      </span>
-                    </p>
-                    <p className="text-sm">{orderTime}</p>
-                    <p className="text-sm">
-                      {t("Number of items")}: {countTotalItems(itemsWithPrice)}
-                    </p>
-                    {itemsWithPrice.map((item, itemId) => {
-                      const price = item.price;
-                      const name = item.name;
-                      const quantity = item.quantity;
-                      const itemTotalPrice = price * quantity;
-
-                      return (
-                        <div
-                          key={itemId}
-                          className="flex flex-row items-center justify-between w-full"
-                        >
-                          <p className="text-sm">{name}</p>
-                          <p className="text-sm">
-                            {quantity} x ${price.toFixed(2)} = $
-                            {itemTotalPrice.toFixed(2)}
-                          </p>
-                        </div>
-                      );
-                    })}
-                    <div className="flex flex-row items-center justify-between w-full">
-                      <p className="text-sm font-bold">{t("Tax")}</p>
-                      <p className="text-sm">${tax.toFixed(2)}</p>
-                    </div>
-                    <p className="absolute right-0 top-0 text-sm float-right font-bold">
-                      {t("Total")}: ${totalPrice.toFixed(2)}
-                    </p>
-                    {order.status === OrderStatus.PREPARING ? (
-                      <button
-                        className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#A3DE69] rounded-md w-[140px]"
-                        onClick={() => {
-                          handleCompleteOrder({ orderId: order.id });
-                        }}
-                      >
-                        {t("Complete")}
-                      </button>
-                    ) : (
-                      <button
-                        className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#97ff63] rounded-md w-[140px]"
-                        onClick={() => {
-                          handlePrepareOrder({ orderId: order.id });
-                        }}
-                      >
-                        {t("Prepare")}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            );
-          })
+        {(orderItems && orderItems.length) > 0 ? (
+          orderItems.map((order, orderId) => (
+            <OrderCardStaff
+              order={order}
+              orderId={orderId}
+              lng={lng}
+              isLoading={loading[order.id]}
+              handleActionOrder={
+                order.status === OrderStatus.PREPARING
+                  ? (orderId) => {
+                      handleCompleteOrder(orderId);
+                    }
+                  : (orderId) => {
+                      handlePrepareOrder(orderId);
+                    }
+              }
+            />
+          ))
         ) : orderItems === null ? (
-          <p className="text-md">{t("Loading...")}</p>
+          Array.from({ length: 3 }, (e, i) => i).map((i) => (
+            <OrderCardStaff
+              order={null}
+              orderId={i}
+              lng={lng}
+              isLoading={true}
+              handleActionOrder={null}
+            />
+          ))
         ) : (
           <p className="text-sm">{t("No orders")}</p>
         )}

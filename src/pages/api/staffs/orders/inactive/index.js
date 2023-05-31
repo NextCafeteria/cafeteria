@@ -22,8 +22,6 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Staff is required" });
   }
   if (req.method === "GET") {
-    console.log("req:", req);
-
     // Query progress and sort by timestamp
     // filter status equal "completed" or "cacelled"
     const q = query(

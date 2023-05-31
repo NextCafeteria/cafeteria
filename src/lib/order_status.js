@@ -21,3 +21,9 @@ export const ORDER_STATUS_TO_TEXT = {
   [OrderStatus.COMPLETED]: "Completed",
   [OrderStatus.CANCELLED]: "Cancelled",
 };
+
+export const ORDER_STATUS_TO_PRIMARY_ACTION = {
+  [OrderStatus.QUEUED]: "Process >>",
+  [OrderStatus.CONFIRMED]: "Prepare",
+  [OrderStatus.PREPARING]: "Complete",
+};

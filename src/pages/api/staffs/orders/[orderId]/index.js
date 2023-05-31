@@ -22,7 +22,6 @@ export default async function handler(req, res) {
     }
 
     const orderId = req.query.orderId;
-    console.log("orderId:", orderId);
     const docRef = doc(db, "orders", orderId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {

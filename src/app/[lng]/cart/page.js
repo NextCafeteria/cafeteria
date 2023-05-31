@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";
 const addressOptions = require("@/data/address_options.json");
 import XButton from "@/components/buttons/XButton";
+import CartItemCard from "@/components/cart/CartItemCard";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
@@ -97,48 +98,13 @@ export default function Cart({ params: { lng } }) {
           <>
             {itemsWithPrice &&
               itemsWithPrice.map((item, index) => {
-                const { name, price, quantity } = item;
                 return (
-                  <div
-                    className={
-                      "p-4 border-b-2 relative" +
-                      (index % 2 === 0 ? " bg-gray-100" : "")
-                    }
-                    key={index}
-                  >
-                    <div className="flex justify-between w-full pb-1 pt-2">
-                      <p className="text-sm font-bold">{t(name)}</p>
-                      <p className="text-sm font-bold">
-                        {quantity} x ${price}
-                      </p>
-                    </div>
-                    <img
-                      src={item.image}
-                      className="w-16 h-auto rounded-md mb-4"
-                    />
-                    {item.customizations.map(
-                      (customization, customizationIndex) => {
-                        return (
-                          <p key={customizationIndex} className="text-sm">
-                            {t(customization.name)}:{" "}
-                            {t(
-                              customization.options[
-                                item.selectedOptions[customizationIndex]
-                              ]?.name
-                            )}
-                          </p>
-                        );
-                      }
-                    )}
-                    <button
-                      className="absolute right-2 bottom-2 text-md text-gray-500 float-right"
-                      onClick={() => {
-                        handeDelete(index);
-                      }}
-                    >
-                      {t("Remove")}
-                    </button>
-                  </div>
+                  <CartItemCard
+                    lng={lng}
+                    item={item}
+                    index={index}
+                    handeDelete={handeDelete}
+                  />
                 );
               })}
             <>
