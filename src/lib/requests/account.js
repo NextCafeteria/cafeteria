@@ -4,8 +4,6 @@ export async function UpdateAccount(
   onSuccess = null,
   onError = null
 ) {
-  console.log("UpdateAccount avatarUrl: " + avatarUrl);
-
   const response = await fetch(`/api/account/`, {
     method: "PUT",
     headers: {
