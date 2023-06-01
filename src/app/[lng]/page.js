@@ -11,8 +11,6 @@ import LangSelector from "@/components/LangSelector";
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
-  const [cart, setCart] = useState([]);
-  const [cartTotalPrice, setCartTotalPrice] = useState(0.0);
 
   // Read cart from local storage
   useEffect(() => {
@@ -20,8 +18,6 @@ export default function Home({ params: { lng } }) {
     let cartTotalPrice = calculateTotalPriceWithTax(
       calculatePriceForList(items)
     );
-    setCart(items);
-    setCartTotalPrice(cartTotalPrice);
   }, []);
 
   const { t } = useTranslation(lng, "common");
