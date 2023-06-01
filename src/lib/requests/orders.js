@@ -3,6 +3,7 @@ import { OrderStatus } from "../order_status";
 export async function PlaceOrder(
   items,
   deliveryAddress,
+  storeId,
   onSuccess = null,
   onError = null
 ) {
@@ -14,6 +15,7 @@ export async function PlaceOrder(
     body: JSON.stringify({
       items: items,
       deliveryAddress: deliveryAddress,
+      storeId: storeId,
     }),
   });
 

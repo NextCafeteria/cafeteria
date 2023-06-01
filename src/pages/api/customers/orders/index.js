@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: true, data: data });
   } else if (req.method === "POST") {
     // Calculate total price
-    const { items, deliveryAddress } = req.body;
+    const { items, deliveryAddress, storeId } = req.body;
     // Check if items is empty
     if (items.length === 0) {
       return res.status(400).json({ error: "Items cannot be empty" });
@@ -58,6 +58,7 @@ export default async function handler(req, res) {
     const tax = calculateTax(price);
     const totalPrice = calculateTotalPriceWithTax(price, tax);
     const itemsWithPrice = getItemsWithPrice(items);
+    
 
     // Create a new order
     const docRef = await addDoc(collection(db, "orders"), {
@@ -69,6 +70,7 @@ export default async function handler(req, res) {
       timestamp: Date.now(),
       status: OrderStatus.QUEUED,
       deliveryAddress: deliveryAddress,
+      storeId: storeId
     });
     const data = { ...req.body, id: docRef.id };
 

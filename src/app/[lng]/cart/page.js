@@ -58,9 +58,11 @@ export default function Cart({ params: { lng } }) {
   function handlePlaceOrder() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
     localStorage.setItem("lastDeliveryAddress", deliveryAddress);
+    const storeId = "LQ9EqX948KkSHPZyNfw4"; // todo: fix hardcode
     PlaceOrder(
       cart,
       deliveryAddress,
+      storeId,
       (data) => {
         localStorage.setItem("cart", "[]");
         router.push(`/${lng}/orders`);
