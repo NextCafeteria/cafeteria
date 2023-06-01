@@ -78,7 +78,7 @@ async function GetStaffOrdersByStatus(
   onError = null,
   status = null
 ) {
-  const response = await fetch(`/api/staffs/orders/${status}`, {
+  const response = await fetch(`/api/staffs/orders?status_type=${status}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
