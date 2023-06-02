@@ -3,6 +3,7 @@ import { OrderStatus } from "../order_status";
 export async function PlaceOrder(
   items,
   deliveryAddress,
+  storeId,
   onSuccess = null,
   onError = null
 ) {
@@ -14,6 +15,7 @@ export async function PlaceOrder(
     body: JSON.stringify({
       items: items,
       deliveryAddress: deliveryAddress,
+      storeId: storeId,
     }),
   });
 
@@ -78,7 +80,7 @@ async function GetStaffOrdersByStatus(
   onError = null,
   status = null
 ) {
-  const response = await fetch(`/api/staffs/orders/${status}`, {
+  const response = await fetch(`/api/staffs/orders?status_type=${status}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -149,36 +151,30 @@ export async function CancelOrder(orderId, onSuccess = null, onError = null) {
 }
 
 export async function ConfirmOrder(orderId, onSuccess = null, onError = null) {
-  const response = await fetch(`/api/staffs/orders/${orderId}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      status: OrderStatus.CONFIRMED,
-    }),
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+  await UpdateStaffOrder(orderId, OrderStatus.CONFIRMED, onSuccess, onError);
 }
 
 export async function PrepareOrder(orderId, onSuccess = null, onError = null) {
+  await UpdateStaffOrder(orderId, OrderStatus.PREPARING, onSuccess, onError);
+}
+
+export async function CompleteOrder(orderId, onSuccess = null, onError = null) {
+  await UpdateStaffOrder(orderId, OrderStatus.COMPLETED, onSuccess, onError);
+}
+
+export async function UpdateStaffOrder(
+  orderId,
+  status,
+  onSuccess = null,
+  onError = null
+) {
   const response = await fetch(`/api/staffs/orders/${orderId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      status: OrderStatus.PREPARING,
+      status: status,
     }),
   });
 
@@ -194,14 +190,49 @@ export async function PrepareOrder(orderId, onSuccess = null, onError = null) {
   }
 }
 
-export async function CompleteOrder(orderId, onSuccess = null, onError = null) {
-  const response = await fetch(`/api/staffs/orders/${orderId}`, {
+export async function RateOrder(
+  orderId,
+  rating,
+  commentValue,
+  onSuccess = null,
+  onError = null
+) {
+  const response = await fetch(`/api/customers/orders/${orderId}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      status: OrderStatus.COMPLETED,
+      rating: rating,
+      comment_value: commentValue,
+    }),
+  });
+
+  const data = await response.json();
+  if (data?.success) {
+    if (onSuccess) {
+      onSuccess(data.data);
+    }
+  } else {
+    if (onError) {
+      onError(data);
+    }
+  }
+}
+
+export async function ResponseOrder(
+  orderId,
+  responseValue,
+  onSuccess = null,
+  onError = null
+) {
+  const response = await fetch(`/api/staffs/orders/${orderId}/response`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      response_value: responseValue,
     }),
   });
 

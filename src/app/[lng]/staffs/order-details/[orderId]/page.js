@@ -7,6 +7,7 @@ import {
   PrepareOrder,
   ConfirmOrder,
   CompleteOrder,
+  ResponseOrder,
 } from "@/lib/requests/orders";
 import {
   ORDER_STATUS_TO_BG_COLOR,
@@ -15,6 +16,8 @@ import {
 } from "@/lib/order_status";
 import { useSession } from "next-auth/react";
 import BackButton from "@/components/buttons/BackButton";
+import Rating from "@/components/Rating";
+import Comment from "@/components/Comment";
 
 export default function StaffOrder({ params: { lng, orderId } }) {
   const router = useRouter();
@@ -67,11 +70,25 @@ export default function StaffOrder({ params: { lng, orderId } }) {
     );
   }
 
-  useEffect(() => {
+  function handleSendResponse() {
+    const responseValue = document.getElementById("response").value;
+    ResponseOrder(
+      orderId,
+      responseValue,
+      (data) => {
+        fetchOrder();
+      },
+      (e) => {
+        console.log(e);
+        alert("Could not send response");
+      }
+    );
+  }
+
+  function fetchOrder() {
     GetStaffOrder(
       orderId,
       (data) => {
-        console.log("data", data);
         setOrderData(data);
       },
       (e) => {
@@ -80,6 +97,10 @@ export default function StaffOrder({ params: { lng, orderId } }) {
         router.push(`/${lng}/staffs/orders`);
       }
     );
+  }
+
+  useEffect(() => {
+    fetchOrder();
   }, []);
 
   const { t } = useTranslation(lng, "common");
@@ -91,6 +112,9 @@ export default function StaffOrder({ params: { lng, orderId } }) {
   const tax = orderData?.tax;
   const totalPrice = orderData?.totalPrice;
   const itemsWithPrice = orderData?.items;
+  const rating = orderData?.rating;
+  const customerComment = orderData?.customerComment;
+  const staffComment = orderData?.staffComment;
 
   return (
     <main className="flex justify-center p-2 pb-[100px]">
@@ -160,6 +184,35 @@ export default function StaffOrder({ params: { lng, orderId } }) {
           <p className="text-md">{t("Loading...")}</p>
         ) : (
           <p className="text-sm">{t("No data")}</p>
+        )}
+
+        {rating && (
+          <div className="flex flex-col items-begin justify-center w-full mt-4">
+            <p className="text-sm font-bold">{t("Rating")}</p>
+            <div className="my-2">
+              <Rating value={rating} />
+            </div>
+            {customerComment && <Comment comment={customerComment} />}
+            {staffComment ? (
+              <Comment comment={staffComment} />
+            ) : (
+              <div className="flex flex-col mt-4">
+                <span>{t("Write your response to this review")}</span>
+                <textarea
+                  className="border-2 border-gray-800 rounded-md w-full h-20 mt-2"
+                  id="response"
+                />
+                <button
+                  className="rounded-md w-[100px] h-10 mt-2 self-end text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={() => {
+                    handleSendResponse();
+                  }}
+                >
+                  {t("Send")}
+                </button>
+              </div>
+            )}
+          </div>
         )}
       </div>
 
