@@ -6,6 +6,18 @@ export const OrderStatus = {
   CANCELLED: "cancelled",
 };
 
+export const OrderStatusType = {
+  NEW: "new",
+  PROCESSING: "processing",
+  INACTIVE: "inactive",
+};
+
+export const ORDER_STATUS_TYPE_TO_ORDER_STATUS = {
+  [OrderStatusType.NEW]: [OrderStatus.QUEUED],
+  [OrderStatusType.PROCESSING]: [OrderStatus.CONFIRMED, OrderStatus.PREPARING],
+  [OrderStatusType.INACTIVE]: [OrderStatus.COMPLETED, OrderStatus.CANCELLED],
+};
+
 export const ORDER_STATUS_TO_BG_COLOR = {
   [OrderStatus.QUEUED]: "#ffdf63",
   [OrderStatus.CONFIRMED]: "#ffb363",
