@@ -10,6 +10,8 @@ import {
 } from "@/lib/order_status";
 import { useSession } from "next-auth/react";
 import BackButton from "@/components/buttons/BackButton";
+import Rating from "@/components/Rating";
+import Comment from "@/components/Comment";
 
 export default function Cart({ params: { lng, orderId } }) {
   const router = useRouter();
@@ -43,6 +45,9 @@ export default function Cart({ params: { lng, orderId } }) {
   const totalPrice = orderData?.totalPrice;
   const itemsWithPrice = orderData?.items;
   const deliveryAddress = orderData?.deliveryAddress;
+  const rating = orderData?.rating;
+  const customerComment = orderData?.customerComment;
+  const staffComment = orderData?.staffComment;
 
   function handleCancelOrder() {
     CancelOrder(
@@ -151,6 +156,30 @@ export default function Cart({ params: { lng, orderId } }) {
             <p className="text-sm">{t(deliveryAddress)}</p>
           </div>
         )}
+        {orderData?.status === OrderStatus.COMPLETED &&
+          (rating ? (
+            <div className="flex flex-col items-begin justify-center w-full mt-4 border-t-2 border-gray-800 py-4">
+              <p className="text-sm font-bold">{t("Rating")}</p>
+              <div className="my-2">
+                <Rating value={rating} />
+              </div>
+              {customerComment && <Comment comment={customerComment} />}
+              {staffComment && <Comment comment={staffComment} />}
+            </div>
+          ) : orderData === null ? (
+            <></>
+          ) : (
+            <div
+              className="flex flex-col items-end justify-center w-full mt-4 border-t-2 border-gray-800 py-4 clickable"
+              onClick={() => {
+                router.push(`/${lng}/order-details/${orderId}/rating`);
+              }}
+            >
+              <p className="text-sm font-bold text-blue-700">
+                {t("+ Add a rating")}
+              </p>
+            </div>
+          ))}
       </div>
 
       <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px]">

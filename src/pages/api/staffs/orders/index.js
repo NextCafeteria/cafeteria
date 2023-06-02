@@ -9,10 +9,12 @@ import {
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]";
-import { OrderStatusType, ORDER_STATUS_TYPE_TO_ORDER_STATUS } from "@/lib/order_status";
+import {
+  OrderStatusType,
+  ORDER_STATUS_TYPE_TO_ORDER_STATUS,
+} from "@/lib/order_status";
 
 export default async function handler(req, res) {
-
   // Check authentication
   const URL_PATH = "/api/staffs/orders";
   const session = await getServerSession(req, res, authOptions);
@@ -50,25 +52,31 @@ export default async function handler(req, res) {
   // }
 
   async function getOrdersByStatusType(req, res, statusType) {
+    const q =
+      statusType === OrderStatusType.NEW
+        ? query(
+            collection(db, "orders"),
+            where(
+              "status",
+              "in",
+              ORDER_STATUS_TYPE_TO_ORDER_STATUS[statusType]
+            ),
+            where("storeId", "==", currentUser?.storeId),
+            orderBy("timestamp", "desc"),
+            limit(100)
+          )
+        : query(
+            collection(db, "orders"),
+            where(
+              "status",
+              "in",
+              ORDER_STATUS_TYPE_TO_ORDER_STATUS[statusType]
+            ),
+            where("staffId", "==", currentUser?.id),
+            orderBy("timestamp", "desc"),
+            limit(100)
+          );
 
-    const q = (
-      statusType === OrderStatusType.NEW ? 
-      query(
-        collection(db, "orders"),
-        where("status", "in", ORDER_STATUS_TYPE_TO_ORDER_STATUS[statusType]),
-        where("storeId", "==", currentUser?.storeId),
-        orderBy("timestamp", "desc"),
-        limit(100)
-      ) :
-      query(
-        collection(db, "orders"),
-        where("status", "in", ORDER_STATUS_TYPE_TO_ORDER_STATUS[statusType]),
-        where("staffId", "==", currentUser?.id),
-        orderBy("timestamp", "desc"),
-        limit(100)
-      )
-    )
-    
     // Return empty array if no order found
     if ((await getDocs(q)).empty) {
       return res.status(200).json({ success: true, data: {} });

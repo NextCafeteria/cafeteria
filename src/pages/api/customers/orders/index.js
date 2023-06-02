@@ -58,7 +58,6 @@ export default async function handler(req, res) {
     const tax = calculateTax(price);
     const totalPrice = calculateTotalPriceWithTax(price, tax);
     const itemsWithPrice = getItemsWithPrice(items);
-    
 
     // Create a new order
     const docRef = await addDoc(collection(db, "orders"), {
@@ -70,7 +69,7 @@ export default async function handler(req, res) {
       timestamp: Date.now(),
       status: OrderStatus.QUEUED,
       deliveryAddress: deliveryAddress,
-      storeId: storeId
+      storeId: storeId,
     });
     const data = { ...req.body, id: docRef.id };
 
