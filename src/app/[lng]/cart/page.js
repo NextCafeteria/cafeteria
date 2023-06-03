@@ -23,6 +23,7 @@ export default function Cart({ params: { lng } }) {
   }
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemsWithPrice, setItemsWithPrice] = useState([]);
+  const [storeId, setStoreId] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState(() => {
     let address = localStorage.getItem("lastDeliveryAddress", null);
     if (address) {
@@ -58,7 +59,10 @@ export default function Cart({ params: { lng } }) {
   function handlePlaceOrder() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
     localStorage.setItem("lastDeliveryAddress", deliveryAddress);
-    const storeId = "LQ9EqX948KkSHPZyNfw4"; // todo: fix hardcode
+    if (!storeId) {
+      alert(t("Please select a store"));
+      return;
+    }
     PlaceOrder(
       cart,
       deliveryAddress,
@@ -132,6 +136,7 @@ export default function Cart({ params: { lng } }) {
               addressOptions={addressOptions}
               defaultAddress={deliveryAddress}
               setAddressCb={setDeliveryAddress}
+              setStoreIdCb={setStoreId}
             ></AddressPicker>
           </>
         )}
