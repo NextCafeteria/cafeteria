@@ -70,7 +70,7 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Order not found" });
       }
 
-      //create new comment
+      // Create new comment
       const commentData = {
         orderId: orderId,
         customerId: currentUser?.id,
@@ -83,11 +83,60 @@ export default async function handler(req, res) {
         commentData
       );
 
-      //update rating & comment of order
-      await updateDoc(docRef, {
-        rating: req.body.rating,
+      // Update rating & comment of order
+      let rateAndComment = {
         customerCommentId: docRefComment.id,
-      });
+      };
+      if (req.body.rating) {
+        let currentRating = parseInt(req.body.rating);
+        if (currentRating < 1 || currentRating > 5) {
+          return res.status(400).json({ error: "Invalid rating" });
+        }
+
+        // Get previous rating => prevent user rate more than 1 time
+        const orderData = docSnap.data();
+        if (orderData.rating) {
+          return res.status(400).json({ error: "You have rated this order" });
+        }
+        rateAndComment.rating = currentRating;
+
+        // Update rating of store
+        const storeId = orderData?.storeId;
+        if (storeId) {
+          const docRefStore = doc(db, "stores", storeId);
+          const docSnapStore = await getDoc(docRefStore);
+          let previousRating = docSnapStore.data()?.totalRatingStars || 0;
+          if (isNaN(previousRating)) previousRating = 0;
+          let previousRatingTimes =
+            docSnapStore.data()?.previousRatingTimes || 0;
+          if (isNaN(previousRatingTimes)) previousRatingTimes = 0;
+          if (docSnapStore.exists()) {
+            await updateDoc(docRefStore, {
+              totalRatingStars: previousRating + currentRating,
+              totalRatingTimes: previousRatingTimes + 1,
+            });
+          }
+        }
+
+        // Update rating of staff
+        const staffId = orderData?.staffId;
+        if (staffId) {
+          const docRefStaff = doc(db, "users", staffId);
+          const docSnapStaff = await getDoc(docRefStaff);
+          let previousRating = docSnapStaff.data()?.totalRatingStars || 0;
+          if (isNaN(previousRating)) previousRating = 0;
+          let previousRatingTimes =
+            docSnapStaff.data()?.previousRatingTimes || 0;
+          if (isNaN(previousRatingTimes)) previousRatingTimes = 0;
+          if (docSnapStaff.exists()) {
+            await updateDoc(docRefStaff, {
+              totalRatingStars: previousRating + currentRating,
+              totalRatingTimes: previousRatingTimes + 1,
+            });
+          }
+        }
+      }
+      await updateDoc(docRef, rateAndComment);
 
       const dataComment = { ...commentData, id: docRefComment.id };
       const data = { ...req.body, id: docRef.id, commentCustomer: dataComment };
