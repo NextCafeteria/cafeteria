@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useTranslation } from "../../../../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 import { GetStaffInactiveOrders } from "@/lib/requests/orders";
 import XButton from "@/components/buttons/XButton";
 import OrderCardStaff from "@/components/orders/OrderCardStaff";

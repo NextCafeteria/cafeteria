@@ -16,6 +16,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "accept-language": "^3.0.18",
+    "encoding": "^0.1.13",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "i18next": "22.4.15",

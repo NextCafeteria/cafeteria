@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTranslation } from "../../../../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import {
   GetStaffOrder,

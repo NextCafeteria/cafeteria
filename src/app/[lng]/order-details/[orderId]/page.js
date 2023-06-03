@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTranslation } from "../../../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import { GetOrder, CancelOrder } from "@/lib/requests/orders";
 import {
@@ -13,7 +13,7 @@ import BackButton from "@/components/buttons/BackButton";
 import Rating from "@/components/Rating";
 import Comment from "@/components/Comment";
 
-export default function Cart({ params: { lng, orderId } }) {
+export default function ({ params: { lng, orderId } }) {
   const router = useRouter();
   const session = useSession();
   if (session && session.status === "unauthenticated") {

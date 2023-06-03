@@ -1,10 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTranslation } from "../../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 import { GetStores } from "@/lib/requests/stores";
 import StoreCard from "@/components/stores/StoreCard";
@@ -13,6 +12,7 @@ export default function StoreManagement({ params: { lng } }) {
   const router = useRouter();
   const session = useSession();
   if (session && session.status === "unauthenticated") {
+    console.log("Not logged in.");
     router.push(`/${lng}/login`);
   }
 
@@ -25,6 +25,7 @@ export default function StoreManagement({ params: { lng } }) {
       },
       (e) => {
         console.log(e);
+        alert("Could not get the stores.");
       }
     );
   }, []);
@@ -37,13 +38,20 @@ export default function StoreManagement({ params: { lng } }) {
           {t("Stores")}
         </div>
         {stores && stores.length > 0 ? (
-          stores.map((params) => (
-            params.lng = lng,
-            <StoreCard {...params}/>
-          ))
+          stores.map(
+            (params, key) => (
+              (params.lng = lng), (<StoreCard key={key} {...params} />)
+            )
+          )
         ) : stores === null ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
-            <StoreCard order={null} orderId={i} lng={lng} isLoading={true} />
+            <StoreCard
+              key={i}
+              order={null}
+              orderId={i}
+              lng={lng}
+              isLoading={true}
+            />
           ))
         ) : (
           <p className="text-sm">

@@ -5,7 +5,7 @@ import {
   calculatePriceForList,
   calculateTotalPriceWithTax,
 } from "../../lib/price";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 const itemsOptions = require("@/data/food_options.json");
 import LangSelector from "@/components/LangSelector";
 
