@@ -108,7 +108,7 @@ export default async function handler(req, res) {
           let previousRating = docSnapStore.data()?.totalRatingStars || 0;
           if (isNaN(previousRating)) previousRating = 0;
           let previousRatingTimes =
-            docSnapStore.data()?.previousRatingTimes || 0;
+            docSnapStore.data()?.totalRatingTimes || 0;
           if (isNaN(previousRatingTimes)) previousRatingTimes = 0;
           if (docSnapStore.exists()) {
             await updateDoc(docRefStore, {
@@ -126,7 +126,7 @@ export default async function handler(req, res) {
           let previousRating = docSnapStaff.data()?.totalRatingStars || 0;
           if (isNaN(previousRating)) previousRating = 0;
           let previousRatingTimes =
-            docSnapStaff.data()?.previousRatingTimes || 0;
+            docSnapStaff.data()?.totalRatingTimes || 0;
           if (isNaN(previousRatingTimes)) previousRatingTimes = 0;
           if (docSnapStaff.exists()) {
             await updateDoc(docRefStaff, {
