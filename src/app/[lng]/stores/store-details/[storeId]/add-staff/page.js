@@ -43,10 +43,10 @@ export default function NewStores({ params: { lng, storeId } }) {
             <BackButton href={`/${lng}/stores`} />
             {t("Store")}: {storeData?.name}
           </div>
-          <div className="flex flex-col items-left w-full ml-[50px] text-sm mb-2">
-            {storeData?.address} {storeData?.phone && " - "} {storeData?.phone}
+          <div className="flex flex-col items-left w-full pl-[50px] text-sm">
+            {storeData?.address} - {storeData?.phone}
           </div>
-          <div className="flex flex-row items-left w-full ml-[50px] text-sm">
+          <div className="flex flex-row items-left w-full pl-[50px] text-sm">
             <Rating value={storeData?.rating} /> {"  "} {storeData?.rating}/5{" "}
             {t("stars")} - {storeData?.totalRatingTimes || 0} {t("reviews")}
           </div>
