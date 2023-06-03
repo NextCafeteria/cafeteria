@@ -18,8 +18,8 @@ export default async function handler(req, res) {
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
   }
-  if (!currentUser?.isStaff) {
-    return res.status(401).json({ error: "Staff is required" });
+  if (!currentUser?.isAdmin) {
+    return res.status(401).json({ error: "Admin is required" });
   }
   if (req.method === "GET") {
     const storeId = req.query.storeId;

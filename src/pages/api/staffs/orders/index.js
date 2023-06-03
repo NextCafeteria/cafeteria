@@ -22,34 +22,14 @@ export default async function handler(req, res) {
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
   }
-  if (!currentUser?.isStaff) {
-    return res.status(401).json({ error: "Staff is required" });
+  if (!currentUser?.isStaff && !currentUser?.isAdmin) {
+    return res.status(401).json({ error: "Staff or Admin is required" });
   }
   if (req.method === "GET") {
     const statusType = req.query.status_type;
     if (statusType) return await getOrdersByStatusType(req, res, statusType);
     // return await getAllOrders(req, res);
   }
-
-  // async function getAllOrders(req, res) {
-  //   const q = query(
-  //     collection(db, "orders"),
-  //     orderBy("timestamp", "desc"),
-  //     limit(100)
-  //   );
-
-  //   // Return empty array if no order found
-  //   if ((await getDocs(q)).empty) {
-  //     return res.status(200).json({ success: true, data: {} });
-  //   }
-
-  //   // Return order data
-  //   const docs = (await getDocs(q)).docs;
-  //   const data = docs.map((doc) => {
-  //     return { ...doc.data(), id: doc.id };
-  //   });
-  //   return res.status(200).json({ success: true, data: data });
-  // }
 
   async function getOrdersByStatusType(req, res, statusType) {
     const q =

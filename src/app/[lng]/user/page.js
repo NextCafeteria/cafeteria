@@ -185,16 +185,16 @@ export default function Page({ params: { lng } }) {
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link href={`/${lng}/cart`}>{t("Cart")}</Link>
       </div>
-      {session?.data?.user?.isStaff && (
+      {(session?.data?.user?.isStaff || session?.data?.user?.isAdmin) && (
         <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <Link href={`/${lng}/staffs/orders`}>
+          <a href={`/${lng}/staffs/orders`}>
             {t("Manage orders (Staff Only)")}
-          </Link>
+          </a>
         </div>
       )}
       {session?.data?.user?.isAdmin && (
         <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <Link href={`/${lng}/stores`}>{t("Manage stores (Admin Only)")}</Link>
+          <a href={`/${lng}/stores`}>{t("Manage stores (Admin Only)")}</a>
         </div>
       )}
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
