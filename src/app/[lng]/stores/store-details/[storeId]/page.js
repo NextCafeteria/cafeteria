@@ -4,7 +4,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import { GetStore } from "@/lib/requests/stores";
 import { useSession } from "next-auth/react";
-import Rating from "@/components/Rating";
+import Rating from "@/components/RatingWithNumbers";
 import BackButton from "@/components/buttons/BackButton";
 import StaffCard from "@/components/stores/StaffCard";
 
@@ -48,12 +48,15 @@ export default function ({ params: { lng, storeId } }) {
             <BackButton href={`/${lng}/stores`} />
             {t("Store")}: {storeData?.name}
           </div>
-          <div className="flex flex-col items-left w-full ml-[50px] text-sm mb-2">
+          <div className="flex flex-col items-left pl-[50px] w-full text-sm mb-2">
             {storeData?.address} {storeData?.phone && " - "} {storeData?.phone}
           </div>
-          <div className="flex flex-row items-left w-full ml-[50px] text-sm">
-            <Rating value={storeData?.rating} /> {"  "} {storeData?.rating}/5{" "}
-            {t("stars")} - {storeData?.totalRatingTimes || 0} {t("reviews")}
+          <div className="flex flex-row items-left pl-[50px] w-full text-sm">
+            <Rating
+              lng={lng}
+              totalRatingStars={storeData?.totalRatingStars}
+              totalRatingTimes={storeData?.totalRatingTimes}
+            />
           </div>
         </div>
         <div className="text-xl font-bold mt-4 mb-4">{t("Staffs")}</div>

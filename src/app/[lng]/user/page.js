@@ -11,6 +11,7 @@ import Link from "next/link";
 import LangSelector from "@/components/LangSelector";
 import { UpdateAccount } from "@/lib/requests/account";
 import ImageUploader from "@/components/ImageUploader";
+import Rating from "@/components/RatingWithNumbers";
 
 export default function Page({ params: { lng } }) {
   const router = useRouter();
@@ -160,11 +161,18 @@ export default function Page({ params: { lng } }) {
                 t("Loading...")
               )}
             </div>
-            <div className="text-left text-gray-800">
+            <div className="text-left text-gray-800 mb-2">
               {session?.status === "authenticated"
                 ? session.data.user.email
                 : "user@example.com"}
             </div>
+            {session?.data?.user?.isStaff && (
+              <Rating
+                lng={lng}
+                totalRatingStars={session?.data?.user?.totalRatingStars}
+                totalRatingTimes={session?.data?.user?.totalRatingTimes}
+              />
+            )}
           </div>
         </div>
       </div>
