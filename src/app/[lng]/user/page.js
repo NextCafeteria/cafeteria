@@ -166,11 +166,13 @@ export default function Page({ params: { lng } }) {
                 ? session.data.user.email
                 : "user@example.com"}
             </div>
-            <Rating
-              lng={lng}
-              totalRatingStars={session?.data?.user?.totalRatingStars}
-              totalRatingTimes={session?.data?.user?.totalRatingTimes}
-            />
+            {session?.data?.user?.isStaff && (
+              <Rating
+                lng={lng}
+                totalRatingStars={session?.data?.user?.totalRatingStars}
+                totalRatingTimes={session?.data?.user?.totalRatingTimes}
+              />
+            )}
           </div>
         </div>
       </div>
