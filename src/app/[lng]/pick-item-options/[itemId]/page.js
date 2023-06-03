@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 const itemsOptions = require("@/data/food_options.json");
-import { useTranslation } from "../../../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 import { useSession } from "next-auth/react";
 import XButton from "@/components/buttons/XButton";
 

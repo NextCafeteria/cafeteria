@@ -7,7 +7,7 @@ import {
   calculateTax,
   calculateTotalPriceWithTax,
 } from "@/lib/price";
-import { useTranslation } from "../../i18n/client";
+import { useTranslation } from "@/app/i18n/client";
 import { PlaceOrder } from "@/lib/requests/orders";
 import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";

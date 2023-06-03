@@ -11,20 +11,17 @@ const nextConfig = {
         source: "/(.*)",
         headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "Permissions-Policy",
+            value:
+              "camera=(); battery=(self); geolocation=(); microphone=('https://cafe.vietanh.dev')",
           },
           {
-            key: 'Permissions-Policy',
-            value: "camera=(); battery=(self); geolocation=(); microphone=('https://cafe.vietanh.dev')",
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin",
           },
         ],
       },

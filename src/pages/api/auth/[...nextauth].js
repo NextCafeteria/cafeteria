@@ -32,6 +32,7 @@ export const authOptions = {
       session.user.id = user.id; // Add id value to user object so it is passed along with session
       session.user.role = user.role; // Add role value to user object so it is passed along with session
       session.user.isStaff = user.isStaff; // Add isStaff value to user object so it is passed along with session
+      session.user.isAdmin = user.isAdmin; // Add isAdmin value to user object so it is passed along with session
       session.user.storeId = user.storeId; // Add isStaff value to user object so it is passed along with session
       return Promise.resolve(session);
     },
