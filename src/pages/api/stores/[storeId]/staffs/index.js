@@ -63,9 +63,10 @@ export default async function handler(req, res) {
     staffIds.push(userId);
     await updateDoc(storeRef, { staffIds: staffIds });
 
-    // Add storeId to user's data
+    // Add storeId and isStaff to user's data
     await updateDoc(doc(db, "users", userId), {
       storeId: storeId,
+      isStaff: true,
     });
 
     return res.status(200).json({ success: true });
@@ -93,6 +94,12 @@ export default async function handler(req, res) {
     }
     await updateDoc(storeRef, {
       staffIds: staffIds.filter((id) => id !== userId),
+    });
+
+    // Remove storeId from user's data
+    await updateDoc(doc(db, "users", userId), {
+      storeId: null,
+      isStaff: false,
     });
 
     return res.status(200).json({ success: true });

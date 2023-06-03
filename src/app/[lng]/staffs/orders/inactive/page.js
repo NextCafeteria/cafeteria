@@ -2,12 +2,25 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
+import { useSession } from "next-auth/react";
+
 import { GetStaffInactiveOrders } from "@/lib/requests/orders";
 import XButton from "@/components/buttons/XButton";
 import OrderCardStaff from "@/components/orders/OrderCardStaff";
 
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
+  const session = useSession();
+  if (session && session.status === "unauthenticated") {
+    router.push(`/${lng}/login`);
+  }
+  if (
+    session?.data?.user &&
+    !session?.data?.user?.isStaff &&
+    !session?.data?.user?.isAdmin
+  ) {
+    router.push(`/${lng}`);
+  }
   const [orderItems, setOrderItems] = useState(null);
 
   useEffect(() => {

@@ -152,7 +152,8 @@ function FooterStaff({ lng }) {
   if (
     session &&
     session.status === "authenticated" &&
-    (!session?.data?.user?.isStaff || !session?.data?.user?.isAdmin)
+    !session?.data?.user?.isStaff &&
+    !session?.data?.user?.isAdmin
   ) {
     router.push(`/${lng}/login`);
   }

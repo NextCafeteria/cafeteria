@@ -26,7 +26,8 @@ export default function StaffOrder({ params: { lng, orderId } }) {
     router.push(`/${lng}/login`);
   }
   const isStaff = session?.data?.user?.isStaff;
-  if (session?.data?.user && !isStaff) {
+  const isAdmin = session?.data?.user?.isAdmin;
+  if (session?.data?.user && !isStaff && !isAdmin) {
     router.push(`/${lng}`);
   }
   const [orderData, setOrderData] = useState(null);
