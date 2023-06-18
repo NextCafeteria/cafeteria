@@ -182,7 +182,7 @@ export default function ({ params: { lng, orderId } }) {
           ))}
       </div>
 
-      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px]">
+      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
         {orderData?.status === OrderStatus.QUEUED && (
           <div
             className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md"
