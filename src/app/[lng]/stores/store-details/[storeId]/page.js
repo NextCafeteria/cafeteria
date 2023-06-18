@@ -75,7 +75,7 @@ export default function ({ params: { lng, storeId } }) {
           </p>
         )}
       </div>
-      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[100px]">
+      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
         <div
           className="h-[50px] bstore-t-[1px] md:bstore-[1px] bstore-gray-600 p-2 bg-[#A3DE69] text-black md:rounded-md"
           onClick={() => {

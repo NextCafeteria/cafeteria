@@ -2,30 +2,32 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { useTranslation } from "../app/i18n/client";
-export default function Footer({ lng }) {
+export default function MainMenu({ lng }) {
   const currentPath = usePathname();
   return (
     <>
       {currentPath.includes("/staff") || currentPath.includes("/stores") ? (
-        <FooterStaff lng={lng} />
+        <MainMenuStaff lng={lng} />
       ) : (
-        <FooterUser lng={lng} />
+        <MainMenuUser lng={lng} />
       )}
     </>
   );
 }
 
-function FooterUser({ lng }) {
+function MainMenuUser({ lng }) {
   const currentPath = usePathname();
   const router = useRouter();
   const { t } = useTranslation(lng, "common");
-  const activeTabColor = "#0032bf";
+  const activeTabColor = "#111111";
 
   return (
     <>
-      <div className="flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] border-gray-600 p-2 bg-[#ffcf4c]">
+      <div className="flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] border-gray-600 p-2 bg-[#ffbd2e]">
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}`);
           }}
@@ -52,7 +54,9 @@ function FooterUser({ lng }) {
           </span>
         </div>
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath === `/${lng}/orders` ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}/orders`);
           }}
@@ -82,7 +86,9 @@ function FooterUser({ lng }) {
           </span>
         </div>
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath === `/${lng}/cart` ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}/cart`);
           }}
@@ -110,7 +116,9 @@ function FooterUser({ lng }) {
           </span>
         </div>
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}/user`);
           }}
@@ -143,11 +151,11 @@ function FooterUser({ lng }) {
   );
 }
 
-function FooterStaff({ lng }) {
+function MainMenuStaff({ lng }) {
   const currentPath = usePathname();
   const router = useRouter();
   const { t } = useTranslation(lng, "common");
-  const activeTabColor = "#0016DF";
+  const activeTabColor = "#111111";
 
   const session = useSession();
   if (session && session.status === "unauthenticated") {
@@ -164,9 +172,11 @@ function FooterStaff({ lng }) {
 
   return (
     <>
-      <div className="flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] border-gray-600 p-2 bg-[#ffcf4c]">
+      <div className="flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] border-gray-600 p-2 bg-[#ffbd2e]">
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}`);
           }}
@@ -194,7 +204,9 @@ function FooterStaff({ lng }) {
         </div>
         {session?.data?.user?.isAdmin && (
           <div
-            className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath.startsWith(`/${lng}/stores`) ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
             onClick={() => {
               router.push(`/${lng}/stores`);
             }}
@@ -229,7 +241,9 @@ function FooterStaff({ lng }) {
           </div>
         )}
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath.startsWith(`/${lng}/staffs/orders`) ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}/staffs/orders`);
           }}
@@ -262,7 +276,9 @@ function FooterStaff({ lng }) {
           </span>
         </div>
         <div
-          className="flex flex-col items-center p-2 clickable"
+          className={"flex flex-col items-center p-2 clickable" + (
+            currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : ""
+          )}
           onClick={() => {
             router.push(`/${lng}/user`);
           }}
