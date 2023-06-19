@@ -53,17 +53,23 @@ export function calculateTotalPriceWithTax(totalPrice) {
 }
 
 export function getItemsWithPrice(items) {
-  return items ? items.map((item) => {
-    const itemOptions = getItemOptionsById(item.id);
-    const price = calculatePrice(item.id, item.selectedOptions, item.quantity);
-    return {
-      ...item,
-      price: price,
-      name: itemOptions.name,
-      description: itemOptions.description,
-      image: itemOptions.image,
-      customizations: itemOptions.customizations,
-      selectedOptions: item.selectedOptions,
-    };
-  }) : [];
+  return items
+    ? items.map((item) => {
+        const itemOptions = getItemOptionsById(item.id);
+        const price = calculatePrice(
+          item.id,
+          item.selectedOptions,
+          item.quantity
+        );
+        return {
+          ...item,
+          price: price,
+          name: itemOptions.name,
+          description: itemOptions.description,
+          image: itemOptions.image,
+          customizations: itemOptions.customizations,
+          selectedOptions: item.selectedOptions,
+        };
+      })
+    : [];
 }
