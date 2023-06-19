@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   doc,
   getDoc,
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     const storeId = req.query.storeId;
-    const docRef = doc(db, "stores", storeId);
+    const docRef = doc(dbService.getDB(), "stores", storeId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return res.status(404).json({ error: "store not found" });
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     if (data?.staffIds?.length > 0) {
       const staffIds = data.staffIds;
       const staffQuery = query(
-        collection(db, "users"),
+        collection(dbService.getDB(), "users"),
         where(documentId(), "in", staffIds)
       );
       const staffs = (await getDocs(staffQuery)).docs.map((doc) => {

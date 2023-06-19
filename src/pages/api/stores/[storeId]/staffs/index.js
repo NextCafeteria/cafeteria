@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   doc,
   getDoc,
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Role is invalid" });
     }
 
-    const storeRef = doc(db, "stores", storeId);
+    const storeRef = doc(dbService.getDB(), "stores", storeId);
     const storeSnap = await getDoc(storeRef);
     if (!storeSnap.exists()) {
       return res.status(404).json({ error: "Store not found" });
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
     // Query user with email to get userId
     const userQuery = query(
-      collection(db, "users"),
+      collection(dbService.getDB(), "users"),
       where("email", "==", email)
     );
     const userQuerySnapshot = await getDocs(userQuery);
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
     await updateDoc(storeRef, { staffIds: staffIds });
 
     // Add storeId and isStaff to user's data
-    await updateDoc(doc(db, "users", userId), {
+    await updateDoc(doc(dbService.getDB(), "users", userId), {
       storeId: storeId,
       isStaff: true,
     });
@@ -97,7 +97,7 @@ export default async function handler(req, res) {
     });
 
     // Remove storeId from user's data
-    await updateDoc(doc(db, "users", userId), {
+    await updateDoc(doc(dbService.getDB(), "users", userId), {
       storeId: null,
       isStaff: false,
     });
