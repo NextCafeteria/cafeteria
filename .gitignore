@@ -139,3 +139,5 @@ public/sw.js.map
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+playwright/.auth
