@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('test', async ({ page }) => {
   await page.goto('https://cafe.vietanh.dev/en');
   await page.getByText('User').click();
   
-  await page.waitForTimeout(30000);
+  await page.waitForTimeout(1000);
 
 });

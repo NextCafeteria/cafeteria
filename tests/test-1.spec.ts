@@ -1,6 +1,4 @@
-import { test, expect } from '@playwright/test';
-
-
+import { expect, test } from '@playwright/test';
 
 test('test', async ({ page }) => {
   await page.goto('https://cafe.vietanh.dev/en');
@@ -10,7 +8,7 @@ test('test', async ({ page }) => {
 
   await page.getByText('Cart').click();
 
-  expect(page).to
+  
 
   
   
