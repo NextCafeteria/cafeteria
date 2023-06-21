@@ -32,13 +32,13 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { 
-        ...devices['Desktop Chrome'] ,
-        storageState: 'playwright/.auth/user.json',
-      },
-    },
+    // {
+    //   name: 'chromium',
+    //   use: { 
+    //     ...devices['Desktop Chrome'] ,
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    // },
 
     // {
     //   name: 'Google Chrome',
