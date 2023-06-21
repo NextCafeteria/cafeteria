@@ -31,7 +31,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/pages/page.js",
-    "src/pages/pick-item-options/page.js"
-, "tests/.spec.ts"  ],
+    "src/pages/pick-item-options/page.js",
+    "tests/.spec.ts"
+  ],
   "exclude": ["node_modules"]
 }

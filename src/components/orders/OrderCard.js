@@ -24,7 +24,10 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
   // const totalNumberOfItems = countTotalItems(itemsWithPrice);
 
   return (
-    <Link href={isLoading ? "" : `/${lng}/order-details/${order.id}`}>
+    <Link
+      href={isLoading ? "" : `/${lng}/order-details/${order.id}`}
+      data-testid="customer-order-item"
+    >
       <div
         key={orderId}
         className={
@@ -65,7 +68,10 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
               Object.keys(itemNamesWithCount).map((itemName) => {
                 const count = itemNamesWithCount[itemName];
                 return (
-                  <span className="bg-blue-100 mr-1 p-1 rounded-md">
+                  <span
+                    className="bg-blue-100 mr-1 p-1 rounded-md"
+                    data-testid="order-item"
+                  >
                     {count} x {t(itemName)}
                   </span>
                 );
