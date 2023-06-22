@@ -10,6 +10,7 @@ export default function CartItemCard({ lng, item, index, handeDelete }) {
         "p-4 border-b-2 relative" + (index % 2 === 0 ? " bg-gray-100" : "")
       }
       key={index}
+      data-testid="cart-item"
     >
       <div className="flex justify-between w-full pb-1 pt-2">
         <p className="text-sm font-bold">{t(name)}</p>
