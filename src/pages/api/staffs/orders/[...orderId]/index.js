@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import { doc, getDoc, updateDoc, addDoc, collection } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../auth/[...nextauth]";
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: "Invalid status" });
       }
 
-      const docRef = doc(db, "orders", orderId);
+      const docRef = doc(dbService.getDB(), "orders", orderId);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
         return res.status(404).json({ error: `Order not found ${orderId}` });
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
     } else if (req.query.orderId.length === 2) {
       const [orderId, path] = req.query.orderId;
       if (path == "response") {
-        const docRef = doc(db, "orders", orderId);
+        const docRef = doc(dbService.getDB(), "orders", orderId);
         const docSnap = await getDoc(docRef);
         if (!docSnap.exists()) {
           return res.status(404).json({ error: "Order not found" });
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
         };
 
         const docRefComment = await addDoc(
-          collection(db, "comments"),
+          collection(dbService.getDB(), "comments"),
           commentData
         );
 
@@ -92,7 +92,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     const orderId = req.query.orderId[0];
-    const docRef = doc(db, "orders", orderId);
+    const docRef = doc(dbService.getDB(), "orders", orderId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return res.status(404).json({ error: "Order not found" });
@@ -101,7 +101,11 @@ export default async function handler(req, res) {
     const data = docSnap.data();
 
     if (data.customerCommentId) {
-      const commentRef = doc(db, "comments", data.customerCommentId);
+      const commentRef = doc(
+        dbService.getDB(),
+        "comments",
+        data.customerCommentId
+      );
       const commentSnap = await getDoc(commentRef);
       if (commentSnap.exists()) {
         data.customerComment = commentSnap.data();
@@ -109,7 +113,11 @@ export default async function handler(req, res) {
     }
 
     if (data.staffCommentId) {
-      const commentRef = doc(db, "comments", data.staffCommentId);
+      const commentRef = doc(
+        dbService.getDB(),
+        "comments",
+        data.staffCommentId
+      );
       const commentSnap = await getDoc(commentRef);
       if (commentSnap.exists()) {
         data.staffComment = commentSnap.data();

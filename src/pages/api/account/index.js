@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     // Update user account info including username
 
-    const docRef = doc(db, "users", currentUser.id);
+    const docRef = doc(dbService.getDB(), "users", currentUser.id);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {

@@ -57,8 +57,8 @@ npm run start
 - Add all environment variables to the project (see [.env.sample](.env.sample)).
 - Deploy the app.
 
-
 ## 4. Generate Google OAuth 2.0 credentials
+
 To generate Google OAuth 2.0 credentials for use with Next.js and React, you can follow these steps:
 
 1. Go to the Google Cloud Platform Console: <https://console.cloud.google.com/>

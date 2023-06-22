@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import { doc, getDoc, updateDoc, collection, addDoc } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../auth/[...nextauth]";
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     const orderId = req.query.orderId[0];
-    const docRef = doc(db, "orders", orderId);
+    const docRef = doc(dbService.getDB(), "orders", orderId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return res.status(404).json({ error: "Order not found" });
@@ -26,14 +26,22 @@ export default async function handler(req, res) {
 
     //query comments of order
     if (data.customerCommentId) {
-      const docRefCustomerComment = doc(db, "comments", data.customerCommentId);
+      const docRefCustomerComment = doc(
+        dbService.getDB(),
+        "comments",
+        data.customerCommentId
+      );
       const docSnapCustomerComment = await getDoc(docRefCustomerComment);
       const commentCustomerData = docSnapCustomerComment.data();
       data = { ...data, customerComment: commentCustomerData };
     }
 
     if (data.staffCommentId) {
-      const docRefStaffComment = doc(db, "comments", data.staffCommentId);
+      const docRefStaffComment = doc(
+        dbService.getDB(),
+        "comments",
+        data.staffCommentId
+      );
       const docSnapStaffComment = await getDoc(docRefStaffComment);
       const commentStaffData = docSnapStaffComment.data();
       data = { ...data, staffComment: commentStaffData };
@@ -45,7 +53,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const [orderId, path] = req.query.orderId;
     if (path == "cancel") {
-      const docRef = doc(db, "orders", orderId);
+      const docRef = doc(dbService.getDB(), "orders", orderId);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
         return res.status(404).json({ error: "Order not found" });
@@ -61,7 +69,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true });
     }
     if (path == "comment") {
-      const docRef = doc(db, "orders", orderId);
+      const docRef = doc(dbService.getDB(), "orders", orderId);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
         return res.status(404).json({ error: "Order not found" });
@@ -79,7 +87,7 @@ export default async function handler(req, res) {
       };
 
       const docRefComment = await addDoc(
-        collection(db, "comments"),
+        collection(dbService.getDB(), "comments"),
         commentData
       );
 
@@ -103,7 +111,7 @@ export default async function handler(req, res) {
         // Update rating of store
         const storeId = orderData?.storeId;
         if (storeId) {
-          const docRefStore = doc(db, "stores", storeId);
+          const docRefStore = doc(dbService.getDB(), "stores", storeId);
           const docSnapStore = await getDoc(docRefStore);
           let previousRating = docSnapStore.data()?.totalRatingStars || 0;
           if (isNaN(previousRating)) previousRating = 0;
@@ -120,7 +128,7 @@ export default async function handler(req, res) {
         // Update rating of staff
         const staffId = orderData?.staffId;
         if (staffId) {
-          const docRefStaff = doc(db, "users", staffId);
+          const docRefStaff = doc(dbService.getDB(), "users", staffId);
           const docSnapStaff = await getDoc(docRefStaff);
           let previousRating = docSnapStaff.data()?.totalRatingStars || 0;
           if (isNaN(previousRating)) previousRating = 0;

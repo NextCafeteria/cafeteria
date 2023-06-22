@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   getDocs,
   collection,
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     const q =
       statusType === OrderStatusType.NEW
         ? query(
-            collection(db, "orders"),
+            collection(dbService.getDB(), "orders"),
             where(
               "status",
               "in",
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
             limit(100)
           )
         : query(
-            collection(db, "orders"),
+            collection(dbService.getDB(), "orders"),
             where(
               "status",
               "in",

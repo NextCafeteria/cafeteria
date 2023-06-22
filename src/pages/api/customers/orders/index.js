@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   doc,
   updateDoc,
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     // Query progress by userId and sort by timestamp
     const q = query(
-      collection(db, "orders"),
+      collection(dbService.getDB(), "orders"),
       where("userId", "==", currentUser.id),
       orderBy("timestamp", "desc"),
       limit(20)
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
     const itemsWithPrice = getItemsWithPrice(items);
 
     // Create a new order
-    const docRef = await addDoc(collection(db, "orders"), {
+    const docRef = await addDoc(collection(dbService.getDB(), "orders"), {
       userId: currentUser.id,
       items: itemsWithPrice,
       price: price,
@@ -74,7 +74,7 @@ export default async function handler(req, res) {
     const data = { ...req.body, id: docRef.id };
 
     // Save last delivery address
-    const userDocRef = doc(db, "users", currentUser.id);
+    const userDocRef = doc(dbService.getDB(), "users", currentUser.id);
     await updateDoc(userDocRef, {
       lastDeliveryAddress: deliveryAddress,
     });

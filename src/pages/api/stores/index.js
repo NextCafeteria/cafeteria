@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import { getDocs, collection, query, addDoc, where } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     // Query progress and sort by timestamp
-    const q = query(collection(db, "stores"));
+    const q = query(collection(dbService.getDB(), "stores"));
 
     // Return empty array if no store found
     if ((await getDocs(q)).empty) {
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         if (!store.staffIds) return store;
         if (store.staffIds.length === 0) return store;
         const q2 = query(
-          collection(db, "users"),
+          collection(dbService.getDB(), "users"),
           where("id", "in", store.staffIds)
         );
         const staffs = (await getDocs(q2)).docs.map((doc) => {
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
     }
 
     // Create a new store
-    const docRef = await addDoc(collection(db, "stores"), {
+    const docRef = await addDoc(collection(dbService.getDB(), "stores"), {
       name: name,
       address: address,
       phone: phone,
