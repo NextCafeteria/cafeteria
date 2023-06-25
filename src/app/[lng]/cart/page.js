@@ -8,22 +8,24 @@ import {
   calculateTotalPriceWithTax,
 } from "@/lib/price";
 import { useTranslation } from "@/app/i18n/client";
-import { PlaceOrder } from "@/lib/requests/orders";
+import { PlaceOrder, GetOrder } from "@/lib/requests/orders";
 import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";
 const addressOptions = require("@/data/address_options.json");
 import XButton from "@/components/buttons/XButton";
 import CartItemCard from "@/components/cart/CartItemCard";
-
+import Payment from "@/components/cart/Payment";
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
   const session = useSession();
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
+  const [hidePayment, setHidePayment] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemsWithPrice, setItemsWithPrice] = useState([]);
   const [storeId, setStoreId] = useState(null);
+  const [orderPlaced, setOrderPlaced] = useState({});
   const [deliveryAddress, setDeliveryAddress] = useState(() => {
     let address = localStorage.getItem("lastDeliveryAddress", null);
     if (address) {
@@ -34,7 +36,7 @@ export default function Cart({ params: { lng } }) {
     } else {
       address = addressOptions[0];
     }
-    localStorage.setItem("lastDeliveryAddress", address);
+      localStorage.setItem("lastDeliveryAddress", address);
     return address;
   });
 
@@ -51,6 +53,29 @@ export default function Cart({ params: { lng } }) {
     updateTotalPrice();
   }
 
+  async function handlePay(){
+    let err = null;
+    await GetOrder(
+      orderPlaced.id,
+      (data) => {
+        console.log("onSuccess")
+        if(data?.paid){ 
+          setHidePayment(true);
+          localStorage.setItem("cart", "[]");
+          router.push(`/${lng}/orders`);
+        }
+        else{
+          console.log("errr")
+          err = true;
+        }
+      },
+      (e) => {
+        console.log(e);
+        alert("Could not get orders");
+      }
+    );
+    return {err: err}
+  }
   useEffect(() => {
     getItemsWithPriceFromLocalStorage();
   }, []);
@@ -68,8 +93,11 @@ export default function Cart({ params: { lng } }) {
       deliveryAddress,
       storeId,
       (data) => {
-        localStorage.setItem("cart", "[]");
-        router.push(`/${lng}/orders`);
+        // localStorage.setItem("cart", "[]");
+        // router.push(`/${lng}/orders`);
+        console.log("data", data)
+        setOrderPlaced(data)
+        setHidePayment(false);
       },
       (e) => {
         alert(t("Order failed"));
@@ -143,7 +171,7 @@ export default function Cart({ params: { lng } }) {
       </div>
 
       {itemsWithPrice.length != 0 && (
-        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md">
+        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md clickable">
           <span className="text-2xl" onClick={handlePlaceOrder}>
             {t("Place Order!")}
           </span>
@@ -152,6 +180,16 @@ export default function Cart({ params: { lng } }) {
           </span>
         </div>
       )}
+      <div
+        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center ${
+          !hidePayment ? "block" : "hidden"
+        }`}
+      >
+        <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md">
+        <Payment lng={lng} orderId={orderPlaced.id} orderAmount={orderPlaced.amount} handleCancel={()=>{setHidePayment(true)}} handlePay={handlePay}></Payment>
+      </div>
+      </div>
+      
     </main>
   );
 }
