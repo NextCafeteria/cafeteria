@@ -204,7 +204,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
                   id="response"
                 />
                 <button
-                  className="rounded-md w-[100px] h-10 mt-2 self-end text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="rounded-md w-[100px] h-10 mt-2 self-end text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300:bg-blue-700"
                   onClick={() => {
                     handleSendResponse();
                   }}

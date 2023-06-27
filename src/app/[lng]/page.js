@@ -6,7 +6,7 @@ import {
   calculateTotalPriceWithTax,
 } from "../../lib/price";
 import { useTranslation } from "@/app/i18n/client";
-const itemsOptions = require("@/data/food_options.json");
+const products = require("@/data/products.json");
 import LangSelector from "@/components/LangSelector";
 
 export default function Home({ params: { lng } }) {
@@ -30,7 +30,7 @@ export default function Home({ params: { lng } }) {
         </div>
 
         <div className="flex flex-wrap justify-center w-full">
-          {itemsOptions.map((foodOption, key) => (
+          {products.map((product, key) => (
             <div
               key={key}
               className="clickable flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
@@ -40,16 +40,16 @@ export default function Home({ params: { lng } }) {
             >
               <div className="flex flex-col items-begin justify-center w-full relative">
                 <img
-                  src={foodOption.image}
-                  alt={t(foodOption.name)}
+                  src={product.image}
+                  alt={t(product.name)}
                   width={128}
                   height={128}
                   className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
                 />
-                <p className="text-xl font-bold">{t(foodOption.name)}</p>
-                <p className="text-sm">{t(foodOption.description)}</p>
-                <p className="text-sm">${foodOption.price}</p>
-                <button className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#A3DE69] rounded-md w-[140px]">
+                <p className="text-xl font-bold">{t(product.name)}</p>
+                <p className="text-sm">{t(product.description)}</p>
+                <p className="text-sm">${product.price}</p>
+                <button className="px-2 py-1 mt-4 text-sm text-gray-800 bg-green-700 text-white rounded-md w-[140px]">
                   {t("Add to cart")}
                 </button>
               </div>

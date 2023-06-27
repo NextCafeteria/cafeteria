@@ -1,4 +1,4 @@
-const itemsOptions = require("@/data/food_options.json");
+const itemsOptions = require("@/data/products.json");
 const settings = require("@/data/settings.json");
 
 const taxRate = settings.tax_rate;
