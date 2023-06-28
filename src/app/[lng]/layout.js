@@ -7,7 +7,9 @@ import { Roboto } from "next/font/google";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
 import { useTranslation } from "@/app/i18n/client";
+import { useState } from "react";
 
+import 'intro.js/introjs.css';
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
@@ -18,9 +20,12 @@ const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
 });
 import MainMenu from "@/components/MainMenu";
+import { PersistentSteps } from "@next-cafeteria/quick-intro"
+import { Steps } from "intro.js-react";
 
 export default function RootLayout({ children, params: { lng } }) {
   const { t } = useTranslation(lng, "common");
+  const [stepsEnabled, setStepsEnabled] = useState(true);
 
   return (
     <html lang={lng} dir={dir(lng)}>
@@ -78,6 +83,55 @@ export default function RootLayout({ children, params: { lng } }) {
         <SessionProvider>
           {children}
           <MainMenu lng={lng} />
+          {/* <Steps 
+      enabled={true}
+      steps={[
+        {
+          element: ".menu-home",
+          intro: "Home step",
+          title: "Explore main menu"
+        },
+        {
+          element: ".menu-orders",
+          intro: "Orders step"
+        }]}
+      initialStep={0}
+      onChange={(nextStepIndex) => {
+        localStorage.setItem(`tutorial-abc-step`, nextStepIndex.toString());
+      }}
+      onExit={() => {}}
+    ></Steps> */}
+          <PersistentSteps
+            title="main-menu"
+            steps={[
+              {
+                element: ".menu-home",
+                intro: "Home step",
+                title: "Explore main menu"
+              },
+              {
+                element: ".menu-orders",
+                intro: "Orders step"
+              }]}
+          >
+          </PersistentSteps>
+
+          {/* <Steps
+          enabled={stepsEnabled}
+          steps={[
+            {
+              element: ".menu-home",
+              intro: "Home step",
+              title: "Explore main menu"
+            },
+            {
+              element: ".menu-orders",
+              intro: "Orders step"
+            }]}
+          initialStep={0}
+          onExit={() => {}}
+
+        /> */}
         </SessionProvider>
       </body>
     </html>
