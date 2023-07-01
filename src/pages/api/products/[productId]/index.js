@@ -7,6 +7,7 @@ import {
   where,
   collection,
   documentId,
+  updateDoc,
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]";
@@ -31,5 +32,20 @@ export default async function handler(req, res) {
     let data = { ...docSnap.data(), id: docSnap.id };
     // Return all details of the product
     return res.status(200).json({ success: true, data: data });
+  }
+  if (req.method === "PUT") {
+    const productId = req.query.productId;
+    const productData = req.body;
+    const docRef = doc(db, "products", productId);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return res.status(404).json({ error: "product not found" });
+    }
+
+    // Update product
+    await updateDoc(docRef, productData);
+
+    // Return all details of the product
+    return res.status(200).json({ success: true, data: productData });
   }
 }
