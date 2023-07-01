@@ -23,7 +23,11 @@ export default function ({
       </div>
       {
         customization.options &&
-        Object.keys(customization.options).sort().map((optionId) => (
+        Object.keys(customization.options).sort(
+          (a, b) => {
+            a.order - b.order;
+          }
+        ).map((optionId) => (
           <div key={optionId} className="flex flex-col items-begin justify-center w-full relative">
             <div className="flex gap-1 mb-1">
               <div className="grow">
@@ -73,6 +77,7 @@ export default function ({
             customizationCopy.options[optionId] = {
               name: "",
               price: 0,
+              order: Math.max(...Object.keys(customizationCopy.options).map((optionId) => customizationCopy.options[optionId].order)) + 1,
             };
             updateCustomization(id, customizationCopy);
           }
