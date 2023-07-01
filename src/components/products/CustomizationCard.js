@@ -1,6 +1,6 @@
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { useTranslation } from "@/app/i18n/client";
+import {uuidv4} from "@/lib/utils";
 
 export default function ({
   lng,
@@ -48,7 +48,16 @@ export default function ({
                   }
                 />
               </div>
-              <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <button type="button" className="focus:outline-none text-white bg-gray-400 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700"
+                onClick={
+                  () => {
+                    let customizationCopy = { ...customization };
+                    delete customizationCopy.options[optionId];
+                    updateCustomization(id, customizationCopy);
+                  }
+                }
+              ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               </button>
@@ -56,10 +65,28 @@ export default function ({
           </div>
         ))
       }
-      <button type="button" className="focus:outline-none bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1">
+      <button type="button" className="focus:outline-none bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1"
+        onClick={
+          () => {
+            let optionId = uuidv4();
+            let customizationCopy = { ...customization };
+            customizationCopy.options[optionId] = {
+              name: "",
+              price: 0,
+            };
+            updateCustomization(id, customizationCopy);
+          }
+        }
+      >
         Add Option
       </button>
-      <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1 mb-2">
+      <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1 mb-2"
+        onClick={
+          () => {
+            updateCustomization(id, null);
+          }
+        }
+      >
         Remove Customization
       </button>
     </div>
