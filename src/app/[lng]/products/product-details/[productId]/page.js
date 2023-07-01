@@ -4,9 +4,13 @@ import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import { GetProduct, UpdateProduct } from "@/lib/requests/products";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
+
 import BackButton from "@/components/buttons/BackButton";
 import CustomizationCard from "@/components/products/CustomizationCard";
-import {uuidv4} from "@/lib/utils";
+import ImageUploader from "@/components/ImageUploader";
+import { uuidv4 } from "@/lib/utils";
 
 export default function ({ params: { lng, productId } }) {
   const router = useRouter();
@@ -16,6 +20,8 @@ export default function ({ params: { lng, productId } }) {
   }
 
   const [productData, setProductData] = useState(null);
+  const [isUpdatingImage, setIsUpdatingImage] = useState(false);
+  const [updateImageProgress, setUpdateProgress] = useState(0);
 
   const refetchProductData = () => {
     GetProduct(
@@ -46,6 +52,20 @@ export default function ({ params: { lng, productId } }) {
     setProductData(productDataCopy);
   };
 
+  const handleSaveProduct = () => {
+    UpdateProduct(
+      productId,
+      productData,
+    ).then(() => {
+      alert("Product updated");
+      router.push(`/${lng}/products`);
+    }
+    ).catch((e) => {
+      console.log(e);
+      alert("Could not update product");
+    });
+  };
+
   const { t } = useTranslation(lng, "common");
 
   return (
@@ -58,7 +78,7 @@ export default function ({ params: { lng, productId } }) {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center w-full my-2 mx-1 rounded-md">
+        <div className="flex flex-row w-full my-2 mx-1 rounded-md">
           <div className="flex flex-col items-begin justify-center w-full relative">
             <p className="text-md font-bold">{t("Name")}</p>
             <input
@@ -83,6 +103,41 @@ export default function ({ params: { lng, productId } }) {
               }}
             />
           </div>
+
+          <div className="rounded-md w-[100px] h-[100px] justify-center align-middle items-center relative overflow-hidden border-2 m-2 border-gray-400">
+          {isUpdatingImage ? (
+            <div className="flex absolute left-[0%] bottom-[0%] bg-gray-100 w-20 h-20 opacity-70 transition-opacity duration-[0.2s] ease-[ease-in-out] content-center items-center">
+              {updateImageProgress + "%"}
+            </div>
+          ) : (
+              productData?.image ? (
+                <Image
+                alt={productData?.name}
+                src={productData?.image}
+                width={100}
+                height={100}
+                className="overflow-hidden shadow-md w-[100px] h-auto"
+              />) : (
+                <Skeleton width={100} height={100} />
+              )
+          )}
+
+          <ImageUploader
+            styles="absolute left-[0%] bottom-[0%] bg-gray-100 w-20 h-[30px] opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
+            handleUploadStart={() => {
+              setIsUpdatingImage(true);
+            }}
+            handleUploadSuccess={(url) => {
+              setIsUpdatingImage(false);
+              let productDataCopy = { ...productData };
+              productDataCopy.image = url;
+              setProductData(productDataCopy);
+            }}
+            handleUploadProgress={(progress) => {
+              setUpdateProgress(progress);
+            }}
+          />
+        </div>
         </div>
 
         <div className="text-xl font-bold mt-2 mb-4">{t("Customizations")}</div>
@@ -128,19 +183,7 @@ export default function ({ params: { lng, productId } }) {
       <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
         <div
           className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md"
-          onClick={() => {
-            UpdateProduct(
-              productId,
-              productData,
-            ).then(() => {
-              alert("Product updated");
-              router.push(`/${lng}/products`);
-            }
-            ).catch((e) => {
-              console.log(e);
-              alert("Could not update product");
-            });
-          }}
+          onClick={handleSaveProduct}
         >
           <span className="text-2xl"
           >+ {t("Save changes")}</span>
