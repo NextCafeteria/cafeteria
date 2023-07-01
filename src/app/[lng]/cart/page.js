@@ -36,7 +36,7 @@ export default function Cart({ params: { lng } }) {
     } else {
       address = addressOptions[0];
     }
-      localStorage.setItem("lastDeliveryAddress", address);
+    localStorage.setItem("lastDeliveryAddress", address);
     return address;
   });
 
@@ -53,19 +53,18 @@ export default function Cart({ params: { lng } }) {
     updateTotalPrice();
   }
 
-  async function handlePay(){
+  async function handlePay() {
     let err = null;
     await GetOrder(
       orderPlaced.id,
       (data) => {
-        console.log("onSuccess")
-        if(data?.paid){ 
+        console.log("onSuccess");
+        if (data?.paid) {
           setHidePayment(true);
           localStorage.setItem("cart", "[]");
           router.push(`/${lng}/orders`);
-        }
-        else{
-          console.log("errr")
+        } else {
+          console.log("errr");
           err = true;
         }
       },
@@ -74,7 +73,7 @@ export default function Cart({ params: { lng } }) {
         alert("Could not get orders");
       }
     );
-    return {err: err}
+    return { err: err };
   }
   useEffect(() => {
     getItemsWithPriceFromLocalStorage();
@@ -93,10 +92,7 @@ export default function Cart({ params: { lng } }) {
       deliveryAddress,
       storeId,
       (data) => {
-        // localStorage.setItem("cart", "[]");
-        // router.push(`/${lng}/orders`);
-        console.log("data", data)
-        setOrderPlaced(data)
+        setOrderPlaced(data);
         setHidePayment(false);
       },
       (e) => {
@@ -186,10 +182,17 @@ export default function Cart({ params: { lng } }) {
         }`}
       >
         <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md">
-        <Payment lng={lng} orderId={orderPlaced.id} orderAmount={orderPlaced.amount} handleCancel={()=>{setHidePayment(true)}} handlePay={handlePay}></Payment>
+          <Payment
+            lng={lng}
+            orderId={orderPlaced.id}
+            orderAmount={orderPlaced.amount}
+            handleCancel={() => {
+              setHidePayment(true);
+            }}
+            handlePay={handlePay}
+          ></Payment>
+        </div>
       </div>
-      </div>
-      
     </main>
   );
 }
