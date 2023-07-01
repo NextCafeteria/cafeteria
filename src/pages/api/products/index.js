@@ -26,7 +26,6 @@ export default async function handler(req, res) {
     //   await deleteDoc(doc(db, "products", qdocs[i].id));
     // }
     // for (let i = 0; i < products.length; i++) {
-    //   console.log("PRODUCT " + i)
     //   const { name, description, image, price, customizations } = products[i];
     //   let customizationsDict = {}
     //   for (let j = 0; j < customizations.length; j++) {
@@ -35,12 +34,12 @@ export default async function handler(req, res) {
     //     let optionsDict = {};
     //     for (let k = 0; k < customizations[j].options.length; k++) {
     //       const optionId = uuidv4();
+    //       customizations[j].options[k].order = k;
     //       optionsDict[optionId] = customizations[j].options[k];
     //     }
     //     customizationsDict[customizationId].options = optionsDict;
     //   }
-    //   console.log("xxxxx")
-    //   console.log(customizationsDict)
+    //   customizationsDict.order = i;
     //   await addDoc(collection(db, "products"), {
     //     name: name,
     //     description: description,

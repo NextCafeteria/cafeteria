@@ -86,7 +86,11 @@ export default function ({ params: { lng, productId } }) {
         </div>
 
         <div className="text-xl font-bold mt-2 mb-4">{t("Customizations")}</div>
-        {productData?.customizations && Object.keys(productData?.customizations).sort().map((customizationId, id) => (
+        {productData?.customizations && Object.keys(productData?.customizations).sort(
+          (a, b) => {
+            a.order - b.order;
+          }
+        ).map((customizationId, id) => (
           <CustomizationCard
             key={customizationId}
             id={customizationId}
@@ -109,6 +113,7 @@ export default function ({ params: { lng, productId } }) {
             }
             let customizationId = uuidv4();
             productDataCopy.customizations[customizationId] = {
+              order: Math.max(...Object.keys(productDataCopy.customizations).map((customizationId) => productDataCopy.customizations[customizationId].order)) + 1,
               name: "",
               description: "",
               price: 0,
