@@ -59,6 +59,24 @@ export async function GetProduct(productId, onSuccess = null, onError = null) {
   }
 }
 
+export async function UpdateProduct(productId, productData) {
+  return await fetch(`/api/products/${productId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(productData),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+
+    throw new Error("Could not update product");
+  }).catch((e) => {
+    throw e;
+  });
+}
+
 export async function AddCustomization(
   productId,
   email,
