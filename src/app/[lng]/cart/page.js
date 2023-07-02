@@ -16,6 +16,7 @@ export default function Cart({ params: { lng } }) {
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
+
   const [hidePayment, setHidePayment] = useState(true);
   const [cartData, setCartData] = useState({});
   const [storeId, setStoreId] = useState(null);
