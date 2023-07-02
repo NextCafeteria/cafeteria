@@ -12,8 +12,9 @@ export default async function handler(req, res) {
     path[0] == "webhook" &&
     path[1] == "handler-bank-transfer"
   ) {
-    if (!req.body.data[0]?.description) {
-      return res.status(404).json({ success: false, data: {} });
+    // console.log("body 2:", req.body.data[0]?.description.includes(`${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}`));
+    if (!req.body.data[0]?.description.includes(`${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}`)) {
+      return res.status(200).json({ success: false, data: {} });
     }
     for (let transaction of req.body.data) {
       const orderId = transaction.description
