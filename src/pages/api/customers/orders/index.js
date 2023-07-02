@@ -13,12 +13,7 @@ import {
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]";
 import { OrderStatus } from "@/lib/order_status";
-import {
-  calculatePriceForList,
-  calculateTax,
-  calculateTotalPriceWithTax,
-  getItemsWithPrice,
-} from "@/lib/price";
+import { populateCart } from "@/lib/cart";
 
 export default async function handler(req, res) {
   // Check authentication
@@ -54,18 +49,32 @@ export default async function handler(req, res) {
     if (items.length === 0) {
       return res.status(400).json({ error: "Items cannot be empty" });
     }
-    const price = calculatePriceForList(items);
-    const tax = calculateTax(price);
-    const totalPrice = calculateTotalPriceWithTax(price, tax);
-    const itemsWithPrice = getItemsWithPrice(items);
+
+    // Query progress and sort by timestamp
+    const q = query(collection(db, "products"));
+
+    // Return empty array if no product found
+    if ((await getDocs(q)).empty) {
+      return res
+        .status(200)
+        .json({ success: false, error: "No product found" });
+    }
+
+    // Return product data
+    const docs = (await getDocs(q)).docs;
+    let products = docs.map((doc) => {
+      return { ...doc.data(), id: doc.id };
+    });
+
+    let orderData = populateCart(items, products);
 
     // Create a new order
     const docRef = await addDoc(collection(db, "orders"), {
       userId: currentUser.id,
-      items: itemsWithPrice,
-      price: price,
-      tax: tax,
-      totalPrice: totalPrice,
+      items: orderData.items,
+      price: orderData.price,
+      tax: orderData.tax,
+      totalPrice: orderData.total,
       timestamp: Date.now(),
       status: OrderStatus.QUEUED,
       deliveryAddress: deliveryAddress,

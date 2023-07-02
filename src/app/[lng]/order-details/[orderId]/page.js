@@ -110,20 +110,27 @@ export default function ({ params: { lng, orderId } }) {
                   </p>
                 </div>
                 <img src={item.image} className="w-16 h-auto rounded-md mb-4" />
-                {item.customizations.map(
-                  (customization, customizationIndex) => {
+                {Object.keys(item.customizations)
+                  .sort(
+                    (a, b) =>
+                      item.customizations[a].order -
+                      item.customizations[b].order
+                  )
+                  .map((customizationId) => {
                     return (
-                      <p key={customizationIndex} className="text-sm">
-                        {t(customization.name)}:{" "}
+                      <p
+                        key={item.customizations[customizationId].order}
+                        className="text-sm"
+                      >
+                        {t(item.customizations[customizationId].name)}:{" "}
                         {t(
-                          customization.options[
-                            item.selectedOptions[customizationIndex]
+                          item.customizations[customizationId].options[
+                            item.selectedOptions[customizationId]
                           ]?.name
                         )}
                       </p>
                     );
-                  }
-                )}
+                  })}
               </div>
             );
           })}

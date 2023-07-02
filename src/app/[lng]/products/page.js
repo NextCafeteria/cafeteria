@@ -1,10 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTranslation } from "@/app/i18n/client";
-
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { useTranslation } from "@/app/i18n/client";
 import { GetProducts } from "@/lib/requests/products";
 import ProductCard from "@/components/products/ProductCard";
 
@@ -17,18 +16,19 @@ export default function ProductManagement({ params: { lng } }) {
   }
 
   const [products, setProducts] = useState(null);
-
   useEffect(() => {
-    GetProducts(
-      (products) => {
-        setProducts(products);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get the products.");
-      }
-    );
+    GetProducts()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }, []);
+
+  const handleAddProduct = () => {
+    router.push(`/${lng}/products/new-product`);
+  };
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -65,7 +65,9 @@ export default function ProductManagement({ params: { lng } }) {
           router.push(`/${lng}/products/new-product`);
         }}
       >
-        <span className="text-2xl">+ {t("Add product")}</span>
+        <span className="text-2xl" onClick={handleAddProduct}>
+          + {t("Add product")}
+        </span>
       </div>
     </main>
   );

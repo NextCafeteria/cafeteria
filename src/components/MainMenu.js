@@ -25,9 +25,10 @@ function MainMenuUser({ lng }) {
     <>
       <div className="flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] border-gray-600 p-2 bg-[#ffbd2e]">
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : "")
+          }
           onClick={() => {
             router.push(`/${lng}`);
           }}
@@ -54,9 +55,12 @@ function MainMenuUser({ lng }) {
           </span>
         </div>
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath === `/${lng}/orders` ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath === `/${lng}/orders`
+              ? " bg-[#ffffff66] rounded-xl"
+              : "")
+          }
           onClick={() => {
             router.push(`/${lng}/orders`);
           }}
@@ -86,9 +90,10 @@ function MainMenuUser({ lng }) {
           </span>
         </div>
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath === `/${lng}/cart` ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath === `/${lng}/cart` ? " bg-[#ffffff66] rounded-xl" : "")
+          }
           onClick={() => {
             router.push(`/${lng}/cart`);
           }}
@@ -116,9 +121,10 @@ function MainMenuUser({ lng }) {
           </span>
         </div>
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : "")
+          }
           onClick={() => {
             router.push(`/${lng}/user`);
           }}
@@ -174,9 +180,10 @@ function MainMenuStaff({ lng }) {
     <>
       <div className="flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] border-gray-600 p-2 bg-[#ffbd2e]">
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : "")
+          }
           onClick={() => {
             router.push(`/${lng}`);
           }}
@@ -204,9 +211,12 @@ function MainMenuStaff({ lng }) {
         </div>
         {session?.data?.user?.isAdmin && (
           <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath.startsWith(`/${lng}/stores`) ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+            className={
+              "flex flex-col items-center p-2 clickable" +
+              (currentPath.startsWith(`/${lng}/stores`)
+                ? " bg-[#ffffff66] rounded-xl"
+                : "")
+            }
             onClick={() => {
               router.push(`/${lng}/stores`);
             }}
@@ -241,9 +251,12 @@ function MainMenuStaff({ lng }) {
           </div>
         )}
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath.startsWith(`/${lng}/staffs/orders`) ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath.startsWith(`/${lng}/staffs/orders`)
+              ? " bg-[#ffffff66] rounded-xl"
+              : "")
+          }
           onClick={() => {
             router.push(`/${lng}/staffs/orders`);
           }}
@@ -276,9 +289,10 @@ function MainMenuStaff({ lng }) {
           </span>
         </div>
         <div
-          className={"flex flex-col items-center p-2 clickable" + (
-            currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : ""
-          )}
+          className={
+            "flex flex-col items-center p-2 clickable" +
+            (currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : "")
+          }
           onClick={() => {
             router.push(`/${lng}/user`);
           }}

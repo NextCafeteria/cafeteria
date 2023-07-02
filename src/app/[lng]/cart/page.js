@@ -1,14 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  calculatePriceForList,
-  getItemsWithPrice,
-  calculateTax,
-  calculateTotalPriceWithTax,
-} from "@/lib/price";
 import { useTranslation } from "@/app/i18n/client";
 import { PlaceOrder } from "@/lib/requests/orders";
+import { PopulateCart } from "@/lib/requests/cart";
 import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";
 const addressOptions = require("@/data/address_options.json");
@@ -21,8 +16,8 @@ export default function Cart({ params: { lng } }) {
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [itemsWithPrice, setItemsWithPrice] = useState([]);
+
+  const [cartData, setCartData] = useState({});
   const [storeId, setStoreId] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState(() => {
     let address = localStorage.getItem("lastDeliveryAddress", null);
@@ -38,17 +33,19 @@ export default function Cart({ params: { lng } }) {
     return address;
   });
 
-  function updateTotalPrice() {
-    const cart = JSON.parse(localStorage.getItem("cart", "[]"));
-    let price = calculatePriceForList(cart);
-    setTotalPrice(price);
+  function getItemsWithPrice(cart) {
+    PopulateCart(cart)
+      .then((data) => {
+        setCartData(data);
+      })
+      .catch((e) => {
+        alert(t("Could not populate cart"));
+      });
   }
 
   function getItemsWithPriceFromLocalStorage() {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
-    let items = getItemsWithPrice(cart);
-    setItemsWithPrice(items);
-    updateTotalPrice();
+    getItemsWithPrice(cart);
   }
 
   useEffect(() => {
@@ -81,8 +78,7 @@ export default function Cart({ params: { lng } }) {
     let cart = JSON.parse(localStorage.getItem("cart", "[]"));
     cart.splice(itemId, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    setItemsWithPrice(getItemsWithPrice(cart));
-    updateTotalPrice();
+    getItemsWithPrice(cart);
   }
 
   return (
@@ -92,7 +88,7 @@ export default function Cart({ params: { lng } }) {
           {t("Cart")}
           <XButton href={`/${lng}`} />
         </div>
-        {itemsWithPrice.length === 0 ? (
+        {cartData?.items?.length === 0 ? (
           <div className="flex flex-col items-center justify-center w-full min-h-[100px] my-1 mx-1 border-b-2">
             <div className="flex flex-col items-begin justify-center w-full relative">
               <p className="text-md">
@@ -102,8 +98,8 @@ export default function Cart({ params: { lng } }) {
           </div>
         ) : (
           <>
-            {itemsWithPrice &&
-              itemsWithPrice.map((item, index) => {
+            {cartData?.items &&
+              cartData?.items.map((item, index) => {
                 return (
                   <CartItemCard
                     lng={lng}
@@ -116,18 +112,18 @@ export default function Cart({ params: { lng } }) {
             <>
               <div className="flex justify-between w-full pt-4">
                 <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
-                <p className="text-sm font-bold mb-2">${totalPrice}</p>
+                <p className="text-sm font-bold mb-2">${cartData?.price}</p>
               </div>
               <div className="flex justify-between w-full">
                 <p className="text-sm font-bold mb-2">{t("Tax")}</p>
                 <p className="text-sm font-bold mb-2">
-                  ${calculateTax(totalPrice)}
+                  ${cartData?.tax && cartData?.tax?.toFixed(2)}
                 </p>
               </div>
               <div className="flex justify-between w-full border-b-2 border-gray-800">
                 <p className="text-sm font-bold mb-2">{t("Total")}</p>
                 <p className="text-sm font-bold mb-2">
-                  ${calculateTotalPriceWithTax(totalPrice)}
+                  ${cartData?.tax && cartData?.total?.toFixed(2)}
                 </p>
               </div>
             </>
@@ -142,13 +138,13 @@ export default function Cart({ params: { lng } }) {
         )}
       </div>
 
-      {itemsWithPrice.length != 0 && (
+      {cartData?.items?.length != 0 && (
         <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md">
           <span className="text-2xl" onClick={handlePlaceOrder}>
             {t("Place Order!")}
           </span>
           <span className="text-2xl float-right">
-            ${calculateTotalPriceWithTax(totalPrice).toFixed(2)}
+            ${cartData?.total?.toFixed(2)}
           </span>
         </div>
       )}

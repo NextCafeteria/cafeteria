@@ -187,9 +187,7 @@ export default function Page({ params: { lng } }) {
       </div>
       {(session?.data?.user?.isStaff || session?.data?.user?.isAdmin) && (
         <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/staffs/orders`}>
-            {t("Manage orders")}
-          </a>
+          <a href={`/${lng}/staffs/orders`}>{t("Manage orders")}</a>
         </div>
       )}
       {session?.data?.user?.isAdmin && (
