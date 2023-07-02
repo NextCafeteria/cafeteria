@@ -51,7 +51,7 @@ export default async function handler(req, res) {
     }
 
     // Query progress and sort by timestamp
-    const q = query(collection(db, "products"));
+    const q = query(collection(dbService.getDB(), "products"));
 
     // Return empty array if no product found
     if ((await getDocs(q)).empty) {

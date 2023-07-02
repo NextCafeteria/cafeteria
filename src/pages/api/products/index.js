@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   getDocs,
   collection,
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     // Query progress and sort by timestamp
-    const q = query(collection(db, "products"));
+    const q = query(collection(dbService.getDB(), "products"));
 
     // Return empty array if no product found
     if ((await getDocs(q)).empty) {
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     }
 
     // Create a new product
-    const docRef = await addDoc(collection(db, "products"), {
+    const docRef = await addDoc(collection(dbService.getDB(), "products"), {
       name: "New Product",
       description: "",
       image: "/images/placeholder.png",

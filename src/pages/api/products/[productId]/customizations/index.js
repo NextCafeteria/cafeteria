@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   doc,
   getDoc,
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
     // Query user with email to get userId
     const userQuery = query(
-      collection(db, "users"),
+      collection(dbService.getDB(), "users"),
       where("email", "==", email)
     );
     const userQuerySnapshot = await getDocs(userQuery);
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
     await updateDoc(productRef, { customizationIds: customizationIds });
 
     // Add productId and isCustomization to user's data
-    await updateDoc(doc(db, "users", userId), {
+    await updateDoc(doc(dbService.getDB(), "users", userId), {
       productId: productId,
       isCustomization: true,
     });
@@ -80,7 +80,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "UserId is required" });
     }
 
-    const productRef = doc(db, "products", productId);
+    const productRef = doc(dbService.getDB(), "products", productId);
     const productSnap = await getDoc(productRef);
     if (!productSnap.exists()) {
       return res.status(404).json({ error: "Product not found" });
@@ -97,7 +97,7 @@ export default async function handler(req, res) {
     });
 
     // Remove productId from user's data
-    await updateDoc(doc(db, "users", userId), {
+    await updateDoc(doc(dbService.getDB(), "users", userId), {
       productId: null,
       isCustomization: false,
     });

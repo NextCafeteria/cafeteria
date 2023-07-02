@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   getDocs,
   collection,
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     const cart = req.body;
 
     // Query progress and sort by timestamp
-    const q = query(collection(db, "products"));
+    const q = query(collection(dbService.getDB(), "products"));
 
     // Return empty array if no product found
     if ((await getDocs(q)).empty) {

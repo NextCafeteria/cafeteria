@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import dbService from "@/services/Database";
 import {
   doc,
   getDoc,
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     const productId = req.query.productId;
-    const docRef = doc(db, "products", productId);
+    const docRef = doc(dbService.getDB(), "products", productId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return res.status(404).json({ error: "product not found" });
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     const productId = req.query.productId;
     const productData = req.body;
-    const docRef = doc(db, "products", productId);
+    const docRef = doc(dbService.getDB(), "products", productId);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
       return res.status(404).json({ error: "product not found" });
