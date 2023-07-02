@@ -4,20 +4,24 @@ import {
   collection,
   query,
   addDoc,
-  where,
-  deleteDoc,
-  doc,
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req, res) {
-  // Check authentication
-  const session = await getServerSession(req, res, authOptions);
-  const currentUser = session?.user;
-  if (!currentUser) {
-    return res.status(401).json({ error: "Login is required" });
+  // Authentication is required for all methods except GET
+  if (req.method != "GET") {
+    // Check authentication
+    const session = await getServerSession(req, res, authOptions);
+    const currentUser = session?.user;
+    if (!currentUser) {
+      return res.status(401).json({ error: "Login is required" });
+    }
+    if (!currentUser?.isAdmin) {
+      return res.status(401).json({ error: "Admin is required" });
+    }
   }
+
   if (req.method === "GET") {
     // Query progress and sort by timestamp
     const q = query(collection(dbService.getDB(), "products"));
@@ -35,10 +39,6 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ success: true, data: data });
   } else if (req.method === "POST") {
-    if (!currentUser?.isAdmin) {
-      return res.status(401).json({ error: "Admin is required" });
-    }
-
     // Create a new product
     const docRef = await addDoc(collection(dbService.getDB(), "products"), {
       name: "New Product",

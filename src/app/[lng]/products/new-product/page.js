@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import { GetProduct, UpdateProduct } from "@/lib/requests/products";
+import { CreateProduct } from "@/lib/requests/products";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
@@ -12,34 +12,21 @@ import CustomizationCard from "@/components/products/CustomizationCard";
 import ImageUploader from "@/components/ImageUploader";
 import { uuidv4 } from "@/lib/utils";
 
-export default function ({ params: { lng, productId } }) {
+export default function ({ params: { lng } }) {
   const router = useRouter();
   const session = useSession();
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
 
-  const [productData, setProductData] = useState(null);
+  const [productData, setProductData] = useState({
+    name: "New Product",
+    image: "/default.png",
+    description: "",
+    customizations: {},
+  });
   const [isUpdatingImage, setIsUpdatingImage] = useState(false);
   const [updateImageProgress, setUpdateProgress] = useState(0);
-
-  const refetchProductData = () => {
-    GetProduct(
-      productId,
-      (data) => {
-        setProductData(data);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get products");
-        router.push(`/${lng}/products`);
-      }
-    );
-  };
-
-  useEffect(() => {
-    refetchProductData();
-  }, []);
 
   const updateProductCustomization = (customizationId, customizationData) => {
     let productDataCopy = { ...productData };
@@ -53,11 +40,10 @@ export default function ({ params: { lng, productId } }) {
   };
 
   const handleSaveProduct = () => {
-    UpdateProduct(
-      productId,
+    CreateProduct(
       productData,
     ).then(() => {
-      alert("Product updated");
+      alert("Product created");
       router.push(`/${lng}/products`);
     }
     ).catch((e) => {

@@ -22,24 +22,23 @@ export async function CreateProduct(
   onSuccess = null,
   onError = null
 ) {
-  const response = await fetch("/api/products", {
+  return await fetch("/api/products", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(inputData),
-  });
+  })
+  .then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
 
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data?.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+    throw new Error("Could not update product");
+  })
+  .catch((e) => {
+    throw e;
+  });
 }
 
 export async function GetProduct(productId, onSuccess = null, onError = null) {
