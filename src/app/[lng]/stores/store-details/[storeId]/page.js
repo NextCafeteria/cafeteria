@@ -21,7 +21,6 @@ export default function ({ params: { lng, storeId } }) {
     GetStore(
       storeId,
       (data) => {
-        console.log(storeData);
         setstoreData(data);
       },
       (e) => {
@@ -37,8 +36,6 @@ export default function ({ params: { lng, storeId } }) {
   }, []);
 
   const { t } = useTranslation(lng, "common");
-
-  console.log(storeData);
 
   return (
     <main className="flex justify-center p-2 pb-[200px]">

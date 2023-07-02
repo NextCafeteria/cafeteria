@@ -37,7 +37,6 @@ export default function Page({ params: { lng } }) {
         setIsUpdatingAvatar(false);
       },
       (error) => {
-        console.log(error);
         setNameEditing(false);
         setIsUpdatingName(false);
         setIsUpdatingAvatar(false);

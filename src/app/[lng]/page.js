@@ -12,7 +12,6 @@ export default function Home({ params: { lng } }) {
   useEffect(() => {
     GetProducts()
       .then((data) => {
-        console.log(data);
         setProducts(data);
       })
       .catch((e) => {

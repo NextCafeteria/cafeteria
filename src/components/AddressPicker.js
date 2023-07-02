@@ -29,7 +29,6 @@ export default function AddressPicker({
       },
       (e) => {
         console.log(e);
-        alert("Could not get stores");
       }
     );
   }, []);

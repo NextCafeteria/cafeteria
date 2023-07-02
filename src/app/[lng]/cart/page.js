@@ -41,7 +41,7 @@ export default function Cart({ params: { lng } }) {
         setCartData(data);
       })
       .catch((e) => {
-        alert(t("Could not populate cart"));
+        router.push(`/${lng}/login`);
       });
   }
 
@@ -67,7 +67,7 @@ export default function Cart({ params: { lng } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not get orders");
+        router.push(`/${lng}/login`);
       }
     );
     return { err: err };
