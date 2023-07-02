@@ -13,7 +13,11 @@ export default async function handler(req, res) {
     path[1] == "handler-bank-transfer"
   ) {
     // console.log("body 2:", req.body.data[0]?.description.includes(`${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}`));
-    if (!req.body.data[0]?.description.includes(`${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}`)) {
+    if (
+      !req.body.data[0]?.description.includes(
+        `${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}`
+      )
+    ) {
       return res.status(200).json({ success: false, data: {} });
     }
     for (let transaction of req.body.data) {

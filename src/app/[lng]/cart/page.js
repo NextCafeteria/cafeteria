@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
-import { PlaceOrder } from "@/lib/requests/orders";
+import { PlaceOrder, GetOrder } from "@/lib/requests/orders";
 import { PopulateCart } from "@/lib/requests/cart";
 import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";

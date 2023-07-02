@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Login is required" });
   }
   if (req.method === "GET") {
-    // Query progress and sort by timestamp
+    // Query stores
     const q = query(collection(dbService.getDB(), "stores"));
 
     // Return empty array if no store found
