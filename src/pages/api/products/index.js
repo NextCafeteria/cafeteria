@@ -4,6 +4,7 @@ import {
   collection,
   query,
   addDoc,
+  orderBy,
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
@@ -24,7 +25,10 @@ export default async function handler(req, res) {
 
   if (req.method === "GET") {
     // Query progress and sort by timestamp
-    const q = query(collection(dbService.getDB(), "products"));
+    const q = query(
+      collection(dbService.getDB(), "products"),
+      orderBy("timestamp", "asc")
+    );
 
     // Return empty array if no product found
     if ((await getDocs(q)).empty) {
@@ -46,6 +50,7 @@ export default async function handler(req, res) {
       image: "/images/placeholder.png",
       price: 0.0,
       customizations: {},
+      timestamp: Date.now(),
     });
     const data = { ...req.body, id: docRef.id };
 

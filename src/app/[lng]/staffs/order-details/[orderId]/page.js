@@ -153,7 +153,8 @@ export default function StaffOrder({ params: { lng, orderId } }) {
                       item.customizations[b].order
                   )
                   .map((customizationId) => {
-                    if (item.selectedOptions[customizationId] === undefined) return;
+                    if (item.selectedOptions[customizationId] === undefined)
+                      return;
                     return (
                       <p
                         key={item.customizations[customizationId].order}

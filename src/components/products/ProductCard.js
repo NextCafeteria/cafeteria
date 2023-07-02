@@ -2,6 +2,7 @@ import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import { DeleteProduct } from "@/lib/requests/products";
 import { useTranslation } from "@/app/i18n/client";
 
 export default function ({
@@ -15,6 +16,20 @@ export default function ({
   isLoading,
 }) {
   const { t } = useTranslation(lng, "common");
+
+  const handleDeleteProduct = () => {
+    if (confirm(t("Are you sure you want to delete this product?"))) {
+      DeleteProduct(id)
+        .then(() => {
+          alert(t("Product deleted"));
+          window.location.reload();
+        })
+        .catch((e) => {
+          console.log(e);
+          alert(t("Could not delete product"));
+        });
+    }
+  };
 
   return (
     <Link href={isLoading ? "" : `/${lng}/products/product-details/${id}`}>
@@ -45,21 +60,16 @@ export default function ({
             )}
           </p>
         </div>
-        <div className="absolute bottom-4 right-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
+        <div className="absolute bottom-4 right-4 flex">
+          <button
+            className="px-1 py-0.5 text-sm bg-red-500 text-white rounded-md w-[140px]"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDeleteProduct();
+            }}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-            />
-          </svg>
+            {t("Delete")}
+          </button>
         </div>
       </div>
     </Link>

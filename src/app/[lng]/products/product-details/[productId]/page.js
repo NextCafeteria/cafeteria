@@ -24,17 +24,12 @@ export default function ({ params: { lng, productId } }) {
   const [updateImageProgress, setUpdateProgress] = useState(0);
 
   const refetchProductData = () => {
-    GetProduct(
-      productId,
-      (data) => {
-        setProductData(data);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get products");
-        router.push(`/${lng}/products`);
-      }
-    );
+    GetProduct(productId).then((productData) => {
+      setProductData(productData);
+    }).catch((e) => {
+      console.log(e);
+      alert("Could not get product");
+    });
   };
 
   useEffect(() => {

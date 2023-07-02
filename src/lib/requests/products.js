@@ -4,61 +4,57 @@ export async function GetProducts() {
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then(async (res) => {
-      if (res.status === 200) {
-        const data = await res.json();
-        return data?.data;
-      }
-      throw new Error("Could not get products");
-    })
-    .catch((e) => {
-      throw e;
-    });
+  }).then(async (res) => {
+    if (res.status === 200) {
+      const data = await res.json();
+      return data?.data;
+    }
+    throw new Error("Could not get products");
+  });
 }
 
-export async function CreateProduct(
-  inputData,
-  onSuccess = null,
-  onError = null
-) {
+export async function CreateProduct(inputData) {
   return await fetch("/api/products", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(inputData),
-  })
-  .then((res) => {
+  }).then((res) => {
     if (res.status === 200) {
       return res.json();
     }
-
     throw new Error("Could not update product");
-  })
-  .catch((e) => {
-    throw e;
   });
 }
 
-export async function GetProduct(productId, onSuccess = null, onError = null) {
-  const response = await fetch(`/api/products/${productId}`, {
+export async function GetProduct(productId) {
+  return await fetch(`/api/products/${productId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
+  }).then(async (res) => {
+    if (res.status === 200) {
+      const data = await res.json();
+      return data?.data;
+    }
+    throw new Error("Could not get product");
   });
+}
 
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
+export async function DeleteProduct(productId) {
+  return await fetch(`/api/products/${productId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
     }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+    throw new Error("Could not delete product");
+  });
 }
 
 export async function UpdateProduct(productId, productData) {
@@ -68,70 +64,10 @@ export async function UpdateProduct(productId, productData) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(productData),
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-
-      throw new Error("Could not update product");
-    })
-    .catch((e) => {
-      throw e;
-    });
-}
-
-export async function AddCustomization(
-  productId,
-  email,
-  role,
-  onSuccess = null,
-  onError = null
-) {
-  const response = await fetch(`/api/products/${productId}/customizations`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email: email, role: role, productId: productId }),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+    throw new Error("Could not update product");
   });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
-}
-
-export async function RemoveCustomization(
-  productId,
-  customizationId,
-  onSuccess = null,
-  onError = null
-) {
-  const response = await fetch(
-    `/api/products/${productId}/customizations?customizationId=${customizationId}`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
 }
