@@ -2,6 +2,8 @@
 import { SessionProvider } from "next-auth/react";
 
 import "../globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
+
 import { Roboto } from "next/font/google";
 
 import { dir } from "i18next";

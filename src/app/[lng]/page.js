@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import LangSelector from "@/components/LangSelector";
 import { GetProducts } from "@/lib/requests/products";
+import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
@@ -55,6 +56,16 @@ export default function Home({ params: { lng } }) {
                 </div>
               </div>
             ))}
+          {
+            !products && (
+              <>
+                <ProductCardSkeleton />
+                <ProductCardSkeleton />
+                <ProductCardSkeleton />
+                <ProductCardSkeleton />
+              </>
+            )
+          }
         </div>
       </div>
     </main>
