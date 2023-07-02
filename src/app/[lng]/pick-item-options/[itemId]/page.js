@@ -2,9 +2,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-const itemsOptions = require("@/data/food_options.json");
-import { useTranslation } from "@/app/i18n/client";
 import { useSession } from "next-auth/react";
+
+import { useTranslation } from "@/app/i18n/client";
+import { GetProducts } from "@/lib/requests/products";
 import XButton from "@/components/buttons/XButton";
 
 export default function PickOptions({ params: { lng, itemId } }) {
@@ -15,15 +16,28 @@ export default function PickOptions({ params: { lng, itemId } }) {
   }
 
   // If item id is not valid, redirect to home page
-  if (!itemId || !itemsOptions[itemId]) {
+  if (!itemId) {
     router.push(`/${lng}`);
   }
 
-  // Get item options
-  let itemOptions = itemsOptions[itemId];
+  const [product, setProduct] = useState({});
+  useEffect(() => {
+    GetProducts()
+      .then((data) => {
+        // Find product by id
+        data.forEach((product) => {
+          if (product.id === itemId) {
+            setProduct(product);
+          }
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
 
   // Set total price
-  const [totalPrice, setTotalPrice] = useState(itemOptions.price);
+  const [totalPrice, setTotalPrice] = useState(0.0);
 
   // Quantity
   const [quantity, setQuantity] = useState(1);
@@ -32,34 +46,34 @@ export default function PickOptions({ params: { lng, itemId } }) {
   const [selectedOptions, setSelectedOptions] = useState({});
 
   useEffect(() => {
-    const options = {};
-    itemOptions.customizations.forEach((customization, customizationIndex) => {
-      options[customizationIndex] = 0;
+    const options = {}; // { customizationId: optionId }
+    product?.customizations?.map((customizationId, k) => {
+      const allOptions = Object.keys(customization.options).sort((a, b) => {
+        return customization.options[a].order - customization.options[b].order;
+      });
+      options[customizationId] = allOptions[0];
     });
     setSelectedOptions(options);
   }, []);
 
   function updatePrice(selectedOptions, quantity) {
-    if (!itemOptions || !itemOptions.customizations) {
+    if (!product || !product?.customizations) {
       return 0.0;
     }
-    let newTotalPrice = itemOptions.price;
-    itemOptions.customizations.forEach((customization, customizationIndex) => {
-      const optionIndex = selectedOptions[customizationIndex];
-      if (optionIndex === undefined) {
-        return 0.0;
-      }
-      const option = customization.options[optionIndex];
+    let newTotalPrice = product?.price;
+    for (const customizationId in selectedOptions) {
+      const optionId = selectedOptions[customizationId];
+      const option = product.customizations[customizationId].options[optionId];
       newTotalPrice += option.price;
-    });
+    }
 
     newTotalPrice *= quantity;
     setTotalPrice(newTotalPrice);
   }
 
-  function updateOption(customizationIndex, optionIndex) {
+  function updateOption(customizationId, optionId) {
     const options = { ...selectedOptions };
-    options[customizationIndex] = optionIndex;
+    options[customizationId] = optionId;
     setSelectedOptions(options);
 
     updatePrice(options, quantity);
@@ -68,7 +82,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
   function addToCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push({
-      id: itemOptions.id,
+      id: product.id,
       selectedOptions,
       quantity,
     });
@@ -83,7 +97,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
 
   const { t } = useTranslation(lng, "common");
   return (
-    itemOptions && (
+    product && (
       <main className="flex justify-center p-2 pb-[200px]">
         <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
           <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
@@ -93,63 +107,85 @@ export default function PickOptions({ params: { lng, itemId } }) {
           <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 rounded-md">
             <div className="flex flex-col items-begin justify-center w-full relative">
               <Image
-                src={itemOptions.image}
-                alt={t(itemOptions.name)}
+                src={product?.image}
+                alt={t(product?.name)}
                 width={128}
                 height={128}
                 className="absolute right-0 top-0 w-24 h-auto rounded-sm"
               />
-              <p className="text-xl font-bold">{t(itemOptions?.name)}</p>
-              <p className="text-sm">{t(itemOptions?.description)}</p>
+              <p className="text-xl font-bold">{t(product?.name)}</p>
+              <p className="text-sm">{t(product?.description)}</p>
               <p className="text-sm">
-                {t("Base price")}: ${itemOptions?.price}
+                {t("Base price")}: ${product?.price}
               </p>
             </div>
 
             {/* Show customizations */}
-            {itemOptions.customizations && (
+            {product?.customizations && (
               <div className="flex flex-col items-begin justify-center w-full mt-4">
-                {itemOptions.customizations.map(
-                  (customization, customizationIndex) => (
+                {Object.keys(product?.customizations)
+                  .sort(
+                    (a, b) =>
+                      product?.customizations[a].order -
+                      product?.customizations[b].order
+                  )
+                  .map((customizationId, customizationIndex) => (
                     <div
                       key={customizationIndex}
                       className="flex flex-col items-begin justify-center w-full mt-2 border-[1px] border-gray-600 rounded-md px-2 py-2"
                     >
                       <p className="text-sm font-bold">
-                        {t(customization.name)}
+                        {t(product?.customizations[customizationId].name)}
                       </p>
                       <div className="flex flex-col items-center justify-center w-full mt-2">
-                        {customization.options.map((option, index) => (
-                          <div
-                            key={index}
-                            className="w-full p-2 border-b-[1px] "
-                          >
-                            <input
-                              type="radio"
-                              id={t(option.name)}
-                              name={t(customization.name)}
-                              value={t(option.name)}
-                              checked={
-                                selectedOptions[customizationIndex] === index
-                              }
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  updateOption(customizationIndex, index);
-                                }
-                              }}
-                            />
-                            <label
-                              className="pl-2 w-100"
-                              htmlFor={t(option.name)}
-                            >
-                              {t(option.name)} (${option.price})
-                            </label>
-                          </div>
-                        ))}
+                        {product?.customizations[customizationId]?.options &&
+                          Object.keys(
+                            product?.customizations[customizationId]?.options
+                          )
+                            .sort(
+                              (a, b) =>
+                                product?.customizations[customizationId]
+                                  ?.options[a].order -
+                                product?.customizations[customizationId]
+                                  ?.options[b].order
+                            )
+                            .map((optionId, index) => {
+                              const option =
+                                product?.customizations[customizationId]
+                                  ?.options[optionId];
+                              console.log(option);
+                              return (
+                                <div
+                                  key={index}
+                                  className="w-full p-2 border-b-[1px] "
+                                >
+                                  <input
+                                    type="radio"
+                                    id={t(optionId)}
+                                    name={t(option.name)}
+                                    value={t(option.name)}
+                                    checked={
+                                      selectedOptions[customizationId] ===
+                                      optionId
+                                    }
+                                    onChange={(e) => {
+                                      if (e.target.checked) {
+                                        updateOption(customizationId, optionId);
+                                      }
+                                    }}
+                                  />
+                                  <label
+                                    className="pl-2 w-100"
+                                    htmlFor={t(option.name)}
+                                  >
+                                    {t(option.name)} (${option.price})
+                                  </label>
+                                </div>
+                              );
+                            })}
                       </div>
                     </div>
-                  )
-                )}
+                  ))}
               </div>
             )}
 
@@ -191,7 +227,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
         </div>
 
         <div
-          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md"
+          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>

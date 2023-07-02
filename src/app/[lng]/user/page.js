@@ -127,7 +127,7 @@ export default function Page({ params: { lng } }) {
                     <input
                       id="update-account-name"
                       type="text"
-                      className="text-gray-800 font-bold text-xl bg-white border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="text-gray-800 font-bold text-xl bg-white border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2"
                       defaultValue={session.data.user.name}
                       required
                       readOnly={isUpdatingName}
@@ -135,14 +135,14 @@ export default function Page({ params: { lng } }) {
                     {isUpdatingName ? (
                       <button
                         type="submit"
-                        className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300:bg-blue-700"
                       >
                         {t("Updating...")}
                       </button>
                     ) : (
                       <button
                         type="submit"
-                        className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="ml-1 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300:bg-blue-700"
                         onClick={() => {
                           setIsUpdatingName(true);
                           handleAccountUpdate(
@@ -187,14 +187,17 @@ export default function Page({ params: { lng } }) {
       </div>
       {(session?.data?.user?.isStaff || session?.data?.user?.isAdmin) && (
         <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/staffs/orders`}>
-            {t("Manage orders (Staff Only)")}
-          </a>
+          <a href={`/${lng}/staffs/orders`}>{t("Manage orders")}</a>
         </div>
       )}
       {session?.data?.user?.isAdmin && (
         <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/stores`}>{t("Manage stores (Admin Only)")}</a>
+          <a href={`/${lng}/stores`}>{t("Manage stores")}</a>
+        </div>
+      )}
+      {session?.data?.user?.isAdmin && (
+        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+          <a href={`/${lng}/products`}>{t("Manage products")}</a>
         </div>
       )}
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">

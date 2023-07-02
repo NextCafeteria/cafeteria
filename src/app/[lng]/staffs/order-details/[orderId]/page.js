@@ -146,20 +146,27 @@ export default function StaffOrder({ params: { lng, orderId } }) {
                     {quantity} x ${price}
                   </p>
                 </div>
-                {item.customizations.map(
-                  (customization, customizationIndex) => {
+                {Object.keys(item.customizations)
+                  .sort(
+                    (a, b) =>
+                      item.customizations[a].order -
+                      item.customizations[b].order
+                  )
+                  .map((customizationId) => {
                     return (
-                      <p key={customizationIndex} className="text-sm">
-                        {t(customization.name)}:{" "}
+                      <p
+                        key={item.customizations[customizationId].order}
+                        className="text-sm"
+                      >
+                        {t(item.customizations[customizationId].name)}:{" "}
                         {t(
-                          customization.options[
-                            item.selectedOptions[customizationIndex]
+                          item.customizations[customizationId].options[
+                            item.selectedOptions[customizationId]
                           ]?.name
                         )}
                       </p>
                     );
-                  }
-                )}
+                  })}
               </div>
             );
           })}
@@ -204,7 +211,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
                   id="response"
                 />
                 <button
-                  className="rounded-md w-[100px] h-10 mt-2 self-end text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="rounded-md w-[100px] h-10 mt-2 self-end text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300:bg-blue-700"
                   onClick={() => {
                     handleSendResponse();
                   }}

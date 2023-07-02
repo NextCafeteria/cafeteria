@@ -114,7 +114,7 @@ export default function OrderCardStaffStaff({
               <Skeleton width={100} />
             ) : (
               <button
-                className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#A3DE69] rounded-md w-[140px]"
+                className="px-2 py-1 mt-4 text-sm text-gray-800 bg-green-700 text-white rounded-md w-[140px]"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
