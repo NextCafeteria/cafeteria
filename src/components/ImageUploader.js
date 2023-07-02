@@ -1,6 +1,7 @@
 import { useState } from "react";
 import dbService from "@/services/Database";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { uuidv4 } from "@/lib/utils";
 
 export default function ImageUploader({
   styles,
@@ -33,7 +34,8 @@ export default function ImageUploader({
     } else if (fileSize > maxSize) {
       alert("File size too large. Only files up to 1MB are allowed");
     } else {
-      const storageRef = ref(dbService.getStorage(), file.name);
+      const fileExtension = file.name.split(".").pop();
+      const storageRef = ref(dbService.getStorage(), `images/${uuidv4()}.${fileExtension}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
