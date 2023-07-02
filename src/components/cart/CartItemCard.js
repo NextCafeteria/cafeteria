@@ -23,6 +23,7 @@ export default function CartItemCard({ lng, item, index, handeDelete }) {
           (a, b) => item.customizations[a].order - item.customizations[b].order
         )
         .map((customizationId) => {
+          if (item.selectedOptions[customizationId] === undefined) return;
           return (
             <p
               key={item.customizations[customizationId].order}
