@@ -99,9 +99,9 @@ export default function ({ params: { lng, productId } }) {
             />
           </div>
 
-          <div className="rounded-md w-[100px] h-[100px] justify-center align-middle items-center relative overflow-hidden border-2 m-2 border-gray-400">
+          <div className="rounded-md w-[200px] justify-center align-middle items-center relative overflow-hidden border-[1px] m-2 border-gray-600 h-fit pb-[30px]">
           {isUpdatingImage ? (
-            <div className="flex absolute left-[0%] bottom-[0%] bg-gray-100 w-20 h-20 opacity-70 transition-opacity duration-[0.2s] ease-[ease-in-out] content-center items-center">
+            <div className="flex absolute left-0 bottom-0 bg-gray-100 w-20 h-10 opacity-70 transition-opacity duration-[0.2s] ease-[ease-in-out] content-center items-center">
               {updateImageProgress + "%"}
             </div>
           ) : (
@@ -109,16 +109,16 @@ export default function ({ params: { lng, productId } }) {
                 <Image
                 alt={productData?.name}
                 src={productData?.image}
-                width={100}
-                height={100}
-                className="overflow-hidden shadow-md w-[100px] h-auto"
+                width={200}
+                height={200}
+                className="overflow-hidden shadow-md w-[200px] h-auto"
               />) : (
-                <Skeleton width={100} height={100} />
+                <Skeleton width={200} height={100} />
               )
           )}
 
           <ImageUploader
-            styles="absolute left-[0%] bottom-[0%] bg-gray-100 w-20 h-[30px] opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
+            styles="absolute left-0 bottom-0 bg-gray-100 w-full h-[30px] duration-[0.2s] ease-[ease-in-out]"
             handleUploadStart={() => {
               setIsUpdatingImage(true);
             }}

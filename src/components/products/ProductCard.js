@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 
 import { DeleteProduct } from "@/lib/requests/products";
@@ -33,7 +34,7 @@ export default function ({
   return (
     <Link href={isLoading ? "" : `/${lng}/products/product-details/${id}`}>
       <div className="relative flex flex-col items-center justify-center w-full p-4 min-h-[150px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
-        <img
+        <Image
           src={image}
           alt={t(name)}
           width={128}

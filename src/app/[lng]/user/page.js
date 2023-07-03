@@ -56,7 +56,7 @@ export default function Page({ params: { lng } }) {
         <div className="flex flex-row">
           <div className="rounded-full w-[75px] h-[75px] relative overflow-hidden">
             {isUpdatingAvatar ? (
-              <div className="flex absolute left-[0%] bottom-[0%] bg-gray-100 w-[75px] h-[75px] justify-center opacity-70 transition-opacity duration-[0.2s] ease-[ease-in-out] content-center items-center">
+              <div className="flex absolute left-0 bottom-0 bg-gray-100 w-[75px] h-[75px] justify-center opacity-70 transition-opacity duration-[0.2s] ease-[ease-in-out] content-center items-center">
                 {updateAvatarProgress + "%"}
               </div>
             ) : (
@@ -78,7 +78,7 @@ export default function Page({ params: { lng } }) {
             )}
 
             <ImageUploader
-              styles="absolute left-[0%] bottom-[0%] bg-gray-100 w-[75px] h-[30px] opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
+              styles="absolute left-0 bottom-0 bg-gray-100 w-[75px] h-[30px] opacity-0 transition-opacity duration-[0.2s] ease-[ease-in-out] hover:opacity-70"
               handleUploadStart={() => {
                 setIsUpdatingAvatar(true);
               }}
