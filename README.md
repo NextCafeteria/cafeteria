@@ -12,8 +12,10 @@
 - **Authentication:** NextAuth.js with Google OAuth.
 - **Deployment:** Vercel.
 - **Developers:**
-  - [Nguyen Viet Anh](https://github.com/vietanhdev).
   - [Trinh Thu Hai](https://github.com/haitt00).
+  - [Nguyen Viet Anh](https://github.com/vietanhdev).
+  - [Mach Dieu Bang](https://github.com/BangMach).
+  - [Bui Dong Dong](https://github.com/perplexingcode).
 
 ## 1. Design
 
