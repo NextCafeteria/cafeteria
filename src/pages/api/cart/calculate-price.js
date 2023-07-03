@@ -1,9 +1,5 @@
 import dbService from "@/services/Database";
-import {
-  getDocs,
-  collection,
-  query,
-} from "firebase/firestore";
+import { getDocs, collection, query } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 import { populateCart } from "@/lib/cart";

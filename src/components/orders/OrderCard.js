@@ -7,7 +7,6 @@ import Link from "next/link";
 import { countItemsByName, countTotalItems } from "@/lib/products";
 import Skeleton from "react-loading-skeleton";
 
-
 export default function OrderCard({ lng, order, orderId, isLoading }) {
   const { t } = useTranslation(lng, "common");
 

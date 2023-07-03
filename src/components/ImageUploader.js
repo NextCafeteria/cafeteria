@@ -34,9 +34,12 @@ export default function ImageUploader({
     } else {
       handleUploadStart();
       setIsUploading(true);
-      
+
       const fileExtension = file.name.split(".").pop();
-      const storageRef = ref(dbService.getStorage(), `images/${uuidv4()}.${fileExtension}`);
+      const storageRef = ref(
+        dbService.getStorage(),
+        `images/${uuidv4()}.${fileExtension}`
+      );
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
