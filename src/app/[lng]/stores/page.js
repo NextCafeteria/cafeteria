@@ -5,7 +5,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import { GetStores } from "@/lib/requests/stores";
+import { useGetStores } from "@/lib/requests/stores";
 import StoreCard from "@/components/stores/StoreCard";
 
 export default function StoreManagement({ params: { lng } }) {
@@ -16,19 +16,11 @@ export default function StoreManagement({ params: { lng } }) {
     router.push(`/${lng}/login`);
   }
 
-  const [stores, setStores] = useState(null);
-
-  useEffect(() => {
-    GetStores(
-      (stores) => {
-        setStores(stores);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get the stores.");
-      }
-    );
-  }, []);
+  const { stores, error, isLoading } = useGetStores();
+  if (error) {
+    console.log(e);
+    alert("Could not get the stores.");
+  }
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -37,13 +29,7 @@ export default function StoreManagement({ params: { lng } }) {
         <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Stores")}
         </div>
-        {stores && stores.length > 0 ? (
-          stores.map(
-            (params, key) => (
-              (params.lng = lng), (<StoreCard key={key} {...params} />)
-            )
-          )
-        ) : stores === null ? (
+        {isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
             <StoreCard
               key={i}
@@ -53,6 +39,12 @@ export default function StoreManagement({ params: { lng } }) {
               isLoading={true}
             />
           ))
+        ) : stores && stores.length > 0 ? (
+          stores.map(
+            (params, key) => (
+              (params.lng = lng), (<StoreCard key={key} {...params} />)
+            )
+          )
         ) : (
           <p className="text-sm">
             {t("Add a store by clicking the button below.")}

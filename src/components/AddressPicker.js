@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/app/i18n/client";
-import { GetStores } from "@/lib/requests/stores";
+import { useGetStores } from "@/lib/requests/stores";
 
 // Component for picking delivery address
 export default function AddressPicker({
@@ -15,25 +15,20 @@ export default function AddressPicker({
   const selectedOption =
     addressOptions.find((option) => option === selectedAddress) || null;
 
-  const [stores, setStores] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
 
-  useEffect(() => {
-    GetStores(
-      (data) => {
-        setStores(data);
-        if (data) {
-          setSelectedStore(data[0].id);
-          setStoreIdCb(data[0].id);
-        }
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get stores");
-      }
-    );
-  }, []);
+  const { stores, error, isLoading } = useGetStores();
+  if (error) {
+    console.log(error);
+    alert("Could not get stores");
+  }
 
+  useEffect(() => {
+    if (!isLoading && stores) {
+      setSelectedStore(stores[0].id);
+      setStoreIdCb(stores[0].id);
+    }
+  }, [stores]);
   if (!stores) {
     return (
       <div className="flex flex-col gap-2 mt-4">

@@ -18,6 +18,7 @@ const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
 });
 import MainMenu from "@/components/MainMenu";
+import { SWRConfig } from "swr";
 
 export default function RootLayout({ children, params: { lng } }) {
   const { t } = useTranslation(lng, "common");
@@ -75,10 +76,16 @@ export default function RootLayout({ children, params: { lng } }) {
         />
       </head>
       <body className={roboto.className}>
-        <SessionProvider>
-          {children}
-          <MainMenu lng={lng} />
-        </SessionProvider>
+        <SWRConfig
+          value={{
+            fetcher: (...args) => fetch(...args).then((res) => res.json()),
+          }}
+        >
+          <SessionProvider>
+            {children}
+            <MainMenu lng={lng} />
+          </SessionProvider>
+        </SWRConfig>
       </body>
     </html>
   );

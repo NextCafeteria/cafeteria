@@ -3,22 +3,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import LangSelector from "@/components/LangSelector";
-import { GetProducts } from "@/lib/requests/products";
+import { useGetProducts } from "@/lib/requests/products";
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
 
-  const [products, setProducts] = useState(null);
-  useEffect(() => {
-    GetProducts()
-      .then((data) => {
-        console.log(data);
-        setProducts(data);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
+  const { products, error, isLoading } = useGetProducts();
+  if (error) {
+    console.log(error);
+  }
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -30,32 +23,43 @@ export default function Home({ params: { lng } }) {
         </div>
 
         <div className="flex flex-wrap justify-center w-full">
-          {products &&
-            products.map((product, key) => (
-              <div
-                key={key}
-                className="clickable flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
-                onClick={() => {
-                  router.push(`/${lng}/pick-item-options/${product.id}`);
-                }}
-              >
-                <div className="flex flex-col items-begin justify-center w-full relative">
-                  <img
-                    src={product.image}
-                    alt={t(product.name)}
-                    width={128}
-                    height={128}
-                    className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
-                  />
-                  <p className="text-xl font-bold">{t(product.name)}</p>
-                  <p className="text-sm">{t(product.description)}</p>
-                  <p className="text-sm">${product.price}</p>
-                  <button className="px-2 py-1 mt-4 text-sm bg-green-700 text-white rounded-md w-[140px]">
-                    {t("Add to cart")}
-                  </button>
+          {isLoading
+            ? Array.from({ length: 5 }, (e, i) => i).map((i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
+                >
+                  <div className="flex flex-col items-begin justify-center w-full relative">
+                    <div className="animate-pulse bg-gray-300 rounded-md w-24 h-24"></div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            : products &&
+              products.map((product, key) => (
+                <div
+                  key={key}
+                  className="clickable flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
+                  onClick={() => {
+                    router.push(`/${lng}/pick-item-options/${product.id}`);
+                  }}
+                >
+                  <div className="flex flex-col items-begin justify-center w-full relative">
+                    <img
+                      src={product.image}
+                      alt={t(product.name)}
+                      width={128}
+                      height={128}
+                      className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
+                    />
+                    <p className="text-xl font-bold">{t(product.name)}</p>
+                    <p className="text-sm">{t(product.description)}</p>
+                    <p className="text-sm">${product.price}</p>
+                    <button className="px-2 py-1 mt-4 text-sm bg-green-700 text-white rounded-md w-[140px]">
+                      {t("Add to cart")}
+                    </button>
+                  </div>
+                </div>
+              ))}
         </div>
       </div>
     </main>

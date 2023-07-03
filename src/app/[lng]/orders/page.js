@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
-import { GetOrders } from "@/lib/requests/orders";
+import { useGetOrders } from "@/lib/requests/orders";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -15,18 +15,10 @@ export default function Cart({ params: { lng } }) {
     router.push(`/${lng}/login`);
   }
 
-  const [orderItems, setOrderItems] = useState(null);
-
-  useEffect(() => {
-    GetOrders(
-      (orders) => {
-        setOrderItems(orders);
-      },
-      (e) => {
-        console.log(e);
-      }
-    );
-  }, []);
+  const { orderItems, error, isLoading } = useGetOrders();
+  if (error) {
+    console.log(error);
+  }
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -36,7 +28,11 @@ export default function Cart({ params: { lng } }) {
           {t("Order History")}
           <XButton />
         </div>
-        {orderItems && orderItems.length > 0 ? (
+        {isLoading ? (
+          Array.from({ length: 3 }, (e, i) => i).map((i) => (
+            <OrderCard order={null} orderId={i} lng={lng} isLoading={true} />
+          ))
+        ) : orderItems.length > 0 ? (
           orderItems.map((order, orderId) => (
             <OrderCard
               lng={lng}
@@ -44,10 +40,6 @@ export default function Cart({ params: { lng } }) {
               orderId={orderId}
               isLoading={false}
             />
-          ))
-        ) : orderItems === null ? (
-          Array.from({ length: 3 }, (e, i) => i).map((i) => (
-            <OrderCard order={null} orderId={i} lng={lng} isLoading={true} />
           ))
         ) : (
           <p className="text-sm">

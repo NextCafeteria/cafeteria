@@ -21,8 +21,6 @@ export default function ImageUploader({
   }
 
   function uploadImage(input) {
-    handleUploadStart();
-    setIsUploading(true);
     const file = input.files[0];
     const fileType = file.type;
     const fileSize = file.size;
@@ -33,6 +31,8 @@ export default function ImageUploader({
     } else if (fileSize > maxSize) {
       alert("File size too large. Only files up to 1MB are allowed");
     } else {
+      handleUploadStart();
+      setIsUploading(true);
       const storageRef = ref(dbService.getStorage(), file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
