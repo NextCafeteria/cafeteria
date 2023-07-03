@@ -15,7 +15,7 @@
   - [Trinh Thu Hai](https://github.com/haitt00).
   - [Nguyen Viet Anh](https://github.com/vietanhdev).
   - [Mach Dieu Bang](https://github.com/BangMach).
-  - [Bui Dong Dong](https://github.com/perplexingcode).
+  - [Bui Son Dong](https://github.com/perplexingcode).
 
 ## 1. Design
 
