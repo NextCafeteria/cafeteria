@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import LangSelector from "@/components/LangSelector";
 import { useGetProducts } from "@/lib/requests/products";
+import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
@@ -25,14 +26,7 @@ export default function Home({ params: { lng } }) {
         <div className="flex flex-wrap justify-center w-full">
           {isLoading
             ? Array.from({ length: 5 }, (e, i) => i).map((i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
-                >
-                  <div className="flex flex-col items-begin justify-center w-full relative">
-                    <div className="animate-pulse bg-gray-300 rounded-md w-24 h-24"></div>
-                  </div>
-                </div>
+                <ProductCardSkeleton />
               ))
             : products &&
               products.map((product, key) => (

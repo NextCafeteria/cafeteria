@@ -20,6 +20,8 @@ export default function XButton(params) {
         strokeWidth={1.5}
         stroke="currentColor"
         className="w-8 h-8"
+        width={24}
+        height={24}
       >
         <path
           strokeLinecap="round"

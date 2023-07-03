@@ -1,6 +1,4 @@
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
 import { useTranslation } from "@/app/i18n/client";
 import { RemoveStaff } from "@/lib/requests/stores";
 import Rating from "../RatingWithNumbers";

@@ -7,7 +7,6 @@ import {
 import { countTotalItems } from "@/lib/products";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 export default function OrderCardStaffStaff({
   order,
