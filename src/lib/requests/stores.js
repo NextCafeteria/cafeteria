@@ -1,21 +1,12 @@
-export async function GetStores(onSuccess = null, onError = null) {
-  const response = await fetch("/api/stores", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data?.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+import useSWR, { useSWRConfig } from "swr";
+export function useGetStores() {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading } = useSWR("/api/stores", fetcher);
+  return {
+    stores: data?.data,
+    error,
+    isLoading,
+  };
 }
 
 export async function CreateStore(inputData, onSuccess = null, onError = null) {

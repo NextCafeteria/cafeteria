@@ -1,4 +1,5 @@
 import { OrderStatus } from "../order_status";
+import useSWR, { useSWRConfig } from "swr";
 
 export async function PlaceOrder(
   items,
@@ -31,24 +32,14 @@ export async function PlaceOrder(
   }
 }
 
-export async function GetOrders(onSuccess = null, onError = null) {
-  const response = await fetch("/api/customers/orders", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data?.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+export function useGetOrders() {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading } = useSWR("/api/customers/orders", fetcher);
+  return {
+    orderItems: data?.data,
+    error: error,
+    isLoading: isLoading,
+  };
 }
 
 export async function GetStaffOrder(

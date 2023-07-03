@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { useTranslation } from "@/app/i18n/client";
-import { GetProducts } from "@/lib/requests/products";
+import { useGetProducts } from "@/lib/requests/products";
 import ProductCard from "@/components/products/ProductCard";
 
 export default function ProductManagement({ params: { lng } }) {
@@ -15,16 +15,10 @@ export default function ProductManagement({ params: { lng } }) {
     router.push(`/${lng}/login`);
   }
 
-  const [products, setProducts] = useState(null);
-  useEffect(() => {
-    GetProducts()
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
+  const { products, error, isLoading } = useGetProducts();
+  if (error) {
+    console.log(error);
+  }
 
   const handleAddProduct = () => {
     router.push(`/${lng}/products/new-product`);

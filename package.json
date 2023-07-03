@@ -31,6 +31,7 @@
     "react-dom": "18.2.0",
     "react-i18next": "12.2.2",
     "sharp": "^0.32.1",
+    "swr": "^2.2.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {

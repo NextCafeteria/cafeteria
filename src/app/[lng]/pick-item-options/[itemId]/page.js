@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { GetProducts } from "@/lib/requests/products";
+import { useGetProducts } from "@/lib/requests/products";
 import XButton from "@/components/buttons/XButton";
 
 export default function PickOptions({ params: { lng, itemId } }) {
@@ -20,22 +20,6 @@ export default function PickOptions({ params: { lng, itemId } }) {
     router.push(`/${lng}`);
   }
 
-  const [product, setProduct] = useState({});
-  useEffect(() => {
-    GetProducts()
-      .then((data) => {
-        // Find product by id
-        data.forEach((product) => {
-          if (product.id === itemId) {
-            setProduct(product);
-          }
-        });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
-
   // Set total price
   const [totalPrice, setTotalPrice] = useState(0.0);
 
@@ -45,16 +29,32 @@ export default function PickOptions({ params: { lng, itemId } }) {
   // Set default options
   const [selectedOptions, setSelectedOptions] = useState({});
 
+  const { products, error, isLoading } = useGetProducts();
+  let product = null;
+  if (!isLoading && products) {
+    product = products.find((item) => item.id === itemId);
+  }
+  if (error) {
+    console.log(error);
+  }
+
   useEffect(() => {
     const options = {}; // { customizationId: optionId }
-    product?.customizations?.map((customizationId, k) => {
-      const allOptions = Object.keys(customization.options).sort((a, b) => {
-        return customization.options[a].order - customization.options[b].order;
+    if (product?.customizations) {
+      Object.keys(product.customizations).map((customizationId, k) => {
+        const customization = product.customizations[customizationId];
+        if (customization.options) {
+          const allOptions = Object.keys(customization.options).sort((a, b) => {
+            return (
+              customization.options[a].order - customization.options[b].order
+            );
+          });
+          options[customizationId] = allOptions[0];
+        }
       });
-      options[customizationId] = allOptions[0];
-    });
-    setSelectedOptions(options);
-  }, []);
+      setSelectedOptions(options);
+    }
+  }, [product]);
 
   function updatePrice(selectedOptions, quantity) {
     if (!product || !product?.customizations) {
@@ -153,7 +153,6 @@ export default function PickOptions({ params: { lng, itemId } }) {
                               const option =
                                 product?.customizations[customizationId]
                                   ?.options[optionId];
-                              console.log(option);
                               return (
                                 <div
                                   key={index}
@@ -162,10 +161,13 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                   <input
                                     type="radio"
                                     id={t(optionId)}
-                                    name={t(option.name)}
+                                    name={t(
+                                      product.customizations[customizationId]
+                                        .name
+                                    )}
                                     value={t(option.name)}
                                     checked={
-                                      selectedOptions[customizationId] ===
+                                      selectedOptions[customizationId] ==
                                       optionId
                                     }
                                     onChange={(e) => {
