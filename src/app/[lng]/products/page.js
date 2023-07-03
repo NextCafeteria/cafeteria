@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
 import { useGetProducts } from "@/lib/requests/products";
 import ProductCard from "@/components/products/ProductCard";
+import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 
 export default function ProductManagement({ params: { lng } }) {
   const router = useRouter();
@@ -37,15 +38,9 @@ export default function ProductManagement({ params: { lng } }) {
               (params.lng = lng), (<ProductCard key={key} {...params} />)
             )
           )
-        ) : products === null ? (
-          Array.from({ length: 3 }, (e, i) => i).map((i) => (
-            <ProductCard
-              key={i}
-              order={null}
-              orderId={i}
-              lng={lng}
-              isLoading={true}
-            />
+        ) : isLoading ? (
+          Array.from({ length: 5 }, (e, i) => i).map((i) => (
+            <ProductCardSkeleton key={i} />
           ))
         ) : (
           <p className="text-sm">

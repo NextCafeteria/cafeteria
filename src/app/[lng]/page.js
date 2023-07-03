@@ -1,6 +1,5 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import LangSelector from "@/components/LangSelector";
 import { useGetProducts } from "@/lib/requests/products";
