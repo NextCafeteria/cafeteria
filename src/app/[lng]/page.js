@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import LangSelector from "@/components/LangSelector";
 import { useGetProducts } from "@/lib/requests/products";
+import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
@@ -36,29 +37,7 @@ export default function Home({ params: { lng } }) {
               ))
             : products &&
               products.map((product, key) => (
-                <div
-                  key={key}
-                  className="clickable flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
-                  onClick={() => {
-                    router.push(`/${lng}/pick-item-options/${product.id}`);
-                  }}
-                >
-                  <div className="flex flex-col items-begin justify-center w-full relative">
-                    <img
-                      src={product.image}
-                      alt={t(product.name)}
-                      width={128}
-                      height={128}
-                      className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
-                    />
-                    <p className="text-xl font-bold">{t(product.name)}</p>
-                    <p className="text-sm">{t(product.description)}</p>
-                    <p className="text-sm">${product.price}</p>
-                    <button className="px-2 py-1 mt-4 text-sm bg-green-700 text-white rounded-md w-[140px]">
-                      {t("Add to cart")}
-                    </button>
-                  </div>
-                </div>
+                <ProductCardSkeleton />
               ))}
         </div>
       </div>

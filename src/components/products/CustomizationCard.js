@@ -1,5 +1,3 @@
-import "react-loading-skeleton/dist/skeleton.css";
-
 import { uuidv4 } from "@/lib/utils";
 
 export default function ({ lng, id, customization, updateCustomization }) {

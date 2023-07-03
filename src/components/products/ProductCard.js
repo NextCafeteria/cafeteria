@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 import { DeleteProduct } from "@/lib/requests/products";
 import { useTranslation } from "@/app/i18n/client";
