@@ -4,7 +4,9 @@
   <p align="center" style="font-weight: bold">Online ordering system for small coffee shops!</p>
 </p>
 
-<img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="https://github.com/NextCafeteria/cafeteria/assets/18329471/a6c632f4-26ab-4aab-a75a-94b31bfa74f6"/>
+<img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="docs/screenshot1.png"/>
+
+<img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="docs/screenshot2.png"/>
 
 - **Deployed at:** [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
 - **Frontend:** Next.js with Javascript, Tailwind CSS.
