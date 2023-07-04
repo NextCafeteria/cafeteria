@@ -140,7 +140,7 @@ export default function Cart({ params: { lng } }) {
             />
           ))
         ) : (
-          <p className="text-sm">{t("No orders")}</p>
+          <p className="text-sm">{t("No order")}</p>
         )}
       </div>
     </main>

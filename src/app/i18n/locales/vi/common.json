@@ -107,5 +107,8 @@
   "Price": "Giá",
   "Image": "Hình ảnh",
   "Description": "Mô tả",
-  "Loading data...": "Đang tải dữ liệu..."
+  "Loading data...": "Đang tải dữ liệu...",
+  "Base Price": "Giá Từ",
+  "No order": "Chưa có đơn hàng",
+  "Pick a store": "Chọn cửa hàng"
 }

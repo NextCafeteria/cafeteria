@@ -39,7 +39,7 @@ export default function AddressPicker({
 
   return (
     <div className="flex flex-col gap-2 mt-4">
-      <div className="text-md clickable font-bold">{t("Pick a store:")}</div>
+      <div className="text-md clickable font-bold">{t("Pick a store")}:</div>
       {stores.map((store, index) => (
         <div key={index} className="w-full p-2 border-b-[1px] ">
           <input

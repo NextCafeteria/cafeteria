@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { useTranslation } from "@/app/i18n/client";
 
 export default function CartItemCard({ lng, item, index, handeDelete }) {
@@ -17,7 +19,7 @@ export default function CartItemCard({ lng, item, index, handeDelete }) {
           {quantity} x {price}đ
         </p>
       </div>
-      <img src={item.image} className="w-16 h-auto rounded-md mb-4" />
+      <Image width={200} height={100} src={item.image} className="w-16 h-auto rounded-md mb-4" />
       {Object.keys(item.customizations)
         .sort(
           (a, b) => item.customizations[a].order - item.customizations[b].order

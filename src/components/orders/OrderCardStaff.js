@@ -83,8 +83,7 @@ export default function OrderCardStaffStaff({
                   >
                     <p className="text-sm">{name}</p>
                     <p className="text-sm">
-                      {quantity} x ${price} = 
-                      {itemTotalPrice} đ
+                      {quantity} x {price} = {itemTotalPrice}đ
                     </p>
                   </div>
                 );

@@ -16,10 +16,10 @@ export function populateCart(cart, products) {
     const product = products.find((product) => product.id === item.id);
     if (product) {
       // Calculate price
-      let productPrice = product.price;
+      let productPrice = parseFloat(product.price);
       let productTax = 0.0;
       let productTotal = 0.0;
-      let productSelectedOptions = [];
+      let productSelectedOptions = {};
       let productQuantity = 0;
       if (item.selectedOptions) {
         // Loop in selectedOptions dict
@@ -31,30 +31,28 @@ export function populateCart(cart, products) {
           if (!optionPrice) {
             continue;
           }
-          productPrice += optionPrice;
-          productTax += optionPrice * taxRate;
-          productTotal += optionPrice * (1 + taxRate);
-          productSelectedOptions.push({
-            customizationId: optionId,
-          });
+          productPrice += parseFloat(optionPrice);
+          productSelectedOptions[customizationId] = optionId;
         }
       }
+      productTax = productPrice * taxRate;
+      productTotal = productPrice + productTax;
 
       // Calculate total
       productQuantity = item.quantity;
-      productPrice *= productQuantity;
-      productTax *= productQuantity;
-      productTotal *= productQuantity;
 
       // Add to cart
-      price += productPrice;
-      tax += productTax;
-      total += productTotal;
+      price += productPrice * productQuantity;
+      tax += productTax * productQuantity;
+      total += productTotal * productQuantity;
       quantity += productQuantity;
 
       // Add to populated cart
       items.push({
         ...product,
+        price: roundUp(productPrice),
+        tax: roundUp(productTax),
+        total: roundUp(productTotal),
         selectedOptions: productSelectedOptions,
         quantity: productQuantity,
       });

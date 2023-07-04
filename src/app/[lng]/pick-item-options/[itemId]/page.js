@@ -67,7 +67,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
     for (const customizationId in selectedOptions) {
       const optionId = selectedOptions[customizationId];
       const option = product.customizations[customizationId].options[optionId];
-      newTotalPrice += option.price;
+      newTotalPrice += parseFloat(option.price);
     }
 
     newTotalPrice *= quantity;

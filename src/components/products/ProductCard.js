@@ -49,7 +49,7 @@ export default function ({
             {isLoading ? <Skeleton width={200} /> : description}
           </p>
           <p className="text-sm mt-2 mb-2">
-            <b>{t("Base Price:")}</b>{" "}
+            <b>{t("Base Price")}:</b>{" "}
             {isLoading ? <Skeleton width={50} /> : price + "đ"}
           </p>
           <p className="text-sm mt-2 mb-2">
