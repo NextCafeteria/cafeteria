@@ -106,5 +106,6 @@
   "Name": "Tên",
   "Price": "Giá",
   "Image": "Hình ảnh",
-  "Description": "Mô tả"
+  "Description": "Mô tả",
+  "Loading data...": "Đang tải dữ liệu..."
 }
