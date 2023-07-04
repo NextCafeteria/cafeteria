@@ -21,7 +21,7 @@ export default function Payment({
   const { t } = useTranslation(lng, "common");
   return (
     <div className="flex-col">
-      <span className="text-xl mb-4">Scan to pay</span>
+      <span className="text-xl mb-4">{t("Scan to pay")}</span>
       <img
         src={`${NEXT_PUBLIC_VIETQR_IMAGE}?accountName=${NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME}&amount=1000&addInfo=${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}${orderId}`}
         className="w-60 h-auto mb-4"
@@ -46,7 +46,7 @@ export default function Payment({
               }
             }}
           >
-            {t("I've paid")}
+            {t("Complete")}
           </span>
         </div>
       </div>

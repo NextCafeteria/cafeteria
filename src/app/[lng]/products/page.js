@@ -38,7 +38,7 @@ export default function ProductManagement({ params: { lng } }) {
             )
           )
         ) : isLoading ? (
-          Array.from({ length: 5 }, (e, i) => i).map((i) => (
+          Array.from({ length: 3 }, (e, i) => i).map((i) => (
             <ProductCardSkeleton key={i} />
           ))
         ) : (

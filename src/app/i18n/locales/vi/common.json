@@ -110,5 +110,14 @@
   "Loading data...": "Đang tải dữ liệu...",
   "Base Price": "Giá Từ",
   "No order": "Chưa có đơn hàng",
-  "Pick a store": "Chọn cửa hàng"
+  "Pick a store": "Chọn cửa hàng",
+  "Scan to pay": "Quét để thanh toán",
+  "Cancel": "Hủy bỏ",
+  "Please pay the exact amount!": "Vui lòng thanh toán đúng số tiền!",
+  "Add store": "Thêm cửa hàng",
+  "Remove as staff": "Xóa nhân viên",
+  "Store": "Cửa hàng",
+  "Add Staff": "Thêm nhân viên",
+  "Staffs": "Nhân viên",
+  "Add a staff by clicking the button below.": "Thêm nhân viên bằng cách nhấp vào nút bên dưới."
 }
