@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { useGetProducts } from "@/lib/requests/products";
+import { GetProduct } from "@/lib/requests/products";
 import XButton from "@/components/buttons/XButton";
 
 export default function PickOptions({ params: { lng, itemId } }) {
@@ -29,14 +29,17 @@ export default function PickOptions({ params: { lng, itemId } }) {
   // Set default options
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  const { products, error, isLoading } = useGetProducts();
-  let product = null;
-  if (!isLoading && products) {
-    product = products.find((item) => item.id === itemId);
-  }
-  if (error) {
-    console.log(error);
-  }
+  // Get product data
+  const [product, setProduct] = useState(() => {
+    GetProduct(itemId)
+      .then((data) => {
+        setTotalPrice(data.price);
+        setProduct(data);
+      })
+      .catch((e) => {
+        router.push(`/${lng}`);
+      });
+  });
 
   useEffect(() => {
     const options = {}; // { customizationId: optionId }
