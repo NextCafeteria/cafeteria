@@ -14,7 +14,7 @@ export default function CartItemCard({ lng, item, index, handeDelete }) {
       <div className="flex justify-between w-full pb-1 pt-2">
         <p className="text-sm font-bold">{t(name)}</p>
         <p className="text-sm font-bold">
-          {quantity} x ${price}
+          {quantity} x {price}đ
         </p>
       </div>
       <img src={item.image} className="w-16 h-auto rounded-md mb-4" />

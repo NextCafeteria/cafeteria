@@ -11,9 +11,9 @@ export default function ({ lng, totalRatingTimes, totalRatingStars }) {
   const rating = totalRatingTimes > 0 ? totalRatingStars / totalRatingTimes : 0;
   const { t } = useTranslation(lng, "common");
   return (
-    <div className="flex space-x-1">
+    <div className="text-xs flex">
       <Rating value={rating} /> <span className="ml-2"></span>{" "}
-      {rating.toFixed(1)}/5 {t("stars")} - {totalRatingTimes} {t("reviews")}
+      {rating.toFixed(1)}/5 - {totalRatingTimes} {t("reviews")}
     </div>
   );
 }

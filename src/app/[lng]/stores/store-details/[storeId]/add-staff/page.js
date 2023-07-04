@@ -51,7 +51,7 @@ export default function NewStores({ params: { lng, storeId } }) {
             {t("stars")} - {storeData?.totalRatingTimes || 0} {t("reviews")}
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 rounded-md">
+        <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
           <div className="text-2xl font-bold mt-4 mb-8">{t("Add a Staff")}</div>
           <div className="flex flex-col items-begin justify-center w-full relative">
             <p className="text-xl font-bold">{t("Staff email to add")}</p>
@@ -63,7 +63,7 @@ export default function NewStores({ params: { lng, storeId } }) {
               }}
             />
           </div>
-          <div className="flex flex-col items-begin justify-center w-full relative hidden">
+          <div className="flex flex-col items-begin justify-center w-full relative">
             <p className="text-xl font-bold">{t("Role")}</p>
             <select
               className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-4"

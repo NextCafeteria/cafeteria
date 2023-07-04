@@ -107,7 +107,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
             {t("Options")}
             <XButton />
           </div>
-          <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 rounded-md">
+          <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
             <div className="flex flex-col items-begin justify-center w-full relative">
               <Image
                 src={product?.image}
@@ -119,7 +119,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
               <p className="text-xl font-bold">{t(product?.name)}</p>
               <p className="text-sm">{t(product?.description)}</p>
               <p className="text-sm">
-                {t("Base price")}: ${product?.price}
+                {t("Base price")}: {product?.price}đ
               </p>
             </div>
 
@@ -183,7 +183,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     className="pl-2 w-100"
                                     htmlFor={t(option.name)}
                                   >
-                                    {t(option.name)} (${option.price})
+                                    {t(option.name)} ({option.price}đ)
                                   </label>
                                 </div>
                               );
@@ -237,7 +237,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>
           <span className="text-2xl float-right">
-            ${totalPrice?.toFixed(2)}
+            {totalPrice}đ
           </span>
         </div>
       </main>

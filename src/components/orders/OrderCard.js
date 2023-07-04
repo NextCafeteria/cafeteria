@@ -72,7 +72,7 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
             )}
           </p>
           <p className="absolute right-0 top-0 text-sm float-right font-bold">
-            {isLoading ? <Skeleton width={50} /> : totalPrice.toFixed(2)}
+            {isLoading ? <Skeleton width={50} /> : totalPrice}
           </p>
         </div>
       </div>

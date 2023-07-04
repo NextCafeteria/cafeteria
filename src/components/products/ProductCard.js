@@ -43,14 +43,14 @@ export default function ({
         />
         <div className="w-full relative">
           <h2 className="text-lg font-bold mb-2">
-            {isLoading ? <Skeleton width={70} /> : name}
+            {isLoading ? <Skeleton width={70} /> : t(name)}
           </h2>
           <p className="text-sm mt-2 mb-2">
             {isLoading ? <Skeleton width={200} /> : description}
           </p>
           <p className="text-sm mt-2 mb-2">
             <b>{t("Base Price:")}</b>{" "}
-            {isLoading ? <Skeleton width={50} /> : "$" + price}
+            {isLoading ? <Skeleton width={50} /> : price + "đ"}
           </p>
           <p className="text-sm mt-2 mb-2">
             {isLoading ? (

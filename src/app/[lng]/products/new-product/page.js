@@ -88,6 +88,17 @@ export default function ({ params: { lng } }) {
                 setProductData(productDataCopy);
               }}
             />
+            <p className="text-md font-bold">{t("Price")}</p>
+            <input
+              type="text"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+              value={productData?.price}
+              onChange={(e) => {
+                let productDataCopy = { ...productData };
+                productDataCopy.price = parseFloat(e.target.value);
+                setProductData(productDataCopy);
+              }}
+            />
           </div>
 
           <div className="rounded-md w-[200px] justify-center align-middle items-center relative overflow-hidden border-[1px] m-2 border-gray-600 h-fit pb-[30px]">
@@ -162,7 +173,7 @@ export default function ({ params: { lng } }) {
             setProductData(productDataCopy);
           }}
         >
-          Add Customization
+          { t("Add Customization") }
         </button>
       </div>
       <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">

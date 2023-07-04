@@ -26,7 +26,7 @@ export default function NewStores({ params: { lng, itemId } }) {
           {t("New Store")}
           <XButton />
         </div>
-        <div className="flex flex-col items-center justify-center w-full p-4 min-h-[100px] my-1 mx-1 rounded-md">
+        <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
           <div className="flex flex-col items-begin justify-center w-full relative">
             <p className="text-xl font-bold">{t("Store Name")}</p>
             <input

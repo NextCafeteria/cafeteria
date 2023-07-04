@@ -93,5 +93,18 @@
   "Stores": "Các cửa hàng",
   "Add a store by clicking the button below.": "Thêm cửa hàng bằng cách nhấp vào nút bên dưới.",
   "stars": "sao",
-  "reviews": "đánh giá"
+  "reviews": "đánh giá",
+  "Save changes": "Lưu thay đổi",
+  "Add product": "Thêm sản phẩm",
+  "Products": "Sản phẩm",
+  "Delete": "Xóa",
+  "Add Option": "Thêm tùy chọn",
+  "Remove Customization": "Xóa tùy chỉnh",
+  "customizations": "tùy chỉnh",
+  "Add Customization": "Thêm tùy chỉnh",
+  "Product": "Sản phẩm",
+  "Name": "Tên",
+  "Price": "Giá",
+  "Image": "Hình ảnh",
+  "Description": "Mô tả"
 }

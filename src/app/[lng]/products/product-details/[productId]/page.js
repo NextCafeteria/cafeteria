@@ -78,7 +78,7 @@ export default function ({ params: { lng, productId } }) {
             <p className="text-md font-bold">{t("Name")}</p>
             <input
               type="text"
-              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-4"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
               value={productData?.name}
               onChange={(e) => {
                 let productDataCopy = { ...productData };
@@ -89,11 +89,22 @@ export default function ({ params: { lng, productId } }) {
             <p className="text-md font-bold">{t("Description")}</p>
             <input
               type="text"
-              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-4"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
               value={productData?.description}
               onChange={(e) => {
                 let productDataCopy = { ...productData };
                 productDataCopy.description = e.target.value;
+                setProductData(productDataCopy);
+              }}
+            />
+            <p className="text-md font-bold">{t("Price")}</p>
+            <input
+              type="text"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+              value={productData?.price}
+              onChange={(e) => {
+                let productDataCopy = { ...productData };
+                productDataCopy.price = parseFloat(e.target.value);
                 setProductData(productDataCopy);
               }}
             />
@@ -135,7 +146,6 @@ export default function ({ params: { lng, productId } }) {
         </div>
         </div>
 
-        <div className="text-xl font-bold mt-2 mb-4">{t("Customizations")}</div>
         {productData?.customizations && Object.keys(productData?.customizations).sort(
           (a, b) => {
             a.order - b.order;
@@ -171,7 +181,7 @@ export default function ({ params: { lng, productId } }) {
             setProductData(productDataCopy);
           }}
         >
-          Add Customization
+          { t("Add Customization") }
         </button>
       </div>
       <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">

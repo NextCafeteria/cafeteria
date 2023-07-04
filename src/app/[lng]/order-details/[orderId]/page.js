@@ -140,15 +140,15 @@ export default function ({ params: { lng, orderId } }) {
           <>
             <div className="flex justify-between w-full pt-4">
               <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
-              <p className="text-sm font-bold mb-2">${price.toFixed(2)}</p>
+              <p className="text-sm font-bold mb-2">${price}</p>
             </div>
             <div className="flex justify-between w-full">
               <p className="text-sm font-bold mb-2">{t("Tax")}</p>
-              <p className="text-sm font-bold mb-2">${tax.toFixed(2)}</p>
+              <p className="text-sm font-bold mb-2">${tax}</p>
             </div>
             <div className="flex justify-between w-full border-b-2 border-gray-800">
               <p className="text-sm font-bold mb-2">{t("Total")}</p>
-              <p className="text-sm font-bold mb-2">${totalPrice.toFixed(2)}</p>
+              <p className="text-sm font-bold mb-2">${totalPrice}</p>
             </div>
           </>
         )}

@@ -83,8 +83,8 @@ export default function OrderCardStaffStaff({
                   >
                     <p className="text-sm">{name}</p>
                     <p className="text-sm">
-                      {quantity} x ${price.toFixed(2)} = $
-                      {itemTotalPrice.toFixed(2)}
+                      {quantity} x ${price} = 
+                      {itemTotalPrice} đ
                     </p>
                   </div>
                 );
@@ -98,14 +98,14 @@ export default function OrderCardStaffStaff({
             {isLoading ? (
               <Skeleton width={70} />
             ) : (
-              <p className="text-sm">${tax.toFixed(2)}</p>
+              <p className="text-sm">{tax}</p>
             )}
           </div>
           <p className="absolute right-0 top-0 text-sm float-right font-bold">
             {isLoading ? (
               <Skeleton width={70} />
             ) : (
-              `${t("Total")}: ${totalPrice.toFixed(2)}`
+              `${t("Total")}: ${totalPrice}`
             )}
           </p>
           {ORDER_STATUS_TO_PRIMARY_ACTION[status] &&

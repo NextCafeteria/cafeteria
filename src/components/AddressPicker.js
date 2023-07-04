@@ -80,7 +80,7 @@ export default function AddressPicker({
           key={addressOptions.length}
           type="radio"
           name="select_address"
-          checked={selectedOption === null}
+          checked={selectedOption === null} 
           onChange={(e) => {
             setSelectedAddress(null);
             setAddressCb(null);

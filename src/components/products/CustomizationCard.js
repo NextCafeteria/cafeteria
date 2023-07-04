@@ -1,6 +1,9 @@
 import { uuidv4 } from "@/lib/utils";
+import { useTranslation } from "@/app/i18n/client";
 
 export default function ({ lng, id, customization, updateCustomization }) {
+  const { t } = useTranslation(lng, "common");
+
   return (
     <div className="relative flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
       <div className="flex flex-col items-begin justify-center w-full relative">
@@ -105,7 +108,7 @@ export default function ({ lng, id, customization, updateCustomization }) {
           updateCustomization(id, customizationCopy);
         }}
       >
-        Add Option
+        { t("Add Option") }
       </button>
       <button
         type="button"
@@ -114,7 +117,7 @@ export default function ({ lng, id, customization, updateCustomization }) {
           updateCustomization(id, null);
         }}
       >
-        Remove Customization
+        { t("Remove Customization") }
       </button>
     </div>
   );
