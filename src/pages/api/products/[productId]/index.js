@@ -10,9 +10,7 @@ export default async function handler(req, res) {
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
   }
-  if (!currentUser?.isAdmin) {
-    return res.status(401).json({ error: "Admin is required" });
-  }
+  
   if (req.method === "GET") {
     const productId = req.query.productId;
     const docRef = doc(dbService.getDB(), "products", productId);
@@ -23,6 +21,9 @@ export default async function handler(req, res) {
     let data = { ...docSnap.data(), id: docSnap.id };
     // Return all details of the product
     return res.status(200).json({ success: true, data: data });
+  }
+  if (!currentUser?.isAdmin) {
+    return res.status(401).json({ error: "Admin is required" });
   }
   if (req.method === "PUT") {
     const productId = req.query.productId;
