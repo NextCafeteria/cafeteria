@@ -11,8 +11,9 @@ import XButton from "@/components/buttons/XButton";
 export default function PickOptions({ params: { lng, itemId } }) {
   const router = useRouter();
   const session = useSession();
-  if (session && session.status === "unauthenticated") {
+  if (session && session?.status === "unauthenticated") {
     router.push(`/${lng}/login`);
+    return <></>;
   }
 
   // If item id is not valid, redirect to home page
