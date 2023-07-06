@@ -1,0 +1,21 @@
+name: Push to cafe.vietanh.dev
+
+on:
+  pull_request:
+    branches:
+    - master
+jobs:
+  push_to_mirror_repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Push to Repo
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: vietanhdev/cafeteria
+          branch: master
+          
