@@ -74,7 +74,7 @@ export default function ({ params: { lng, storeId } }) {
       </div>
       <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
         <div
-          className="h-[50px] bstore-t-[1px] md:bstore-[1px] bstore-gray-600 p-2 bg-green-700 text-white md:rounded-md"
+          className="h-[50px] bstore-t-[1px] md:bstore-[1px] bstore-gray-600 p-2 bg-green-600 text-white md:rounded-md"
           onClick={() => {
             router.push(`/${lng}/stores/store-details/${storeId}/add-staff`);
           }}

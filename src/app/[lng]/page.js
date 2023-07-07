@@ -36,22 +36,40 @@ export default function Home({ params: { lng } }) {
                     router.push(`/${lng}/pick-item-options/${product.id}`);
                   }}
                 >
-                  <div className="flex flex-col items-begin justify-center w-full relative">
-                    <img
-                      src={product.image}
-                      alt={t(product.name)}
-                      width={128}
-                      height={128}
-                      className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
-                    />
-                    <p className="text-xl font-bold">{t(product.name)}</p>
-                    <p className="text-sm">{t(product.description)}</p>
-                    <p className="text-sm">
-                      {product.price.toLocaleString("vi-VN")}đ
-                    </p>
-                    <button className="px-2 py-1 mt-4 text-sm bg-green-700 text-white rounded-md w-[140px]">
-                      {t("Add to cart")}
-                    </button>
+                  <div className="flex flex-grow w-full relative">
+                    <div className="grow">
+                      <p className="text-xl font-bold">{t(product.name)}</p>
+                      <p className="text-sm break-words mb-2">
+                        {t(product.description)}
+                      </p>
+                      <p className="text-sm font-bold">
+                        {product.price.toLocaleString("vi-VN")}đ
+                      </p>
+                      <button className="flex px-4 py-2 mt-4 text-sm bg-green-600 text-white rounded-md">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-5 h-5 mr-1"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        {t("Add")}
+                      </button>
+                    </div>
+                    <div>
+                      <img
+                        src={product.image}
+                        alt={t(product.name)}
+                        width={128}
+                        height={64}
+                        className="w-[150px] rounded-lg"
+                      />
+                    </div>
                   </div>
                 </div>
               ))}

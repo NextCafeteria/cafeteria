@@ -33,14 +33,7 @@ export default function ({
 
   return (
     <Link href={isLoading ? "" : `/${lng}/products/product-details/${id}`}>
-      <div className="relative flex flex-col items-center justify-center w-full p-4 min-h-[150px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
-        <Image
-          src={image}
-          alt={t(name)}
-          width={128}
-          height={64}
-          className="absolute right-2 top-2 w-28 h-auto max-h-28 rounded-md"
-        />
+      <div className="relative flex flex-grow w-full p-4 min-h-[180px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
         <div className="w-full relative">
           <h2 className="text-lg font-bold mb-2">
             {isLoading ? <Skeleton width={70} /> : t(name)}
@@ -64,9 +57,18 @@ export default function ({
             )}
           </p>
         </div>
-        <div className="absolute bottom-4 right-4 flex">
+        <div>
+          <Image
+            src={image}
+            alt={t(name)}
+            width={128}
+            height={64}
+            className="w-[200px] h-auto rounded-md"
+          />
+        </div>
+        <div className="absolute bottom-4 right-4">
           <button
-            className="px-1 py-0.5 text-sm bg-red-500 text-white rounded-md w-[140px]"
+            className="px-1 py-0.5 text-sm bg-red-500 text-white rounded-md w-[100px]"
             onClick={(e) => {
               e.preventDefault();
               handleDeleteProduct();

@@ -91,7 +91,7 @@ export default function ({ lng, id, customization, updateCustomization }) {
           ))}
       <button
         type="button"
-        className="focus:outline-none bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1"
+        className="focus:outline-none bg-green-600 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1"
         onClick={() => {
           let optionId = uuidv4();
           let customizationCopy = { ...customization };
