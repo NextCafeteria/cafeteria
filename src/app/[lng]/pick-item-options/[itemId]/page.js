@@ -109,12 +109,12 @@ export default function PickOptions({ params: { lng, itemId } }) {
             <XButton />
           </div>
           <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
-            <div className="item-content flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md">
+            <div className="product-content flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md">
               <div className="flex flex-col items-begin justify-center w-fit relative">
                 <p className="text-xl font-bold">{t(product?.name)}</p>
                 <p className="text-sm">{t(product?.description)}</p>
                 <p className="text-sm">
-                  {t("Base price")}: {product?.price}đ
+                  {t("Base price")}: {product?.price?.toLocaleString("vi-VN")}đ
                 </p>
               </div>
               <div className="h-32 w-32 rounded-sm">
@@ -188,7 +188,11 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     className="pl-2 w-100"
                                     htmlFor={t(option.name)}
                                   >
-                                    {t(option.name)} ({option.price}đ)
+                                    {t(option.name)} (
+                                    {Number(option.price)?.toLocaleString(
+                                      "vi-VN",
+                                    )}
+                                    đ)
                                   </label>
                                 </div>
                               );
@@ -235,13 +239,14 @@ export default function PickOptions({ params: { lng, itemId } }) {
             </div>
           </div>
         </div>
-
         <div
           className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-primary text-black md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>
-          <span className="text-2xl float-right">{totalPrice}đ</span>
+          <span className="text-2xl float-right">
+            {totalPrice?.toLocaleString("vi-VN")}đ
+          </span>
         </div>
       </main>
     )

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (!currentUser) {
     return res.status(401).json({ error: "Login is required" });
   }
-  
+
   if (req.method === "GET") {
     const productId = req.query.productId;
     const docRef = doc(dbService.getDB(), "products", productId);

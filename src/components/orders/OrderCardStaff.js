@@ -83,7 +83,8 @@ export default function OrderCardStaffStaff({
                   >
                     <p className="text-sm">{name}</p>
                     <p className="text-sm">
-                      {quantity} x {price} = {itemTotalPrice}đ
+                      {quantity} x {price?.toLocaleString("vi-VN")} ={" "}
+                      {itemTotalPrice?.toLocaleString("vi-VN")}đ
                     </p>
                   </div>
                 );
@@ -112,7 +113,7 @@ export default function OrderCardStaffStaff({
               <Skeleton width={100} />
             ) : (
               <button
-                className="px-2 py-1 mt-4 text-sm text-gray-800 bg-green-700 text-white rounded-md w-[140px]"
+                className="px-2 py-1 mt-4 text-sm text-gray-800 bg-green-600 text-white rounded-md w-[140px]"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
