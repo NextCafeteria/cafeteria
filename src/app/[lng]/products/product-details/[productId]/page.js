@@ -99,7 +99,7 @@ export default function ({ params: { lng, productId } }) {
             />
             <p className="text-md font-bold">{t("Price")}</p>
             <input
-              type="text"
+              type="number"
               className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
               value={productData?.price}
               onChange={(e) => {

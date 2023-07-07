@@ -16,10 +16,15 @@ export default function CartItemCard({ lng, item, index, handeDelete }) {
       <div className="flex justify-between w-full pb-1 pt-2">
         <p className="text-sm font-bold">{t(name)}</p>
         <p className="text-sm font-bold">
-          {quantity} x {price}đ
+          {quantity} x {price?.toLocaleString("vi-VN")}đ
         </p>
       </div>
-      <Image width={200} height={100} src={item.image} className="w-16 h-auto rounded-md mb-4" />
+      <Image
+        width={200}
+        height={100}
+        src={item.image}
+        className="w-16 h-auto rounded-md mb-4"
+      />
       {Object.keys(item.customizations)
         .sort(
           (a, b) => item.customizations[a].order - item.customizations[b].order

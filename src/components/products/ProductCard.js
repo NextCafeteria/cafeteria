@@ -50,7 +50,11 @@ export default function ({
           </p>
           <p className="text-sm mt-2 mb-2">
             <b>{t("Base Price")}:</b>{" "}
-            {isLoading ? <Skeleton width={50} /> : price + "đ"}
+            {isLoading ? (
+              <Skeleton width={50} />
+            ) : (
+              price?.toLocaleString("vi-VN") + "đ"
+            )}
           </p>
           <p className="text-sm mt-2 mb-2">
             {isLoading ? (

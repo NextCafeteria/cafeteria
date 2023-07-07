@@ -120,7 +120,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
               <p className="text-xl font-bold">{t(product?.name)}</p>
               <p className="text-sm">{t(product?.description)}</p>
               <p className="text-sm">
-                {t("Base price")}: {product?.price}đ
+                {t("Base price")}: {product?.price?.toLocaleString("vi-VN")}đ
               </p>
             </div>
 
@@ -184,7 +184,11 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     className="pl-2 w-100"
                                     htmlFor={t(option.name)}
                                   >
-                                    {t(option.name)} ({option.price}đ)
+                                    {t(option.name)} (
+                                    {Number(option.price)?.toLocaleString(
+                                      "vi-VN"
+                                    )}
+                                    đ)
                                   </label>
                                 </div>
                               );
@@ -238,7 +242,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>
           <span className="text-2xl float-right">
-            {totalPrice}đ
+            {totalPrice?.toLocaleString("vi-VN")}đ
           </span>
         </div>
       </main>

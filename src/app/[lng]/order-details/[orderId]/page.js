@@ -106,7 +106,7 @@ export default function ({ params: { lng, orderId } }) {
                 <div className="flex justify-between w-full pb-1 pt-2">
                   <p className="text-sm font-bold">{t(name)}</p>
                   <p className="text-sm font-bold">
-                    {quantity} x ${price}
+                    {quantity} x {price?.toLocaleString("vi-VN")}đ
                   </p>
                 </div>
                 <img src={item.image} className="w-16 h-auto rounded-md mb-4" />
@@ -140,15 +140,21 @@ export default function ({ params: { lng, orderId } }) {
           <>
             <div className="flex justify-between w-full pt-4">
               <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
-              <p className="text-sm font-bold mb-2">${price}</p>
+              <p className="text-sm font-bold mb-2">
+                {price?.toLocaleString("vi-VN")}đ
+              </p>
             </div>
             <div className="flex justify-between w-full">
               <p className="text-sm font-bold mb-2">{t("Tax")}</p>
-              <p className="text-sm font-bold mb-2">${tax}</p>
+              <p className="text-sm font-bold mb-2">
+                {tax?.toLocaleString("vi-VN")}đ
+              </p>
             </div>
             <div className="flex justify-between w-full border-b-2 border-gray-800">
               <p className="text-sm font-bold mb-2">{t("Total")}</p>
-              <p className="text-sm font-bold mb-2">${totalPrice}</p>
+              <p className="text-sm font-bold mb-2">
+                {totalPrice?.toLocaleString("vi-VN")}đ
+              </p>
             </div>
           </>
         )}
