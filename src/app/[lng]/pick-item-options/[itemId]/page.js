@@ -109,19 +109,23 @@ export default function PickOptions({ params: { lng, itemId } }) {
             <XButton />
           </div>
           <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
-            <div className="flex flex-col items-begin justify-center w-full relative">
-              <Image
-                src={product?.image}
-                alt={t(product?.name)}
-                width={128}
-                height={128}
-                className="absolute right-0 top-0 w-24 h-auto rounded-sm"
-              />
-              <p className="text-xl font-bold">{t(product?.name)}</p>
-              <p className="text-sm">{t(product?.description)}</p>
-              <p className="text-sm">
-                {t("Base price")}: {product?.price}đ
-              </p>
+            <div className="item-content flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md">
+              <div className="flex flex-col items-begin justify-center w-fit relative">
+                <p className="text-xl font-bold">{t(product?.name)}</p>
+                <p className="text-sm">{t(product?.description)}</p>
+                <p className="text-sm">
+                  {t("Base price")}: {product?.price}đ
+                </p>
+              </div>
+              <div className="h-32 w-32 rounded-sm">
+                <Image
+                  src={product?.image}
+                  alt={t(product?.name)}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover rounded"
+                />
+              </div>
             </div>
 
             {/* Show customizations */}
@@ -131,7 +135,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                   .sort(
                     (a, b) =>
                       product?.customizations[a].order -
-                      product?.customizations[b].order
+                      product?.customizations[b].order,
                   )
                   .map((customizationId, customizationIndex) => (
                     <div
@@ -144,14 +148,14 @@ export default function PickOptions({ params: { lng, itemId } }) {
                       <div className="flex flex-col items-center justify-center w-full mt-2">
                         {product?.customizations[customizationId]?.options &&
                           Object.keys(
-                            product?.customizations[customizationId]?.options
+                            product?.customizations[customizationId]?.options,
                           )
                             .sort(
                               (a, b) =>
                                 product?.customizations[customizationId]
                                   ?.options[a].order -
                                 product?.customizations[customizationId]
-                                  ?.options[b].order
+                                  ?.options[b].order,
                             )
                             .map((optionId, index) => {
                               const option =
@@ -167,7 +171,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     id={t(optionId)}
                                     name={t(
                                       product.customizations[customizationId]
-                                        .name
+                                        .name,
                                     )}
                                     value={t(option.name)}
                                     checked={
@@ -233,13 +237,11 @@ export default function PickOptions({ params: { lng, itemId } }) {
         </div>
 
         <div
-          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md"
+          className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-primary text-black md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>
-          <span className="text-2xl float-right">
-            {totalPrice}đ
-          </span>
+          <span className="text-2xl float-right">{totalPrice}đ</span>
         </div>
       </main>
     )

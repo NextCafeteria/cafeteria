@@ -35,7 +35,7 @@ export default function ProductManagement({ params: { lng } }) {
           products.map(
             (params, key) => (
               (params.lng = lng), (<ProductCard key={key} {...params} />)
-            )
+            ),
           )
         ) : isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
@@ -48,7 +48,7 @@ export default function ProductManagement({ params: { lng } }) {
         )}
       </div>
       <div
-        className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md"
+        className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md"
         onClick={() => {
           router.push(`/${lng}/products/new-product`);
         }}

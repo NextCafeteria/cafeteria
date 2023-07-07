@@ -25,7 +25,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not create rating");
-      }
+      },
     );
   }
 
@@ -39,7 +39,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
         console.log(e);
         alert("Could not get orders");
         router.push(`/${lng}/orders`);
-      }
+      },
     );
   }, []);
 
@@ -80,7 +80,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
           />
         </div>
       </div>
-      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
+      <div className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px]">
         <div
           className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md clickable"
           onClick={() => {

@@ -69,7 +69,7 @@ export default function Cart({ params: { lng } }) {
       (e) => {
         console.log(e);
         router.push(`/${lng}/login`);
-      }
+      },
     );
     return { err: err };
   }
@@ -95,7 +95,7 @@ export default function Cart({ params: { lng } }) {
       },
       (e) => {
         alert(t("Order failed"));
-      }
+      },
     );
   }
 
@@ -164,33 +164,31 @@ export default function Cart({ params: { lng } }) {
       </div>
 
       {cartData?.items?.length != 0 && (
-        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md">
+        <div className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md">
           <span className="text-2xl" onClick={handlePlaceOrder}>
             {t("Place Order!")}
           </span>
-          <span className="text-2xl float-right">
-            {cartData?.total}đ
-          </span>
+          <span className="text-2xl float-right">{cartData?.total}đ</span>
         </div>
       )}
       {cartData?.items?.length != 0 && (
-      <div
-        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center ${
-          !hidePayment ? "block" : "hidden"
-        }`}
-      >
-        <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md">
-          <Payment
-            lng={lng}
-            orderId={orderPlaced.id}
-            orderAmount={orderPlaced.amount}
-            handleCancel={() => {
-              setHidePayment(true);
-            }}
-            handlePay={handlePay}
-          ></Payment>
+        <div
+          className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center ${
+            !hidePayment ? "block" : "hidden"
+          }`}
+        >
+          <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md">
+            <Payment
+              lng={lng}
+              orderId={orderPlaced.id}
+              orderAmount={orderPlaced.amount}
+              handleCancel={() => {
+                setHidePayment(true);
+              }}
+              handlePay={handlePay}
+            ></Payment>
+          </div>
         </div>
-      </div>
       )}
     </main>
   );

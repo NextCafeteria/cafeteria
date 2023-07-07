@@ -16,6 +16,24 @@
   }
 }
 
+body * {
+  font-family: "Comfortaa", sans-serif;
+}
+
+/* Utils */
 .clickable {
   cursor: pointer;
+}
+
+/* Components */
+.card {
+  @apply bg-teal-50 rounded;
+}
+
+.btn {
+  @apply h-fit w-fit rounded-md normal-case;
+}
+
+.btn.btn-primary {
+  color: #eee;
 }

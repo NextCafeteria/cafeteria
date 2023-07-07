@@ -27,7 +27,7 @@ export default function ({ params: { lng, storeId } }) {
         console.log(e);
         alert("Could not get stores");
         router.push(`/${lng}/stores`);
-      }
+      },
     );
   };
 
@@ -72,7 +72,7 @@ export default function ({ params: { lng, storeId } }) {
           </p>
         )}
       </div>
-      <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
+      <div className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px]">
         <div
           className="h-[50px] bstore-t-[1px] md:bstore-[1px] bstore-gray-600 p-2 bg-green-700 text-white md:rounded-md"
           onClick={() => {

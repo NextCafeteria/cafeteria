@@ -31,25 +31,25 @@ export default function Home({ params: { lng } }) {
               products.map((product, key) => (
                 <div
                   key={key}
-                  className="clickable flex flex-col items-center justify-center w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
+                  className="clickable flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
                   onClick={() => {
                     router.push(`/${lng}/pick-item-options/${product.id}`);
                   }}
                 >
-                  <div className="flex flex-col items-begin justify-center w-full relative">
-                    <img
-                      src={product.image}
-                      alt={t(product.name)}
-                      width={128}
-                      height={128}
-                      className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
-                    />
+                  <div className="flex flex-col items-begin justify-center w-fit relative">
                     <p className="text-xl font-bold">{t(product.name)}</p>
                     <p className="text-sm">{t(product.description)}</p>
                     <p className="text-sm">{product.price}đ</p>
-                    <button className="px-2 py-1 mt-4 text-sm bg-green-700 text-white rounded-md w-[140px]">
+                    <button className="mt-4 text-sm text-white h-[1rem] btn btn-primary btn-sm">
                       {t("Add to cart")}
                     </button>
+                  </div>
+                  <div className="h-32 w-32 rounded-sm">
+                    <img
+                      src={product.image}
+                      alt={t(product.name)}
+                      className="w-full h-full object-cover rounded"
+                    />
                   </div>
                 </div>
               ))}

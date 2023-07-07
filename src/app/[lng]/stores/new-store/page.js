@@ -57,7 +57,7 @@ export default function NewStores({ params: { lng, itemId } }) {
       </div>
 
       <div
-        className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#0398EC] md:rounded-md text-white flex flex-row items-stretch justify-between px-8"
+        className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#0398EC] md:rounded-md text-white flex flex-row items-stretch justify-between px-8"
         onClick={() => {
           if (!name || !address || !phone) {
             alert("Please fill in all the fields!");
@@ -72,7 +72,7 @@ export default function NewStores({ params: { lng, itemId } }) {
             (e) => {
               console.log(e);
               alert("Could not create store! Please try again.");
-            }
+            },
           );
         }}
       >
