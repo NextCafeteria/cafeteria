@@ -46,7 +46,7 @@ export default function Home({ params: { lng } }) {
                       {t(product.description)}
                     </p>
 
-                    <button className="mt-3 text-sm text-white h-[1rem] btn btn-primary btn-sm">
+                    <button className="mt-2 text-sm text-white h-[1rem] btn btn-primary btn-sm">
                       {t("Add to cart")}
                     </button>
                   </div>
