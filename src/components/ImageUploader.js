@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { filestorage } from "@/lib/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
+import { filestorage } from "@/lib/firebase";
+import { useState } from "react";
+import { validateURL } from "../app/utils/validateURL";
 
 export default function ImageUploader({
   styles,
@@ -49,6 +51,7 @@ export default function ImageUploader({
           console.log(error);
         },
         () => {
+          validateURL(url);
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
             setIsUploading(false);
             handleUploadSuccess(url);
