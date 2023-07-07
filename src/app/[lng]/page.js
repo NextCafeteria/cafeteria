@@ -46,7 +46,9 @@ export default function Home({ params: { lng } }) {
                     />
                     <p className="text-xl font-bold">{t(product.name)}</p>
                     <p className="text-sm">{t(product.description)}</p>
-                    <p className="text-sm">{product.price}đ</p>
+                    <p className="text-sm">
+                      {product.price.toLocaleString("vi-VN")}đ
+                    </p>
                     <button className="px-2 py-1 mt-4 text-sm bg-green-700 text-white rounded-md w-[140px]">
                       {t("Add to cart")}
                     </button>

@@ -108,7 +108,7 @@ export default function ({ lng, id, customization, updateCustomization }) {
           updateCustomization(id, customizationCopy);
         }}
       >
-        { t("Add Option") }
+        {t("Add Option")}
       </button>
       <button
         type="button"
@@ -117,7 +117,7 @@ export default function ({ lng, id, customization, updateCustomization }) {
           updateCustomization(id, null);
         }}
       >
-        { t("Remove Customization") }
+        {t("Remove Customization")}
       </button>
     </div>
   );
