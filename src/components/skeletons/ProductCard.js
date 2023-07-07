@@ -7,14 +7,14 @@ export default function () {
         <p className="text-xl font-bold">
           <Skeleton />
         </p>
-        <p className="text-sm">
+        <p className="text-sm mb-2">
           <Skeleton />
         </p>
         <p className="text-sm">
           <Skeleton />
         </p>
-        <button className="w-[140px]">
-          <Skeleton height={30} />
+        <button className="w-[100px]">
+          <Skeleton height={38} />
         </button>
       </div>
     </div>
