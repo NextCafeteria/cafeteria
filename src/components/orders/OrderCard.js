@@ -72,7 +72,11 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
             )}
           </p>
           <p className="absolute right-0 top-0 text-sm float-right font-bold">
-            {isLoading ? <Skeleton width={50} /> : totalPrice}
+            {isLoading ? (
+              <Skeleton width={50} />
+            ) : (
+              totalPrice?.toLocaleString("vi-VN") + "đ"
+            )}
           </p>
         </div>
       </div>

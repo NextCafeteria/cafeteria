@@ -113,7 +113,7 @@ export default function Cart({ params: { lng } }) {
           {t("Cart")}
           <XButton href={`/${lng}`} />
         </div>
-        {!cartData?.items?.length ? (
+        {cartData && !cartData?.items?.length ? (
           <div className="flex flex-col items-center justify-center w-full min-h-[100px] my-1 mx-1 border-b-2">
             <div className="flex flex-col items-begin justify-center w-full relative">
               <p className="text-md">
@@ -137,18 +137,20 @@ export default function Cart({ params: { lng } }) {
             <>
               <div className="flex justify-between w-full pt-4">
                 <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
-                <p className="text-sm font-bold mb-2">{cartData?.price}đ</p>
+                <p className="text-sm font-bold mb-2">
+                  {cartData?.price?.toLocaleString("vi-VN")}đ
+                </p>
               </div>
               <div className="flex justify-between w-full">
                 <p className="text-sm font-bold mb-2">{t("Tax")}</p>
                 <p className="text-sm font-bold mb-2">
-                  {cartData?.tax && cartData?.tax}đ
+                  {cartData?.tax && cartData?.tax?.toLocaleString("vi-VN")}đ
                 </p>
               </div>
               <div className="flex justify-between w-full border-b-2 border-gray-800">
                 <p className="text-sm font-bold mb-2">{t("Total")}</p>
                 <p className="text-sm font-bold mb-2">
-                  {cartData?.tax && cartData?.total}đ
+                  {cartData?.tax && cartData?.total?.toLocaleString("vi-VN")}đ
                 </p>
               </div>
             </>
@@ -163,34 +165,34 @@ export default function Cart({ params: { lng } }) {
         )}
       </div>
 
-      {cartData?.items?.length != 0 && (
-        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md">
+      {cartData && cartData?.items?.length != 0 && (
+        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md">
           <span className="text-2xl" onClick={handlePlaceOrder}>
             {t("Place Order!")}
           </span>
           <span className="text-2xl float-right">
-            {cartData?.total}đ
+            {cartData?.total?.toLocaleString("vi-VN")}đ
           </span>
         </div>
       )}
       {cartData?.items?.length != 0 && (
-      <div
-        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center ${
-          !hidePayment ? "block" : "hidden"
-        }`}
-      >
-        <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md">
-          <Payment
-            lng={lng}
-            orderId={orderPlaced.id}
-            orderAmount={orderPlaced.amount}
-            handleCancel={() => {
-              setHidePayment(true);
-            }}
-            handlePay={handlePay}
-          ></Payment>
+        <div
+          className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center ${
+            !hidePayment ? "block" : "hidden"
+          }`}
+        >
+          <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md">
+            <Payment
+              lng={lng}
+              orderId={orderPlaced.id}
+              orderAmount={orderPlaced.amount}
+              handleCancel={() => {
+                setHidePayment(true);
+              }}
+              handlePay={handlePay}
+            ></Payment>
+          </div>
         </div>
-      </div>
       )}
     </main>
   );

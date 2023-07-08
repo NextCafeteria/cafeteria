@@ -8,7 +8,7 @@
 
 <img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="docs/screenshot2.png"/>
 
-- **Deployed at:** [https://cafe.vietanh.dev/](https://cafe.vietanh.dev/).
+- **Deployed at:** [https://cafenow.me](https://cafenow.me).
 - **Frontend:** Next.js with Javascript, Tailwind CSS.
 - **Database:** Google Firebase.
 - **Authentication:** NextAuth.js with Google OAuth.
@@ -54,8 +54,13 @@ Start the app:
 ```bash
 npm run start
 ```
+### 3.2. Run tests
 
-### 3.2. Deploy to Vercel
+```bash
+npx playwright test
+```
+
+### 3.3. Deploy to Vercel
 
 - Create a new project on [Vercel](https://vercel.com/).
 - Add all environment variables to the project (see [.env.sample](.env.sample)).

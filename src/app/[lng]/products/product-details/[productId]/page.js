@@ -99,7 +99,7 @@ export default function ({ params: { lng, productId } }) {
             />
             <p className="text-md font-bold">{t("Price")}</p>
             <input
-              type="text"
+              type="number"
               className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
               value={productData?.price}
               onChange={(e) => {
@@ -164,7 +164,7 @@ export default function ({ params: { lng, productId } }) {
             {t("Add a customization by clicking the button below.")}
           </p>
         )}
-        <button type="button" className="focus:outline-none bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1"
+        <button type="button" className="focus:outline-none bg-green-600 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1"
           onClick={() => {
             let productDataCopy = { ...productData };
             if (!productDataCopy.customizations) {
@@ -186,7 +186,7 @@ export default function ({ params: { lng, productId } }) {
       </div>
       <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px]">
         <div
-          className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md"
+          className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md"
           onClick={handleSaveProduct}
         >
           <span className="text-2xl"
