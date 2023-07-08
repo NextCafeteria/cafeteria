@@ -41,10 +41,18 @@ export default function AddressPicker({
     <div className="flex flex-col gap-2 mt-4">
       <div className="text-md clickable font-bold">{t("Pick a store")}:</div>
       {stores.map((store, index) => (
-        <div key={index} className="w-full p-2 border-b-[1px] ">
+        <div
+          key={index}
+          className="cursor-pointer w-full p-2 border-b-[1px] "
+          onClick={() => {
+            const input = document.getElementById(store.id);
+            input.checked = true;
+          }}
+        >
           <input
             type="radio"
             name="select_store"
+            id={store.id}
             checked={selectedStore === store.id}
             onChange={() => {
               setSelectedStore(store.id);
@@ -60,10 +68,18 @@ export default function AddressPicker({
         {t("Pick a delivery address:")}
       </div>
       {addressOptions.map((option, index) => (
-        <div key={index} className="w-full p-2 border-b-[1px] ">
+        <div
+          key={index}
+          className="w-full p-2 border-b-[1px] "
+          onClick={() => {
+            const input = document.getElementById(option);
+            input.checked = true;
+          }}
+        >
           <input
             type="radio"
             name="select_address"
+            id={option}
             checked={selectedAddress === option}
             onChange={() => {
               setSelectedAddress(option);
