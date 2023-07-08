@@ -160,7 +160,13 @@ export default function PickOptions({ params: { lng, itemId } }) {
                               return (
                                 <div
                                   key={index}
-                                  className="w-full p-2 border-b-[1px] "
+                                  className="w-full p-2 border-b-[1px] cursor-pointer"
+                                  onClick={() => {
+                                    const input = document.getElementById(
+                                      t(optionId)
+                                    );
+                                    input.checked = true;
+                                  }}
                                 >
                                   <input
                                     type="radio"
@@ -181,8 +187,9 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     }}
                                   />
                                   <label
-                                    className="pl-2 w-100"
+                                    className="pl-2 w-100 cursor-pointer"
                                     htmlFor={t(option.name)}
+                                    onClick={() => {}}
                                   >
                                     {t(option.name)} (
                                     {Number(option.price)?.toLocaleString(
@@ -237,7 +244,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
         </div>
 
         <div
-          className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md"
+          className="cursor-pointer w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>
