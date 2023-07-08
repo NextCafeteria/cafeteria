@@ -1,8 +1,8 @@
 [
   {
     "id": "hot",
-    "name": "Hot",
-    "description": "Hot coffee",
+    "name": "Hot Mocha Coffee",
+    "description": "A traditional blend of Arabica Beans and Robusta Bean give a strong combination favors and a fruity finish",
     "image": "/hot-coffee.jpeg",
     "price": 2,
     "customizations": [
@@ -69,8 +69,8 @@
   },
   {
     "id": "cold",
-    "name": "Cold",
-    "description": "Cold coffee",
+    "name": "Vietnamese Iced Coffee",
+    "description": "Modern style of Vietnamese Milk Coffee with fruity acidity and bittersweet finish.",
     "image": "/cold-coffee.jpg",
     "price": 2,
     "customizations": [

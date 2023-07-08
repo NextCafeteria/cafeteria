@@ -1,14 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 import {
   calculatePriceForList,
   calculateTotalPriceWithTax,
 } from "../../lib/price";
-import { useTranslation } from "@/app/i18n/client";
-const itemsOptions = require("@/data/food_options.json");
-import LangSelector from "@/components/LangSelector";
+import { useEffect, useState } from "react";
 
+import { Balancer } from "react-wrap-balancer";
+import LangSelector from "@/components/LangSelector";
+import { useRouter } from "next/navigation";
+import { useTranslation } from "@/app/i18n/client";
+
+const itemsOptions = require("@/data/food_options.json");
 export default function Home({ params: { lng } }) {
   const router = useRouter();
 
@@ -47,7 +50,9 @@ export default function Home({ params: { lng } }) {
                   className="absolute right-0 top-0 w-24 h-auto max-h-24 rounded-sm"
                 />
                 <p className="text-xl font-bold">{t(foodOption.name)}</p>
-                <p className="text-sm">{t(foodOption.description)}</p>
+                <p className="text-sm">
+                  <Balancer>{t(foodOption.description)}</Balancer>
+                </p>
                 <p className="text-sm">${foodOption.price}</p>
                 <button className="px-2 py-1 mt-4 text-sm text-gray-800 bg-[#A3DE69] rounded-md w-[140px]">
                   {t("Add to cart")}

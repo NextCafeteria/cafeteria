@@ -1,12 +1,15 @@
 "use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-const itemsOptions = require("@/data/food_options.json");
-import { useTranslation } from "@/app/i18n/client";
-import { useSession } from "next-auth/react";
-import XButton from "@/components/buttons/XButton";
 
+import { useEffect, useState } from "react";
+
+import { Balancer } from "react-wrap-balancer";
+import Image from "next/image";
+import XButton from "@/components/buttons/XButton";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useTranslation } from "@/app/i18n/client";
+
+const itemsOptions = require("@/data/food_options.json");
 export default function PickOptions({ params: { lng, itemId } }) {
   const router = useRouter();
   const session = useSession();
@@ -100,7 +103,9 @@ export default function PickOptions({ params: { lng, itemId } }) {
                 className="absolute right-0 top-0 w-24 h-auto rounded-sm"
               />
               <p className="text-xl font-bold">{t(itemOptions?.name)}</p>
-              <p className="text-sm">{t(itemOptions?.description)}</p>
+              <p className="text-sm">
+                <Balancer>{t(itemOptions?.description)}</Balancer>
+              </p>
               <p className="text-sm">
                 {t("Base price")}: ${itemOptions?.price}
               </p>
