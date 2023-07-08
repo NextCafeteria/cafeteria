@@ -166,7 +166,7 @@ export default function Cart({ params: { lng } }) {
       </div>
 
       {cartData && cartData?.items?.length != 0 && (
-        <div className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md">
+        <div className="cursor-pointer w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md">
           <span className="text-2xl" onClick={handlePlaceOrder}>
             {t("Place Order!")}
           </span>
