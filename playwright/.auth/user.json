@@ -1,359 +1,39 @@
 {
-    "cookies": [
-      {
-        "name": "SID",
-        "value": "XwhOZQFb_H8olEnYMeTCZEdRmak6HPShIsC6OrfmcNcbEUB4X_PyuDYZ0kD75kBlrEbtBw.",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-1PSID",
-        "value": "XwhOZQFb_H8olEnYMeTCZEdRmak6HPShIsC6OrfmcNcbEUB49W5eLpgGDMVSfzEqcdAREA.",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-3PSID",
-        "value": "XwhOZQFb_H8olEnYMeTCZEdRmak6HPShIsC6OrfmcNcbEUB4nytppMPo9rXNmuHX4myYkg.",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "HSID",
-        "value": "Ap_ykv-kyn-GhcjK0",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "SSID",
-        "value": "ADeOR8umT1lnkT2oM",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "APISID",
-        "value": "8tieT9TxPC1jT1hp/AVU7uxN8KLEwgo84X",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "SAPISID",
-        "value": "Rfp2aVPSpcd6DSxA/AUoaFnArPsMAmVAae",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-1PAPISID",
-        "value": "Rfp2aVPSpcd6DSxA/AUoaFnArPsMAmVAae",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-3PAPISID",
-        "value": "Rfp2aVPSpcd6DSxA/AUoaFnArPsMAmVAae",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "NID",
-        "value": "511=Fnot1Hf3CqBG0l4DE3j8J0EZDwKicxAc-i3Wu4jWbGcOvHoaNj88ZMMKGdEiORWB82BkWGohSYZ0vKZLZ5zcTf8xP47I2OYfVwwjJA356K2IJqrDO8S7zBWlu9UoxYUyXx9NQxstVOPDX4F5tFLDQTKt7SHpuXCqTqm4XvYp6gk",
-        "domain": ".google.com.vn",
-        "path": "/",
-        "expires": 1703091424,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "CheckConnectionTempCookie978",
-        "value": "567187",
-        "domain": "accounts.youtube.com",
-        "path": "/accounts",
-        "expires": 1687280221,
-        "httpOnly": false,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Host-next-auth.csrf-token",
-        "value": "d0bca4afc1121eb35ec366cfcfb6131559a08b61ce17ec5906372debcc88095c%7C7adfc4996a0a577526c8f06522bf4e23afcd86d746ad731882b6a0323a1653aa",
-        "domain": "cafe.vietanh.dev",
-        "path": "/",
-        "expires": -1,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "Lax"
-      },
-      {
-        "name": "__Secure-next-auth.callback-url",
-        "value": "https%3A%2F%2Fcafe.vietanh.dev%2Fen",
-        "domain": "cafe.vietanh.dev",
-        "path": "/",
-        "expires": -1,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "Lax"
-      },
-      {
-        "name": "__Secure-next-auth.session-token",
-        "value": "5227e820-d235-4d8f-a626-cc9c39099848",
-        "domain": "cafe.vietanh.dev",
-        "path": "/",
-        "expires": 1689872225,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "Lax"
-      },
-      {
-        "name": "OTZ",
-        "value": "7082937_28_28__28_",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1689872211,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "NID",
-        "value": "511=Xp1fVs_H4qtrCVSOo1jJn0UuVgkrxDTf9rFfrhisIFYv2c8SQlN32-8mBjfjYWQvzD0czXk5V0UlcipJ2dr3V1m8PkxoxunADsyobXODny0xEZvcVzUHMtKYgWKO-MPYq4GoBxqVMuOrwZrXjrXIvRWYzgRuYldMPhYTgSpGwYpmKtvNO2gbYNRVUrU556kViMDCauaeEKoft_LMHpZbQLbXvCgVf82J_gUqOGwqD_Es6n0C8dAQpp1KZSk",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1703091424,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "SID",
-        "value": "XwhOZQFb_H8olEnYMeTCZEdRmak6HPShIsC6OrfmcNcbEUB4X_PyuDYZ0kD75kBlrEbtBw.",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-1PSID",
-        "value": "XwhOZQFb_H8olEnYMeTCZEdRmak6HPShIsC6OrfmcNcbEUB49W5eLpgGDMVSfzEqcdAREA.",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-3PSID",
-        "value": "XwhOZQFb_H8olEnYMeTCZEdRmak6HPShIsC6OrfmcNcbEUB4nytppMPo9rXNmuHX4myYkg.",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "HSID",
-        "value": "AQfohuXGrGUK7JR67",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "SSID",
-        "value": "AB5yP0WGwgIjxeB7h",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "APISID",
-        "value": "8tieT9TxPC1jT1hp/AVU7uxN8KLEwgo84X",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "SAPISID",
-        "value": "Rfp2aVPSpcd6DSxA/AUoaFnArPsMAmVAae",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-1PAPISID",
-        "value": "Rfp2aVPSpcd6DSxA/AUoaFnArPsMAmVAae",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-3PAPISID",
-        "value": "Rfp2aVPSpcd6DSxA/AUoaFnArPsMAmVAae",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": false,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "SMSV",
-        "value": "ADHTe-AUzkhrWRjZBbYninnYebLapSZMPKtBKyMj0szur4YOPnMXB4pgLFFjAJuhigkaT24IxaYgraNwiTfCBmmxNNQnMkZvEfVhMdfJVMOo_RPOphpkE_I",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Host-GAPS",
-        "value": "1:57svBwUvzUO_q9DXshhWdcbPp_96KzMYdGp9IguBQdHiqThXEw8Hq0z2SjzkhE848WlBzgUcs2kmht0Qi0qqowVX8AOVFA:fJZHaj2-ZTXnQVph",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "LSID",
-        "value": "s.VN:XwhOZXru6KxKtP6NfLnYGdWLJnby7vuQDZfgSDR5H53yOFTZe6FTxvjyk05Mrcbtql92EQ.",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Host-1PLSID",
-        "value": "s.VN:XwhOZXru6KxKtP6NfLnYGdWLJnby7vuQDZfgSDR5H53yOFTZ1U_Y0pqx9NaPodkTup7nrQ.",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Host-3PLSID",
-        "value": "s.VN:XwhOZXru6KxKtP6NfLnYGdWLJnby7vuQDZfgSDR5H53yOFTZpneM5R-lEgsWHDWP8B6G_g.",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "ACCOUNT_CHOOSER",
-        "value": "AFx_qI7ZizsLPsvFk8iKQwK6IcKQTPGHHmRZKXdaqpzWw-b8RebvLkRWNfm9ZzX0yzDKXoMW7_XOVKvuxgSZGdmEH4mtCtloGI6xKEzZbcMiC0RPII1rfFKISS0JdRs3eDoutaeHTVqiokeKoz0tN8Z-jIykRPuvamBZmLrOQOPQhi7zqZk1sF0",
-        "domain": "accounts.google.com",
-        "path": "/",
-        "expires": 1750352224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "SIDCC",
-        "value": "AP8dLtxGwsM8IsiwooQY1or1lSgfjuhDQuZL-oyLUmFmkejz8C4goDtTGLY4F14HyYZF8-qFNQ",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1718816224,
-        "httpOnly": false,
-        "secure": false,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-1PSIDCC",
-        "value": "AP8dLtyrob0IDOYjAwTYDzao54ZoI7ZoFbkK4GqCULgnI6TTEUFsMtdtELtyIqFAovZBKPMV2w",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1718816224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      },
-      {
-        "name": "__Secure-3PSIDCC",
-        "value": "AP8dLtyOsuVTTQPAm5I01jQnuWM1ry7SwVFoHEhQF3Slodiotm_a69bPnXjLzpr-1Tb7G6S85g",
-        "domain": ".google.com",
-        "path": "/",
-        "expires": 1718816224,
-        "httpOnly": true,
-        "secure": true,
-        "sameSite": "None"
-      }
-    ],
-    "origins": [
-      {
-        "origin": "https://cafe.vietanh.dev",
-        "localStorage": [
-          {
-            "name": "nextauth.message",
-            "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1687280227}"
-          },
-          {
-            "name": "i18nextLng",
-            "value": "en"
-          }
-        ]
-      }
-    ]
-  }
+  "cookies": [
+    {
+      "name": "next-auth.callback-url",
+      "value": "http%3A%2F%2Flocalhost%3A3000",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "next-auth.csrf-token",
+      "value": "2011b0c46881f91d2922383a3dff3c7532700e99be0c57248eb05e505e02866e%7Cf2450a18d236f9bd4b70e6c6a0c63fe0563f7c15ce497d32539bee6f5a6df031",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "nextauth.message",
+          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1688892813}"
+        },
+        {
+          "name": "i18nextLng",
+          "value": "en"
+        }
+      ]
+    }
+  ]
+}

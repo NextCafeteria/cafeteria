@@ -136,3 +136,8 @@ public/workbox-*.js
 public/sw.js
 public/workbox-*.js.map
 public/sw.js.map
+/test-results/
+/playwright-report/
+/playwright/.cache/
+tests/customer/menu.spec.ts
+tests-examples/react_repo.code-workspace
