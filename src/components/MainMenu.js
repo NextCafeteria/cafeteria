@@ -1,6 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-
 import { useTranslation } from "../app/i18n/client";
 export default function MainMenu({ lng }) {
   const currentPath = usePathname();
@@ -20,13 +19,18 @@ function MainMenuUser({ lng }) {
   const router = useRouter();
   const { t } = useTranslation(lng, "common");
   const activeTabColor = "#111111";
-
+  const navCss = `@media screen and (min-width: 768px) and (max-width: 1440px) {
+    .nav-item span {
+      font-size: min(max(13px, 1.25vw), 22px);
+    }
+  }`;
   return (
     <>
       <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl border-yellow-500 p-2 bg-[#ffbd2e]">
+        <style>{navCss}</style>
         <div
           className={
-            "flex flex-col items-center p-2 clickable text-center" +
+            "nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}` ? " bg-[#ffffff66] rounded-xl" : "")
           }
           onClick={() => {
@@ -57,7 +61,7 @@ function MainMenuUser({ lng }) {
         </div>
         <div
           className={
-            "flex flex-col items-center p-2 clickable text-center" +
+            "nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/orders`
               ? " bg-[#ffffff66] rounded-xl"
               : "")
@@ -93,7 +97,7 @@ function MainMenuUser({ lng }) {
         </div>
         <div
           className={
-            "flex flex-col items-center p-2 clickable text-center" +
+            "nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/cart` ? " bg-[#ffffff66] rounded-xl" : "")
           }
           onClick={() => {
@@ -125,7 +129,7 @@ function MainMenuUser({ lng }) {
         </div>
         <div
           className={
-            "flex flex-col items-center p-2 clickable text-center" +
+            "nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/user` ? " bg-[#ffffff66] rounded-xl" : "")
           }
           onClick={() => {

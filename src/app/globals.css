@@ -19,6 +19,11 @@
 body * {
   font-family: "Comfortaa", sans-serif;
 }
+@media screen and (max-width: 1024px) {
+  body * {
+    font-size: 0.9rem;
+  }
+}
 
 /* Utils */
 .clickable {

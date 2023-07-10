@@ -13,9 +13,24 @@ export default function Home({ params: { lng } }) {
     console.log(error);
   }
 
+  const productCss = `@media screen and (min-width:768px) and (max-width: 1440px){
+    .product {
+      width: min(max(245px, 30vw), 380px);
+    }
+    
+    .product .img {
+      width: min(max(60px, 15vw), 148px) !important;
+      height: min(max(60px, 15vw), 148px) !important;
+    }
+    .product-details {
+      min-width: 9rem;
+    }
+    }`;
+
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
+      <style>{productCss}</style>
       <div className="max-w-[600px] md:max-w-[1000px] mx-auto font-mono text-sm">
         <div className="block w-full justify-center border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("title")}
@@ -50,7 +65,7 @@ export default function Home({ params: { lng } }) {
                       {t("Add to cart")}
                     </button>
                   </div>
-                  <div className="h-[148px] w-[148px] rounded-sm">
+                  <div className="img h-[148px] w-[148px] rounded-sm">
                     <img
                       src={product.image}
                       alt={t(product.name)}
