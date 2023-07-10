@@ -1,21 +1,35 @@
-name: Push to cafe.vietanh.dev
-
 on:
   push:
     branches:
-    - master
+      - master
+
 jobs:
-  push_to_mirror_repo:
+  mirror_job:
     runs-on: ubuntu-latest
-
+    name: Mirror
+    if: github.repository == 'NextCafeteria/cafeteria'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Push to Repo
-        uses: ad-m/github-push-action@v0.6.0
+      - uses: actions/checkout@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: vietanhdev/cafeteria
-          branch: master
-          
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            git@github.com:${{ secrets.MIRROR_REPO }}.git
+          ssh_private_key:                             
+            ${{ secrets.SSH_KEY }}
+      - name: Set SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+      - name: Push to mirror repo
+        run: |
+          git remote add mirror git@github.com:${{ secrets.MIRROR_REPO }}.git
+          git fetch mirror master
+          git push mirror master
