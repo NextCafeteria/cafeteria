@@ -15,12 +15,7 @@ export default function Home({ params: { lng } }) {
 
   const productCss = `@media screen and (min-width:768px) and (max-width: 1440px){
     .product {
-      width: min(max(245px, 30vw), 380px);
-    }
-    
-    .product .img {
-      width: min(max(60px, 15vw), 148px) !important;
-      height: min(max(60px, 15vw), 148px) !important;
+      width: min(max(280px, 35vw), 380px);
     }
     .product-details {
       min-width: 9rem;
@@ -28,8 +23,11 @@ export default function Home({ params: { lng } }) {
     }`;
 
   const { t } = useTranslation(lng, "common");
+  const mainInlineCss = {
+    paddingLeft: `calc(9.5rem - ${(5 * window.innerWidth) / 100}px)`,
+  };
   return (
-    <main className="flex justify-center p-2 pb-[200px]">
+    <main className="flex justify-center p-2 pb-[200px]" style={mainInlineCss}>
       <style>{productCss}</style>
       <div className="max-w-[600px] md:max-w-[1000px] mx-auto font-mono text-sm">
         <div className="block w-full justify-center border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
