@@ -1,9 +1,11 @@
 import { expect, test } from '@playwright/test';
+const authFile = "playwright/.auth/user.json";
 
 test('test', async ({ page }) => {
   await page.goto('http://localhost:3000/vi');
-  await page.locator('div').filter({ hasText: /^Menu$/ }).click();
-  await page.locator('div').filter({ hasText: /^Menu$/ }).click();
+  await page.context().storageState({ path: authFile });
+  await page.waitForLoadState("networkidle");
+
   await page.locator('div').filter({ hasText: /^Menu$/ }).click();
   await page.getByText('Đăng nhập với GoogleĐang tải...').click();
   await page.getByRole('textbox', { name: 'Email or phone' }).click();
