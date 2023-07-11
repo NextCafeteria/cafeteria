@@ -28,7 +28,7 @@ export default function Payment({
       />
 
       <div className="flex justify-center gap-5">
-        <div className="btn flex w-5/12 bottom-[90px] md:bottom-[20px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-gray-300 hover:bg-gray-400 md:rounded-md clickable">
+        <div className="btn btn-cancel flex w-5/12 bottom-[90px] md:bottom-[20px] md:rounded-md clickable">
           <span className="w-full text-center text-l" onClick={handleCancel}>
             {t("Go back")}
           </span>

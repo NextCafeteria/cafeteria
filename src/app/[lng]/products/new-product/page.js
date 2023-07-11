@@ -178,7 +178,6 @@ export default function ({ params: { lng } }) {
       </div>
       <div className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px]">
         <div
-          className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md"
           onClick={handleSaveProduct}
         >
           <span className="text-2xl"

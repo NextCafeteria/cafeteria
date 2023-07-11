@@ -30,7 +30,7 @@ export default function Comment({ comment }) {
       <p
         className={classNames(
           comment.staffId ? "text-sky-500" : "text-gray-500",
-          "text-sm px-4 py-2 rounded-xl bg-gray-100 my-2"
+          "text-sm px-4 py-2 rounded-xl bg-gray-100 my-2",
         )}
       >
         {comment.value}

@@ -167,7 +167,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                   className="w-full p-2 border-b-[1px] cursor-pointer"
                                   onClick={() => {
                                     const input = document.getElementById(
-                                      t(optionId)
+                                      t(optionId),
                                     );
                                     input.checked = true;
                                   }}
@@ -247,7 +247,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
           </div>
         </div>
         <div
-          className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-primary text-black md:rounded-md"
+          className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px]  md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>

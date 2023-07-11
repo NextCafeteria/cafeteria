@@ -40,5 +40,13 @@ body * {
 }
 
 .btn.btn-primary {
-  color: #eee;
+  color: #fff;
+}
+
+.btn.btn-cancel {
+  @apply bg-gray-300 hover:bg-gray-400;
+}
+
+.btn-shadow {
+  @apply shadow-md shadow-gray-400;
 }

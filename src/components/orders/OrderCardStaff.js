@@ -32,8 +32,8 @@ export default function OrderCardStaffStaff({
       <div
         key={orderId}
         className={
-          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-200" +
-          (orderId % 2 === 0 ? " bg-gray-100" : "")
+          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-teal-100" +
+          (orderId % 2 === 0 ? " bg-teal-100" : "")
         }
       >
         <div className="flex flex-col items-begin justify-center w-full relative">
@@ -113,7 +113,7 @@ export default function OrderCardStaffStaff({
               <Skeleton width={100} />
             ) : (
               <button
-                className="px-2 py-1 mt-4 text-sm text-gray-800 bg-green-600 text-white rounded-md w-[140px]"
+                className="px-2 py-1 mt-4 text-sm bg-green-600 text-white rounded-md w-[140px]"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();

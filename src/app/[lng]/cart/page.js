@@ -165,7 +165,7 @@ export default function Cart({ params: { lng } }) {
         )}
       </div>
       {cartData && cartData?.items?.length != 0 && (
-        <div className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-700 text-white md:rounded-md">
+        <div className="btn btn-primary btn-shadow mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] p-2md:rounded-md">
           <span className="text-2xl" onClick={handlePlaceOrder}>
             {t("Place Order!")}
           </span>
@@ -180,7 +180,7 @@ export default function Cart({ params: { lng } }) {
             !hidePayment ? "block" : "hidden"
           }`}
         >
-          <div className="fixed self-center border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-white md:rounded-md mx-2 my-4">
+          <div className="fixed self-center p-2 bg-white md:rounded-md mx-2 my-4">
             <Payment
               lng={lng}
               orderId={orderPlaced.id}

@@ -206,9 +206,7 @@ export default function ({ params: { lng, orderId } }) {
         {[OrderStatus.CANCELLED, OrderStatus.COMPLETED].includes(
           orderData?.status,
         ) && (
-          <div
-            className="h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-orange-400 md:rounded-md"
-            onClick={handleReorder}
+          <div            onClick={handleReorder}
           >
             <span className="text-2xl">{t("Re-order")}</span>
           </div>
