@@ -201,7 +201,7 @@ export default function Page({ params: { lng } }) {
       )}
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link
-          href="https://github.com/vietanhdev/cafeteria/issues"
+          href="https://github.com/NextCafeteria/cafeteria/issues"
           target="_blank"
         >
           {t("Support & Bug report")}
