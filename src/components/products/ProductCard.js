@@ -1,8 +1,12 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 
-import { DeleteProduct } from "@/lib/requests/products";
+import {
+  DeleteProduct,
+  ToggleProductAvailability,
+} from "@/lib/requests/products";
 import { useTranslation } from "@/app/i18n/client";
 
 export default function ({
@@ -13,9 +17,13 @@ export default function ({
   description,
   image,
   customizations,
+  isAvailable,
   isLoading,
 }) {
   const { t } = useTranslation(lng, "common");
+  const [localIsAvailable, setLocalIsAvailable] = useState(
+    isAvailable === undefined ? true : isAvailable
+  );
 
   const handleDeleteProduct = () => {
     if (confirm(t("Are you sure you want to delete this product?"))) {
@@ -27,6 +35,21 @@ export default function ({
         .catch((e) => {
           console.log(e);
           alert(t("Could not delete product"));
+        });
+    }
+  };
+
+  const handleToggleAvailability = () => {
+    if (
+      confirm(t("Are you sure you want to toggle this product's availability?"))
+    ) {
+      ToggleProductAvailability(id)
+        .then(() => {
+          setLocalIsAvailable(!localIsAvailable);
+        })
+        .catch((e) => {
+          console.log(e);
+          alert(t("Could not toggle product availability"));
         });
     }
   };
@@ -67,6 +90,27 @@ export default function ({
           />
         </div>
         <div className="absolute bottom-4 right-4">
+          {localIsAvailable ? (
+            <button
+              className="px-1 py-0.5 text-sm bg-blue-500 text-white rounded-md w-[100px] mr-2"
+              onClick={(e) => {
+                e.preventDefault();
+                handleToggleAvailability();
+              }}
+            >
+              {t("Available")}
+            </button>
+          ) : (
+            <button
+              className="px-1 py-0.5 text-sm bg-gray-500 text-white rounded-md w-[100px] mr-2"
+              onClick={(e) => {
+                e.preventDefault();
+                handleToggleAvailability();
+              }}
+            >
+              {t("Unavailable")}
+            </button>
+          )}
           <button
             className="px-1 py-0.5 text-sm bg-red-500 text-white rounded-md w-[100px]"
             onClick={(e) => {

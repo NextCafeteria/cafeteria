@@ -55,6 +55,20 @@ export async function DeleteProduct(productId) {
   });
 }
 
+export async function ToggleProductAvailability(productId) {
+  return await fetch(`/api/products/${productId}/toggle-availability`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+    throw new Error("Could not toggle product availability");
+  });
+}
+
 export async function UpdateProduct(productId, productData) {
   return await fetch(`/api/products/${productId}`, {
     method: "PUT",

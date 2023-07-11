@@ -121,5 +121,8 @@
   "Add Staff": "Thêm nhân viên",
   "Staffs": "Nhân viên",
   "Add a staff by clicking the button below.": "Thêm nhân viên bằng cách nhấp vào nút bên dưới.",
-  "Add": "Thêm"
+  "Add": "Thêm",
+  "Are you sure you want to toggle this product's availability?": "Bạn có chắc chắn muốn chuyển tình trạng có sẵn của sản phẩm này?",
+  "Available": "Có sẵn",
+  "Unavailable": "Không có sẵn"
 }
