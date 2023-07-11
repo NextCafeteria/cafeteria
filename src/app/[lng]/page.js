@@ -14,16 +14,23 @@ export default function Home({ params: { lng } }) {
   }
 
   const productCss = `
+
+    @media screen and (min-width: 768px) and (max-width: 1440px) {
     .product {
-      width: min(max(280px, 35vw), 380px);
-    }`;
+        width: min(max(280px, 35vw), 380px);
+      }
+    .product-details {
+      min-width: 8.75rem;
+    }
+    .main {
+      padding-left: calc(9.5rem - 5vw);
+    }
+  }
+    `;
 
   const { t } = useTranslation(lng, "common");
-  const mainInlineCss = {
-    paddingLeft: `calc(9.5rem - ${(5 * window.innerWidth) / 100}px)`,
-  };
   return (
-    <main className="flex justify-center p-2 pb-[200px]" style={mainInlineCss}>
+    <main className="main flex justify-center p-2 pb-[200px]">
       <style>{productCss}</style>
       <div className="max-w-[600px] md:max-w-[1000px] mx-auto font-mono text-sm">
         <div className="block w-full justify-center border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
