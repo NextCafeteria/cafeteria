@@ -50,12 +50,14 @@ export default function Home({ params: { lng } }) {
                   }}
                 >
                   <div className="product-details flex flex-col items-begin justify-center w-fit relative">
-                    <p className="text-xl font-bold mb-1">{t(product.name)}</p>
+                    <p className="text-xl font-bold mb-[1px]">
+                      {t(product.name)}
+                    </p>
                     <p className="text-sm font-bold">
                       {" "}
                       {product.price.toLocaleString("vi-VN")}đ
                     </p>
-                    <p className="text-sm h-[2.25rem] pr-1 pt-1">
+                    <p className="text-sm h-[2.25rem] mr-1 mt-[3px]">
                       {t(product.description)}
                     </p>
 

@@ -4,10 +4,10 @@ import { useState } from "react";
 
 const NEXT_PUBLIC_VIETQR_IMAGE = process.env.NEXT_PUBLIC_VIETQR_IMAGE;
 const NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME = encodeURIComponent(
-  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME
+  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME,
 );
 const NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX = encodeURIComponent(
-  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX
+  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX,
 );
 
 export default function Payment({
@@ -20,20 +20,20 @@ export default function Payment({
   const [showError, setShowError] = useState(false);
   const { t } = useTranslation(lng, "common");
   return (
-    <div className="flex-col">
-      <span className="text-xl mb-4">{t("Scan to pay")}</span>
+    <div className="flex-col text-center w-[20rem] p-3">
+      <p className="text-xl mb-3">{t("Scan to pay")}</p>
       <img
         src={`${NEXT_PUBLIC_VIETQR_IMAGE}?accountName=${NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME}&amount=1000&addInfo=${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}${orderId}`}
-        className="w-60 h-auto mb-4"
+        className="w-full h-auto mb-5 mx-auto"
       />
 
-      <div className="flex justify-around">
-        <div className="flex w-5/12 bottom-[90px] md:bottom-[20px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#F59191] md:rounded-md clickable">
+      <div className="flex justify-center gap-5">
+        <div className="btn flex w-5/12 bottom-[90px] md:bottom-[20px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-gray-300 hover:bg-gray-400 md:rounded-md clickable">
           <span className="w-full text-center text-l" onClick={handleCancel}>
-            {t("Cancel")}
+            {t("Go back")}
           </span>
         </div>
-        <div className="flex w-5/12 bottom-[90px] md:bottom-[20px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-[#A3DE69] md:rounded-md clickable">
+        <div className="btn btn-primary flex w-5/12 bottom-[90px] md:bottom-[20px] border-t-[1px] md:border-[1px] border-gray-600 md:rounded-md clickable p-2 mb-3">
           <span
             className="w-full text-center text-l"
             onClick={async () => {
@@ -50,8 +50,8 @@ export default function Payment({
           </span>
         </div>
       </div>
-      <div className="flex">
-        <span className="w-full text-l text-red-600 text-center">
+      <div className="flex mb-1">
+        <span className="w-full text-l text-red-600">
           {showError && t("Please pay the exact amount!")}
         </span>
       </div>
