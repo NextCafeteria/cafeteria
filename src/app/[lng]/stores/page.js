@@ -43,7 +43,7 @@ export default function StoreManagement({ params: { lng } }) {
           stores.map(
             (params, key) => (
               (params.lng = lng), (<StoreCard key={key} {...params} />)
-            ),
+            )
           )
         ) : (
           <p className="text-sm">

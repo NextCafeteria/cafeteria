@@ -69,7 +69,7 @@ export default function Cart({ params: { lng } }) {
       (e) => {
         console.log(e);
         router.push(`/${lng}/login`);
-      },
+      }
     );
     return { err: err };
   }
@@ -95,7 +95,7 @@ export default function Cart({ params: { lng } }) {
       },
       (e) => {
         alert(t("Order failed"));
-      },
+      }
     );
   }
 

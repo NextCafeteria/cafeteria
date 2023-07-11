@@ -19,7 +19,7 @@ export class DatabaseService {
       this.db = getFirestore(app);
       this.storage = getStorage(
         app,
-        `gs://${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`,
+        `gs://${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`
       );
       dbInstance = this;
     }

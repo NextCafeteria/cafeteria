@@ -12,7 +12,7 @@ if (useGoogleLogin) {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       allowDangerousEmailAccountLinking: true,
-    }),
+    })
   );
 }
 if (useGithubLogin) {
@@ -21,7 +21,7 @@ if (useGithubLogin) {
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       allowDangerousEmailAccountLinking: true,
-    }),
+    })
   );
 }
 

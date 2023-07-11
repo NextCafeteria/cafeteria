@@ -54,6 +54,7 @@ Start the app:
 ```bash
 npm run start
 ```
+
 ### 3.2. Run tests
 
 ```bash

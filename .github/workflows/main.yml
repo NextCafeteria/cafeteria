@@ -15,10 +15,8 @@ jobs:
           persist-credentials: false
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
-          target_repo_url:
-            git@github.com:${{ secrets.MIRROR_REPO }}.git
-          ssh_private_key:                             
-            ${{ secrets.SSH_KEY }}
+          target_repo_url: git@github.com:${{ secrets.MIRROR_REPO }}.git
+          ssh_private_key: ${{ secrets.SSH_KEY }}
       - name: Set SSH key
         run: |
           mkdir -p ~/.ssh/

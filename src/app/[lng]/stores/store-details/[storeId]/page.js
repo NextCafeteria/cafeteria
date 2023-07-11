@@ -27,7 +27,7 @@ export default function ({ params: { lng, storeId } }) {
         console.log(e);
         alert("Could not get stores");
         router.push(`/${lng}/stores`);
-      },
+      }
     );
   };
 

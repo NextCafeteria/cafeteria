@@ -4,10 +4,10 @@ import { useState } from "react";
 
 const NEXT_PUBLIC_VIETQR_IMAGE = process.env.NEXT_PUBLIC_VIETQR_IMAGE;
 const NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME = encodeURIComponent(
-  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME,
+  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_ACCOUNT_NAME
 );
 const NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX = encodeURIComponent(
-  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX,
+  process.env.NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX
 );
 
 export default function Payment({

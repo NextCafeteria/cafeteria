@@ -41,7 +41,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not process order");
-      },
+      }
     );
   }
 
@@ -54,7 +54,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not complete order");
-      },
+      }
     );
   }
 
@@ -67,7 +67,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not prepare order");
-      },
+      }
     );
   }
 
@@ -82,7 +82,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not send response");
-      },
+      }
     );
   }
 
@@ -96,7 +96,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
         console.log(e);
         alert("Could not get orders");
         router.push(`/${lng}/staffs/orders`);
-      },
+      }
     );
   }
 
@@ -150,7 +150,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
                   .sort(
                     (a, b) =>
                       item.customizations[a].order -
-                      item.customizations[b].order,
+                      item.customizations[b].order
                   )
                   .map((customizationId) => {
                     if (item.selectedOptions[customizationId] === undefined)
@@ -164,7 +164,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
                         {t(
                           item.customizations[customizationId].options[
                             item.selectedOptions[customizationId]
-                          ]?.name,
+                          ]?.name
                         )}
                       </p>
                     );

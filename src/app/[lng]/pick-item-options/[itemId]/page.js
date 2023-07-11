@@ -135,7 +135,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                   .sort(
                     (a, b) =>
                       product?.customizations[a].order -
-                      product?.customizations[b].order,
+                      product?.customizations[b].order
                   )
                   .map((customizationId, customizationIndex) => (
                     <div
@@ -148,14 +148,14 @@ export default function PickOptions({ params: { lng, itemId } }) {
                       <div className="flex flex-col items-center justify-center w-full mt-2">
                         {product?.customizations[customizationId]?.options &&
                           Object.keys(
-                            product?.customizations[customizationId]?.options,
+                            product?.customizations[customizationId]?.options
                           )
                             .sort(
                               (a, b) =>
                                 product?.customizations[customizationId]
                                   ?.options[a].order -
                                 product?.customizations[customizationId]
-                                  ?.options[b].order,
+                                  ?.options[b].order
                             )
                             .map((optionId, index) => {
                               const option =
@@ -167,7 +167,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                   className="w-full p-2 border-b-[1px] cursor-pointer"
                                   onClick={() => {
                                     const input = document.getElementById(
-                                      t(optionId),
+                                      t(optionId)
                                     );
                                     input.checked = true;
                                   }}
@@ -177,7 +177,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     id={t(optionId)}
                                     name={t(
                                       product.customizations[customizationId]
-                                        .name,
+                                        .name
                                     )}
                                     value={t(option.name)}
                                     checked={
@@ -197,7 +197,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                   >
                                     {t(option.name)} (
                                     {Number(option.price)?.toLocaleString(
-                                      "vi-VN",
+                                      "vi-VN"
                                     )}
                                     đ)
                                   </label>

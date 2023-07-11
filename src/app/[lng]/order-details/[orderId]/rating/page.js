@@ -25,7 +25,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not create rating");
-      },
+      }
     );
   }
 
@@ -39,7 +39,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
         console.log(e);
         alert("Could not get orders");
         router.push(`/${lng}/orders`);
-      },
+      }
     );
   }, []);
 

@@ -27,7 +27,7 @@ export default function NewStores({ params: { lng, storeId } }) {
         console.log(e);
         alert("Could not get stores");
         router.push(`/${lng}/stores`);
-      },
+      }
     );
   }, []);
 
@@ -97,7 +97,7 @@ export default function NewStores({ params: { lng, storeId } }) {
             (e) => {
               console.log(e);
               alert("Could not add staff");
-            },
+            }
           );
         }}
       >

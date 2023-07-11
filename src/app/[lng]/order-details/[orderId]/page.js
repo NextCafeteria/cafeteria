@@ -31,7 +31,7 @@ export default function ({ params: { lng, orderId } }) {
         console.log(e);
         alert("Could not get orders");
         router.push(`/${lng}/orders`);
-      },
+      }
     );
   }, []);
 
@@ -58,7 +58,7 @@ export default function ({ params: { lng, orderId } }) {
       (e) => {
         console.log(e);
         alert("Could not cancel order");
-      },
+      }
     );
   }
 
@@ -114,7 +114,7 @@ export default function ({ params: { lng, orderId } }) {
                   .sort(
                     (a, b) =>
                       item.customizations[a].order -
-                      item.customizations[b].order,
+                      item.customizations[b].order
                   )
                   .map((customizationId) => {
                     if (item.selectedOptions[customizationId] === undefined)
@@ -128,7 +128,7 @@ export default function ({ params: { lng, orderId } }) {
                         {t(
                           item.customizations[customizationId].options[
                             item.selectedOptions[customizationId]
-                          ]?.name,
+                          ]?.name
                         )}
                       </p>
                     );
@@ -204,10 +204,9 @@ export default function ({ params: { lng, orderId } }) {
           </div>
         )}
         {[OrderStatus.CANCELLED, OrderStatus.COMPLETED].includes(
-          orderData?.status,
+          orderData?.status
         ) && (
-          <div            onClick={handleReorder}
-          >
+          <div onClick={handleReorder}>
             <span className="text-2xl">{t("Re-order")}</span>
           </div>
         )}

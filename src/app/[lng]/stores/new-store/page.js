@@ -72,7 +72,7 @@ export default function NewStores({ params: { lng, itemId } }) {
             (e) => {
               console.log(e);
               alert("Could not create store! Please try again.");
-            },
+            }
           );
         }}
       >
