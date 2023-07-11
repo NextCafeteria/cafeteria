@@ -26,7 +26,7 @@ function MainMenuUser({ lng }) {
   }`;
   return (
     <>
-      <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl border-yellow-500 p-2 bg-[#ffbd2e]">
+      <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-yellow-500 p-2 bg-[#ffbd2e]">
         <style>{navCss}</style>
         <div
           className={
@@ -184,7 +184,7 @@ function MainMenuStaff({ lng }) {
 
   return (
     <>
-      <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl border-yellow-500 p-2 bg-[#ffbd2e]">
+      <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-yellow-500 p-2 bg-[#ffbd2e]">
         <div
           className={
             "flex flex-col items-center p-2 clickable text-center" +
