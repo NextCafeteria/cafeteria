@@ -23,12 +23,13 @@ export default async function handler(req, res) {
     for (let transaction of req.body.data) {
       const orderId = transaction.description
         .split(`${NEXT_PUBLIC_VIETQR_MERCHANT_INFO_PREFIX}`)[1]
-        .split(" ")[0]
-        .replace(/[^a-zA-Z0-9]/g, "");
+        .substring(0, 20);
       const docRef = doc(dbService.getDB(), "orders", orderId);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
-        return res.status(404).json({ success: false, data: {} });
+        return res
+          .status(404)
+          .json({ success: false, data: "Order id not found" });
       }
       const amount = docSnap.data().totalPrice;
       await updateDoc(docRef, {

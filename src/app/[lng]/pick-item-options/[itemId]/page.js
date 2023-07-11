@@ -164,7 +164,13 @@ export default function PickOptions({ params: { lng, itemId } }) {
                               return (
                                 <div
                                   key={index}
-                                  className="w-full p-2 border-b-[1px] "
+                                  className="w-full p-2 border-b-[1px] cursor-pointer"
+                                  onClick={() => {
+                                    const input = document.getElementById(
+                                      t(optionId)
+                                    );
+                                    input.checked = true;
+                                  }}
                                 >
                                   <input
                                     type="radio"
@@ -185,8 +191,9 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     }}
                                   />
                                   <label
-                                    className="pl-2 w-100"
+                                    className="pl-2 w-100 cursor-pointer"
                                     htmlFor={t(option.name)}
+                                    onClick={() => {}}
                                   >
                                     {t(option.name)} (
                                     {Number(option.price)?.toLocaleString(
