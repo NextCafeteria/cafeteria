@@ -27,8 +27,8 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
       <div
         key={orderId}
         className={
-          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-200" +
-          (orderId % 2 === 0 ? " bg-gray-100" : "")
+          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-100" +
+          (orderId % 2 === 0 ? " bg-gray-50" : "")
         }
       >
         <div className="flex flex-col items-begin justify-center w-full relative">

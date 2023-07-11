@@ -109,19 +109,23 @@ export default function PickOptions({ params: { lng, itemId } }) {
             <XButton />
           </div>
           <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
-            <div className="flex flex-col items-begin justify-center w-full relative">
-              <Image
-                src={product?.image}
-                alt={t(product?.name)}
-                width={128}
-                height={128}
-                className="absolute right-0 top-0 w-24 h-auto rounded-sm"
-              />
-              <p className="text-xl font-bold">{t(product?.name)}</p>
-              <p className="text-sm">{t(product?.description)}</p>
-              <p className="text-sm">
-                {t("Base price")}: {product?.price?.toLocaleString("vi-VN")}đ
-              </p>
+            <div className="product-content flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md">
+              <div className="flex flex-col items-begin justify-center w-fit relative">
+                <p className="text-xl font-bold">{t(product?.name)}</p>
+                <p className="text-sm">{t(product?.description)}</p>
+                <p className="text-sm">
+                  {t("Base price")}: {product?.price?.toLocaleString("vi-VN")}đ
+                </p>
+              </div>
+              <div className="h-32 w-32 rounded-sm">
+                <Image
+                  src={product?.image}
+                  alt={t(product?.name)}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover rounded"
+                />
+              </div>
             </div>
 
             {/* Show customizations */}
@@ -242,9 +246,8 @@ export default function PickOptions({ params: { lng, itemId } }) {
             </div>
           </div>
         </div>
-
         <div
-          className="cursor-pointer w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] border-t-[1px] md:border-[1px] border-gray-600 p-2 bg-green-600 text-white md:rounded-md"
+          className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px]  md:rounded-md"
           onClick={addToCart}
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>

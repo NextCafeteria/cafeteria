@@ -16,6 +16,37 @@
   }
 }
 
+body * {
+  font-family: "Comfortaa", sans-serif;
+}
+@media screen and (max-width: 1024px) {
+  body * {
+    font-size: 0.9rem;
+  }
+}
+
+/* Utils */
 .clickable {
   cursor: pointer;
+}
+
+/* Components */
+.card {
+  @apply bg-teal-50 rounded;
+}
+
+.btn {
+  @apply h-fit w-fit rounded-md normal-case;
+}
+
+.btn.btn-primary {
+  color: #fff;
+}
+
+.btn.btn-cancel {
+  @apply bg-gray-300 hover:bg-gray-400;
+}
+
+.btn-shadow {
+  @apply shadow-md shadow-gray-400;
 }
