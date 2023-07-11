@@ -13,13 +13,9 @@ export default function Home({ params: { lng } }) {
     console.log(error);
   }
 
-  const productCss = `@media screen and (min-width:768px) and (max-width: 1440px){
+  const productCss = `
     .product {
       width: min(max(280px, 35vw), 380px);
-    }
-    .product-details {
-      min-width: 9rem;
-    }
     }`;
 
   const { t } = useTranslation(lng, "common");
@@ -38,7 +34,9 @@ export default function Home({ params: { lng } }) {
         <div className="menu flex flex-wrap justify-center w-full md:gap-5 md:grid md:grid-cols-2 ">
           {isLoading
             ? Array.from({ length: 3 }, (e, i) => i).map((i) => (
-                <ProductCardSkeleton />
+                <div className="product">
+                  <ProductCardSkeleton />
+                </div>
               ))
             : products &&
               products.map((product, key) => (
