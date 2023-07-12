@@ -161,11 +161,17 @@ export default function PickOptions({ params: { lng, itemId } }) {
                               const option =
                                 product?.customizations[customizationId]
                                   ?.options[optionId];
+                              const isAvailable =
+                                option.isAvailable === undefined ||
+                                option.isAvailable;
                               return (
                                 <div
                                   key={index}
                                   className="w-full p-2 border-b-[1px] cursor-pointer"
                                   onClick={() => {
+                                    if (!isAvailable) {
+                                      return;
+                                    }
                                     const input = document.getElementById(
                                       t(optionId)
                                     );
@@ -179,19 +185,26 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                       product.customizations[customizationId]
                                         .name
                                     )}
+                                    disabled={!isAvailable}
                                     value={t(option.name)}
                                     checked={
                                       selectedOptions[customizationId] ==
                                       optionId
                                     }
                                     onChange={(e) => {
+                                      if (!isAvailable) {
+                                        return;
+                                      }
                                       if (e.target.checked) {
                                         updateOption(customizationId, optionId);
                                       }
                                     }}
                                   />
                                   <label
-                                    className="pl-2 w-100 cursor-pointer"
+                                    className={
+                                      "pl-2 w-100 cursor-pointer" +
+                                      (!isAvailable ? " text-gray-400" : "")
+                                    }
                                     htmlFor={t(option.name)}
                                     onClick={() => {}}
                                   >
