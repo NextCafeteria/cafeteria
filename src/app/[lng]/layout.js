@@ -9,6 +9,7 @@ import { Roboto } from "next/font/google";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
 import { useTranslation } from "@/app/i18n/client";
+import { usePathname } from "next/navigation";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -24,6 +25,8 @@ import { SWRConfig } from "swr";
 
 export default function RootLayout({ children, params: { lng } }) {
   const { t } = useTranslation(lng, "common");
+  const pathname = usePathname();
+  const isDashboard = pathname.split("/")[2] === "dashboard";
 
   return (
     <html lang={lng} dir={dir(lng)}>
@@ -85,7 +88,7 @@ export default function RootLayout({ children, params: { lng } }) {
         >
           <SessionProvider>
             {children}
-            <MainMenu lng={lng} />
+            {!isDashboard && <MainMenu lng={lng} />}
           </SessionProvider>
         </SWRConfig>
       </body>

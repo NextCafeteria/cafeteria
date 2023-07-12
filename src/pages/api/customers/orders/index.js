@@ -23,10 +23,19 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Login is required" });
   }
   if (req.method === "GET") {
+    let customerId = req.query?.customerId;
+    if (customerId) {
+      if (!currentUser?.isAdmin) {
+        return res.status(401).json({ error: "Admin is required" });
+      }
+    } else {
+      customerId = currentUser.id;
+    }
+
     // Query progress by userId and sort by timestamp
     const q = query(
       collection(dbService.getDB(), "orders"),
-      where("userId", "==", currentUser.id),
+      where("userId", "==", customerId),
       orderBy("timestamp", "desc"),
       limit(20)
     );
