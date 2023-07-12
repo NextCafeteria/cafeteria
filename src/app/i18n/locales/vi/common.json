@@ -77,6 +77,7 @@
   "Manage orders": "Quản lý đơn hàng",
   "Manage stores": "Quản lý cửa hàng",
   "Manage products": "Quản lý sản phẩm",
+  "Customers 360°": "Khách hàng 360°",
   "New": "Mới",
   "Processing": "Đang xử lý",
   "Inactive": "Đã xong",
@@ -121,5 +122,8 @@
   "Add Staff": "Thêm nhân viên",
   "Staffs": "Nhân viên",
   "Add a staff by clicking the button below.": "Thêm nhân viên bằng cách nhấp vào nút bên dưới.",
-  "Add": "Thêm"
+  "Add": "Thêm",
+  "Customer email": "Email khách hàng",
+  "Find": "Tìm",
+  "The customer has not placed any orders yet": "Khách hàng chưa đặt bất kỳ đơn hàng nào"
 }

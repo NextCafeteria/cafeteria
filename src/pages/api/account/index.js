@@ -12,7 +12,6 @@ export default async function handler(req, res) {
   }
   if (req.method === "PUT") {
     // Update user account info including username
-
     const docRef = doc(dbService.getDB(), "users", currentUser.id);
     const docSnap = await getDoc(docRef);
 

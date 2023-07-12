@@ -32,9 +32,12 @@ export async function PlaceOrder(
   }
 }
 
-export function useGetOrders() {
+export function useGetOrders(customerId = null) {
   const { fetcher } = useSWRConfig();
-  const { data, error, isLoading } = useSWR("/api/customers/orders", fetcher);
+  const url = customerId
+    ? `/api/customers/orders?customerId=${customerId}`
+    : `/api/customers/orders`;
+  const { data, error, isLoading } = useSWR(url, fetcher);
   return {
     orderItems: data?.data,
     error: error,

@@ -199,6 +199,11 @@ export default function Page({ params: { lng } }) {
           <a href={`/${lng}/products`}>{t("Manage products")}</a>
         </div>
       )}
+      {session?.data?.user?.isAdmin && (
+        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+          <a href={`/${lng}/customers-360`}>{t("Customer 360°")}</a>
+        </div>
+      )}
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
         <Link
           href="https://github.com/NextCafeteria/cafeteria/issues"
