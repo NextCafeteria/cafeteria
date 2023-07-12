@@ -13,6 +13,8 @@ export default function Rating({ value }) {
             fill="currentColor"
             viewBox="0 0 20 20"
             aria-hidden="true"
+            width={20}
+            height={20}
           >
             <path
               fillRule="evenodd"
