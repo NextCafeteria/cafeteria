@@ -118,7 +118,7 @@ function MainMenuUser({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color:
                 currentPath === `/${lng}/cart` ? activeTabColor : "#333333",

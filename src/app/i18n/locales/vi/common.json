@@ -125,5 +125,8 @@
   "Add": "Thêm",
   "Customer email": "Email khách hàng",
   "Find": "Tìm",
-  "The customer has not placed any orders yet": "Khách hàng chưa đặt bất kỳ đơn hàng nào"
+  "The customer has not placed any orders yet": "Khách hàng chưa đặt bất kỳ đơn hàng nào",
+  "Are you sure you want to toggle this product's availability?": "Bạn có chắc chắn muốn chuyển tình trạng có sẵn của sản phẩm này?",
+  "Available": "Có sẵn",
+  "Unavailable": "Không có sẵn"
 }
