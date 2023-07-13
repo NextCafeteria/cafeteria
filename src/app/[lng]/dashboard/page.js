@@ -1,10 +1,5 @@
 "use client";
 import React from "react";
-import { useState } from "react";
-import { useTranslation } from "@/app/i18n/client";
-import { useRouter } from "next/navigation";
-import Header from "@/components/dashboard/Header";
-import Sidebar from "@/components/dashboard/Sidebar";
 import CardFour from "@/components/dashboard/CardFour.tsx";
 import CardOne from "@/components/dashboard/CardOne.tsx";
 import CardThree from "@/components/dashboard/CardThree.tsx";
