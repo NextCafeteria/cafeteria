@@ -1,6 +1,9 @@
 import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 interface ChartThreeState {
   series: number[];
