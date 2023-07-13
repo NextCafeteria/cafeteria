@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -7,11 +5,12 @@ import Logo from "@public/images/icons/icon-144x144.png";
 import { usePathname } from "next/navigation";
 
 interface SidebarProps {
+  lng: string;
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
 }
 
-const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = ({ lng, sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const pathname = usePathname() ?? "";
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -62,9 +61,9 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
       }`}
     >
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <Link href="/">
+        <a href="/">
           <Image src={Logo} alt="Logo" className="w-20 h-20" />
-        </Link>
+        </a>
         <button
           ref={trigger}
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -97,8 +96,8 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
             <ul className="mb-6 flex flex-col gap-1.5">
               <li>
-                <Link
-                  href={`/vi/dashboard`}
+                <a
+                  href={`/${lng}/dashboard`}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
                     pathname == `/${lng}/dashboard` &&
                     "bg-gray-900 dark:bg-meta-4"
@@ -130,11 +129,11 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     />
                   </svg>
                   Dashboard
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href={`/vi/dashboard/customers-360`}
+                <a
+                  href={`/${lng}/dashboard/customers-360`}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
                     pathname.includes("dashboard/customers-360") &&
                     "bg-gray-900 dark:bg-meta-4"
@@ -166,11 +165,11 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     </defs>
                   </svg>
                   Customers 360°
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href={`/vi/dashboard/feedbacks`}
+                <a
+                  href={`/${lng}/dashboard/feedbacks`}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
                     pathname.includes("feedbacks") &&
                     "bg-gray-900 dark:bg-meta-4"
@@ -202,11 +201,11 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     </defs>
                   </svg>
                   Feedbacks
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href={`/vi/dashboard/users`}
+                <a
+                  href={`/${lng}/dashboard/users`}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
                     pathname.includes("users") && "bg-gray-900 dark:bg-meta-4"
                   }`}
@@ -229,10 +228,10 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     />
                   </svg>
                   Users
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
                   href="/"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
                     pathname.includes("settings") &&
@@ -269,7 +268,7 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     </defs>
                   </svg>
                   Settings
-                </Link>
+                </a>
               </li>
               {/* <!-- Menu Item Settings --> */}
             </ul>
@@ -284,7 +283,7 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <ul className="mb-6 flex flex-col gap-1.5">
               {/* <!-- Menu Item Calendar --> */}
               <li>
-                <Link
+                <a
                   href="/"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
                     pathname.includes("calendar") &&
@@ -305,7 +304,7 @@ const Sidebar = (lng, { sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     />
                   </svg>
                   Staff Calendar
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
