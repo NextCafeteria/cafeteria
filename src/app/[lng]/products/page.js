@@ -15,6 +15,16 @@ export default function ProductManagement({ params: { lng } }) {
     router.push(`/${lng}/login`);
   }
 
+  const productCss = `
+    .product {
+    width: 380px;
+    min-height:182px;
+    }
+    @media screen and (min-width: 768px) {
+    .product {
+        width: min(max(280px, 35vw), 380px);
+      }
+    }`;
   const { products, error, isLoading } = useGetProducts();
   if (error) {
     console.log(error);
@@ -27,6 +37,7 @@ export default function ProductManagement({ params: { lng } }) {
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
+      <style>{productCss}</style>
       <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
         <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Products")}
@@ -39,7 +50,9 @@ export default function ProductManagement({ params: { lng } }) {
           )
         ) : isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
-            <ProductCardSkeleton key={i} />
+            <div className="product">
+              <ProductCardSkeleton key={i} />
+            </div>
           ))
         ) : (
           <p className="text-sm">
