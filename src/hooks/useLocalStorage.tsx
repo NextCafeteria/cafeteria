@@ -17,8 +17,6 @@ function useLocalStorage<T>(
     } catch (error) {
       // If error also return initialValue
       console.log(error);
-      console.log("hello error");
-
       return initialValue;
     }
   });
@@ -35,7 +33,6 @@ function useLocalStorage<T>(
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
-      console.log("hello error");
       console.log(error);
     }
   }, [key, storedValue]);
