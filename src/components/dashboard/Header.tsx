@@ -1,5 +1,5 @@
 import DarkModeSwitcher from "./DarkModeSwitcher";
-import DropdownUser from "./DropdownUser";
+//  import DropdownUser from "./DropdownUser";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@public/images/icons/icon-144x144.png";
@@ -94,7 +94,7 @@ const Header = (props: {
           {/* <ul className="flex items-center gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
           </ul> */}
-          <DropdownUser />
+          {/* <DropdownUser /> */}
         </div>
       </div>
     </header>
