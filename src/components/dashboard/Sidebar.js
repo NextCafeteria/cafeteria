@@ -5,11 +5,10 @@ import Logo from "@public/images/icons/icon-144x144.png";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
 
-
 const Sidebar = ({ lng, sidebarOpen, setSidebarOpen }) => {
   const pathname = usePathname() ?? "";
-  const trigger = useRef<any>(null);
-  const sidebar = useRef<any>(null);
+  const trigger = useRef(null);
+  const sidebar = useRef(null);
 
   const storedSidebarExpanded = true;
   const [sidebarExpanded, setSidebarExpanded] = useState(storedSidebarExpanded);
@@ -88,7 +87,7 @@ const Sidebar = ({ lng, sidebarOpen, setSidebarOpen }) => {
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-gray-300 uppercase">
-              {t( "Features" )}
+              {t("Features")}
             </h3>
             <ul className="mb-6 flex flex-col gap-1.5">
               <li>
