@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import CardFour from "@/components/dashboard/CardFour.tsx";
 import CardOne from "@/components/dashboard/CardOne.tsx";
 import CardThree from "@/components/dashboard/CardThree.tsx";
@@ -7,6 +6,7 @@ import CardTwo from "@/components/dashboard/CardTwo.tsx";
 import ChartOne from "@/components/dashboard/ChartOne.tsx";
 import ChartThree from "@/components/dashboard/ChartThree.tsx";
 import ChartTwo from "@/components/dashboard/ChartTwo.tsx";
+import React from "react";
 
 export default function Page() {
   return (
