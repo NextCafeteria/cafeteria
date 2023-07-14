@@ -1,9 +1,28 @@
 "use client";
 import React from "react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
+
 export default function Page({ children, params: { lng } }) {
+  const router = useRouter();
+  const session = useSession();
+  if (session && session.status === "unauthenticated") {
+    console.log("Not logged in.");
+    router.push(`/${lng}/login`);
+  }
+  if (
+    session &&
+    session.status === "authenticated" &&
+    !session?.data?.user?.isAdmin
+  ) {
+    console.log(session?.data?.user);
+    router.push(`/${lng}`);
+  }
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
