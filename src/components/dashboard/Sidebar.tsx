@@ -167,7 +167,7 @@ const Sidebar = ({ lng, sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Customers 360°
                 </a>
               </li>
-              <li>
+              {/*<li>
                 <a
                   href={`/${lng}/dashboard/feedbacks`}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-400 duration-300 ease-in-out hover:bg-gray-900 dark:hover:bg-meta-4 ${
@@ -269,19 +269,16 @@ const Sidebar = ({ lng, sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Settings
                 </a>
-              </li>
-              {/* <!-- Menu Item Settings --> */}
+              </li> */}
             </ul>
           </div>
 
-          {/* <!-- Others Group --> */}
-          <div>
+          {/*<div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-gray-300">
               OTHERS
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              {/* <!-- Menu Item Calendar --> */}
               <li>
                 <a
                   href="/"
@@ -308,6 +305,7 @@ const Sidebar = ({ lng, sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
             </ul>
           </div>
+            */}
         </nav>
       </div>
     </aside>
