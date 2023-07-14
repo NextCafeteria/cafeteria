@@ -11,5 +11,13 @@ export default function ApexChart(props) {
     });
   }, []);
 
+  if (!hasType) {
+    return null;
+  }
+
+  if (!Chart) {
+    return <div>Loading...</div>;
+  }
+
   return hasType && Chart && <Chart {...props} />;
 }
