@@ -26,7 +26,7 @@ export default function NewStores({ params: { lng, storeId } }) {
       (e) => {
         console.log(e);
         alert("Could not get stores");
-        router.push(`/${lng}/stores`);
+        router.push(`/${lng}/dashboard/stores`);
       }
     );
   }, []);
@@ -37,10 +37,10 @@ export default function NewStores({ params: { lng, storeId } }) {
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="pb-3 pt-2 border-b-2 border-gray-800">
           <div className="flex w-full bstore-b-2 bstore-gray-800 text-2xl px-2">
-            <BackButton href={`/${lng}/stores`} />
+            <BackButton href={`/${lng}/dashboard/stores`} />
             {t("Store")}: {storeData?.name}
           </div>
           <div className="flex flex-col items-left w-full pl-[50px] text-sm">
@@ -92,7 +92,7 @@ export default function NewStores({ params: { lng, storeId } }) {
             email,
             role,
             (data) => {
-              router.push(`/${lng}/stores/store-details/${storeId}`);
+              router.push(`/${lng}/dashboard/stores/store-details/${storeId}`);
             },
             (e) => {
               console.log(e);

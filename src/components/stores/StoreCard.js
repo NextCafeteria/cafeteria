@@ -16,7 +16,9 @@ export default function ({
   const { t } = useTranslation(lng, "common");
 
   return (
-    <Link href={isLoading ? "" : `/${lng}/stores/store-details/${id}`}>
+    <Link
+      href={isLoading ? "" : `/${lng}/dashboard/stores/store-details/${id}`}
+    >
       <div className="relative flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
         <div className="flex flex-col items-begin justify-center w-full relative">
           <p className="text-sm font-bold mb-2">

@@ -31,14 +31,14 @@ export default function ProductManagement({ params: { lng } }) {
   }
 
   const handleAddProduct = () => {
-    router.push(`/${lng}/products/new-product`);
+    router.push(`/${lng}/dashboard/products/new-product`);
   };
 
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <style>{productCss}</style>
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Products")}
         </div>
@@ -50,7 +50,7 @@ export default function ProductManagement({ params: { lng } }) {
           )
         ) : isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
-            <div className="product">
+            <div className="w-full">
               <ProductCardSkeleton key={i} />
             </div>
           ))
@@ -61,9 +61,9 @@ export default function ProductManagement({ params: { lng } }) {
         )}
       </div>
       <div
-        className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] md:rounded-md"
+        className="btn btn-primary mb-2 w-full max-w-[1000px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] md:rounded-md"
         onClick={() => {
-          router.push(`/${lng}/products/new-product`);
+          router.push(`/${lng}/dashboard/products/new-product`);
         }}
       >
         <span className="text-2xl" onClick={handleAddProduct}>
