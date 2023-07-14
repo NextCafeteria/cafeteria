@@ -1,6 +1,6 @@
 import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import ReactApexChart from "@components/ApexChart";
 
 interface ChartFourState {
   series: { data: number[] }[];
