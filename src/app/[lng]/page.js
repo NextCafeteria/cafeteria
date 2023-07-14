@@ -43,7 +43,7 @@ export default function Home({ params: { lng } }) {
         <div className="menu flex flex-wrap justify-center w-full md:gap-5 md:grid md:grid-cols-2 ">
           {isLoading
             ? Array.from({ length: 3 }, (e, i) => i).map((i) => (
-                <div className="product" key={i}>
+                <div className="product w-full" key={i}>
                   <ProductCardSkeleton />
                 </div>
               ))

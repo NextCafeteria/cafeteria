@@ -74,7 +74,7 @@
   "Type your address:": "Nhập địa chỉ của bạn:",
   "Delivery Address": "Địa chỉ giao hàng",
   "Address": "Địa chỉ",
-  "Manage orders": "Quản lý đơn hàng",
+  "Manage orders": "Xử lý đơn hàng",
   "Manage stores": "Quản lý cửa hàng",
   "Manage products": "Quản lý sản phẩm",
   "Customers 360°": "Khách hàng 360°",
@@ -132,5 +132,9 @@
   "Customer not found": "Không tìm thấy khách hàng",
   "View Customer Profile": "Xem hồ sơ khách hàng",
   "Customer Profile": "Hồ sơ khách hàng",
-  "Recent Orders": "Những đơn hàng gần đây"
+  "Recent Orders": "Những đơn hàng gần đây",
+  "Features": "Các chức năng",
+  "Management Dashboard": "Dashboard Quản lý",
+  "Links": "Liên kết",
+  "Back to Store": "Quay lại cửa hàng"
 }

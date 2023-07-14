@@ -57,7 +57,7 @@ export default function Cart({ params: { lng } }) {
             mệnh danh là “ông vua bán lẻ ở Mỹ.
           </i>
         </div>
-        <div className="flex justify-between items-center mb-2 max-w-[600px]">
+        <div className="flex justify-between items-center mb-2 max-w-[1000px]">
           <input
             ref={customerEmail}
             className="w-full border-2 border-gray-400 p-2"
@@ -104,7 +104,7 @@ export default function Cart({ params: { lng } }) {
             ))
           ) : orderItems.length > 0 ? (
             <>
-              <div className="flex justify-between items-center mb-2 max-w-[600px]">
+              <div className="flex justify-between items-center mb-2 max-w-[1000px]">
                 <div className="text-2xl">{t("Recent Orders")}</div>
               </div>
               {orderItems.map((order, orderId) => (

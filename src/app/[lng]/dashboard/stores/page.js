@@ -24,7 +24,7 @@ export default function StoreManagement({ params: { lng } }) {
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Stores")}
         </div>
@@ -51,9 +51,9 @@ export default function StoreManagement({ params: { lng } }) {
         )}
       </div>
       <div
-        className="w-full max-w-[700px] fixed bottom-[90px] md:bottom-[20px] h-[50px] md:rounded-md"
+        className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] md:rounded-md"
         onClick={() => {
-          router.push(`/${lng}/stores/new-store`);
+          router.push(`/${lng}/dashboard/stores/new-store`);
         }}
       >
         <span className="text-2xl">+ {t("Add store")}</span>

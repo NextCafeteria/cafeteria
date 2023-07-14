@@ -26,7 +26,7 @@ export default function ({ params: { lng, storeId } }) {
       (e) => {
         console.log(e);
         alert("Could not get stores");
-        router.push(`/${lng}/stores`);
+        router.push(`/${lng}/dashboard/stores`);
       }
     );
   };
@@ -39,10 +39,10 @@ export default function ({ params: { lng, storeId } }) {
 
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="pb-3 pt-2 border-b-2 border-gray-800">
           <div className="flex w-full bstore-b-2 bstore-gray-800 text-2xl px-2">
-            <BackButton href={`/${lng}/stores`} />
+            <BackButton href={`/${lng}/dashboard/stores`} />
             {t("Store")}: {storeData?.name}
           </div>
           <div className="flex flex-col items-left pl-[50px] w-full text-sm mb-2">
@@ -74,9 +74,11 @@ export default function ({ params: { lng, storeId } }) {
       </div>
       <div className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px]">
         <div
-          className="h-[50px] bstore-t-[1px] md:bstore-[1px] bstore-gray-600 p-2 bg-green-600 text-white md:rounded-md"
+          className="h-[50px] bstore-t-[1px] md:bstore-[1px] bstore-gray-600 p-2 text-white md:rounded-md"
           onClick={() => {
-            router.push(`/${lng}/stores/store-details/${storeId}/add-staff`);
+            router.push(
+              `/${lng}/dashboard/stores/store-details/${storeId}/add-staff`
+            );
           }}
         >
           <span className="text-2xl">+ {t("Add Staff")}</span>
