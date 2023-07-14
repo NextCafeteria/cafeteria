@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 
 import { useSession } from "next-auth/react";
