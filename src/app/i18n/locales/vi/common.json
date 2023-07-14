@@ -128,5 +128,9 @@
   "The customer has not placed any orders yet": "Khách hàng chưa đặt bất kỳ đơn hàng nào",
   "Are you sure you want to toggle this product's availability?": "Bạn có chắc chắn muốn chuyển tình trạng có sẵn của sản phẩm này?",
   "Available": "Có sẵn",
-  "Unavailable": "Không có sẵn"
+  "Unavailable": "Không có sẵn",
+  "Customer not found": "Không tìm thấy khách hàng",
+  "View Customer Profile": "Xem hồ sơ khách hàng",
+  "Customer Profile": "Hồ sơ khách hàng",
+  "Recent Orders": "Những đơn hàng gần đây"
 }
