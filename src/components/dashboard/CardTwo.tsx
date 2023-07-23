@@ -43,7 +43,7 @@ div.view-detail:hover:after{
   const [timespan, setTimespan] = useState("hôm nay"); // State for time span
   const timespans = ["tuần trước", "hôm qua", "hôm nay", "tuần này"];
   const [customer, setCustomer] = useState(5000000); // State for customer
-  const customerList = [92, 28, 32, 101];
+  const customerList = [361, 52, 68, 532];
 
   // Function to handle previous time span
   const handlePrevTimespan = () => {
