@@ -1,50 +1,133 @@
+import { useState } from "react";
 const CardThree = () => {
+  const style = `
+    .underline {
+      underline-position: under;
+    }
+    a.number-link {
+      color:#155e75;
+    }
+    .text-timespan {
+      white-space: nowrap;
+    }
+    
+.view-detail-wrapper{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+div.view-detail{
+  position: relative;
+  transition: background-color .35s, transform .35s;
+}
+
+div.view-detail:hover a{
+  color: #1e3a8a;
+  text-decoration: underline;
+}
+
+div.view-detail:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ccfbf1;
+  transition: all .35s;
+}
+
+
+div.view-detail:hover:after{
+  width: 100%;
+}
+  `;
+
+  const [timespan, setTimespan] = useState("hôm nay"); // State for time span
+  const timespans = ["tuần trước", "hôm qua", "hôm nay", "tuần này"];
+  const [inventoryValue, setInventoryValue] = useState(5000000); // State for inventoryValue
+  const inventoryValueList = [12_000_000, 4_000_000, 5_000_000, 15_000_000];
+
+  // Function to handle previous time span
+  const handlePrevTimespan = () => {
+    const index = timespans.indexOf(timespan);
+    if (index > 0) {
+      setTimespan(timespans[index - 1]);
+      setInventoryValue(inventoryValueList[index - 1]);
+    }
+  };
+
+  // Function to handle next time span
+  const handleNextTimespan = () => {
+    const index = timespans.indexOf(timespan);
+    if (index < timespans.length - 1) {
+      setTimespan(timespans[index + 1]);
+      setInventoryValue(inventoryValueList[index + 1]);
+    }
+  };
+
   return (
-    <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-gray-800">
-      <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-        <svg
-          className="fill-primary dark:fill-white"
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M21.1063 18.0469L19.3875 3.23126C19.2157 1.71876 17.9438 0.584381 16.3969 0.584381H5.56878C4.05628 0.584381 2.78441 1.71876 2.57816 3.23126L0.859406 18.0469C0.756281 18.9063 1.03128 19.7313 1.61566 20.3844C2.20003 21.0375 2.99066 21.3813 3.85003 21.3813H18.1157C18.975 21.3813 19.8 21.0031 20.35 20.3844C20.9 19.7656 21.2094 18.9063 21.1063 18.0469ZM19.2157 19.3531C18.9407 19.6625 18.5625 19.8344 18.15 19.8344H3.85003C3.43753 19.8344 3.05941 19.6625 2.78441 19.3531C2.50941 19.0438 2.37191 18.6313 2.44066 18.2188L4.12503 3.43751C4.19378 2.71563 4.81253 2.16563 5.56878 2.16563H16.4313C17.1532 2.16563 17.7719 2.71563 17.875 3.43751L19.5938 18.2531C19.6282 18.6656 19.4907 19.0438 19.2157 19.3531Z"
-            fill=""
-          />
-          <path
-            d="M14.3345 5.29375C13.922 5.39688 13.647 5.80938 13.7501 6.22188C13.7845 6.42813 13.8189 6.63438 13.8189 6.80625C13.8189 8.35313 12.547 9.625 11.0001 9.625C9.45327 9.625 8.1814 8.35313 8.1814 6.80625C8.1814 6.6 8.21577 6.42813 8.25015 6.22188C8.35327 5.80938 8.07827 5.39688 7.66577 5.29375C7.25327 5.19063 6.84077 5.46563 6.73765 5.87813C6.6689 6.1875 6.63452 6.49688 6.63452 6.80625C6.63452 9.2125 8.5939 11.1719 11.0001 11.1719C13.4064 11.1719 15.3658 9.2125 15.3658 6.80625C15.3658 6.49688 15.3314 6.1875 15.2626 5.87813C15.1595 5.46563 14.747 5.225 14.3345 5.29375Z"
-            fill=""
-          />
-        </svg>
-      </div>
-
-      <div className="mt-4 flex items-end justify-between">
-        <div>
-          <h4 className="text-title-md font-bold text-black dark:text-white">
-            2.450
-          </h4>
-          <span className="text-sm font-medium">Total Product</span>
+    <div className="relative pb-[3rem] rounded-sm  bg-white py-6 px-6 border border-stroke dark:border-strokedark dark:bg-gray-800 shadow-default">
+      <style>{style}</style>
+      <div className="main-stat">
+        <div className="flex gap-1 items-center mb-[0.3rem]">
+          <div className="flex items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.4856 1.12584C12.1836 0.958052 11.8164 0.958052 11.5144 1.12584L2.51436 6.12584L2.5073 6.13784L2.49287 6.13802C2.18749 6.3177 2 6.64568 2 7V16.9999C2 17.3631 2.19689 17.6977 2.51436 17.874L11.5022 22.8673C11.8059 23.0416 12.1791 23.0445 12.4856 22.8742L21.4856 17.8742C21.8031 17.6978 22 17.3632 22 17V7C22 6.64568 21.8125 6.31781 21.5071 6.13813C21.4996 6.13372 21.4921 6.12942 21.4845 6.12522L12.4856 1.12584ZM5.05923 6.99995L12.0001 10.856L14.4855 9.47519L7.74296 5.50898L5.05923 6.99995ZM16.5142 8.34816L18.9409 7L12 3.14396L9.77162 4.38195L16.5142 8.34816ZM4 16.4115V8.69951L11 12.5884V20.3004L4 16.4115ZM13 20.3005V12.5884L20 8.69951V16.4116L13 20.3005Z"
+                className="fill-primary dark:fill-white"
+              />
+            </svg>
+          </div>
+          <span className="text-sm font-bold text-[#0f766e] mt-[0.2rem] leading-none select-none">
+            Giá trị hàng tồn kho
+          </span>
         </div>
-
-        <span className="flex items-center gap-1 text-sm font-medium text-meta-3">
-          2.59%
-          <svg
-            className="fill-meta-3"
-            width="10"
-            height="11"
-            viewBox="0 0 10 11"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        <div className="flex">
+          <span className="text-title-xl font-bold text-black dark:text-white">
+            30,000,000đ
+          </span>
+        </div>
+      </div>
+      <div className="mt-4 flex gap-[0.2rem] items-start justify-between">
+        <div className="flex flex-col w-[110px] text-center">
+          <a
+            className="clickable text underline font-bold text-black dark:text-white select-none"
+            title="Click để xem các nguyên liệu sắp hết hạn"
           >
-            <path
-              d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z"
-              fill=""
-            />
-          </svg>
-        </span>
+            Sắp hết hạn
+          </a>
+          <span className="text-md font-bold ms-1">5,000,000đ</span>
+        </div>
+        <div className="self-stretch w-[1px] bg-gray-200"></div>
+        <div className="flex flex-col w-[90px] text-center">
+          <span className="text font-bold text-black dark:text-white select-none">
+            Bán chậm
+          </span>
+          <span className="text-md font-bold ms-1">19%</span>
+        </div>
+        <div className="self-stretch w-[1px] bg-gray-200"></div>
+        <div className="flex flex-col w-[80px] text-center">
+          <span className="text font-bold text-black dark:text-white select-none">
+            Nhập về
+          </span>
+          <span className="text-md font-bold ms-1">9,500,000đ</span>
+        </div>
+      </div>
+      <div className="view-detail-wrapper clickable card-head absolute bottom-0 left-0 w-full flex gap-1 justify-center items-center h-[2rem] border-t border-stroke  shadow-default dark:border-strokedark dark:bg-gray-800">
+        <div className="view-detail w-full h-full flex">
+          <a className="m-auto z-10 text-cyan-600 select-none hover:underline">
+            Quản lý kho hàng
+          </a>
+        </div>
       </div>
     </div>
   );
