@@ -191,22 +191,7 @@ export default function Page({ params: { lng } }) {
       )}
       {session?.data?.user?.isAdmin && (
         <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/stores`}>{t("Manage stores")}</a>
-        </div>
-      )}
-      {session?.data?.user?.isAdmin && (
-        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/products`}>{t("Manage products")}</a>
-        </div>
-      )}
-      {session?.data?.user?.isAdmin && (
-        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/customers-360`}>{t("Customers 360°")}</a>
-        </div>
-      )}
-      {session?.data?.user?.isAdmin && (
-        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
-          <a href={`/${lng}/dashboard`}>{t("Dashboard")}</a>
+          <a href={`/${lng}/dashboard`}>{t("Management Dashboard")}</a>
         </div>
       )}
       <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">

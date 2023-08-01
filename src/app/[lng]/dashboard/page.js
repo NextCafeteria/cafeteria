@@ -1,43 +1,43 @@
 "use client";
-import React from "react";
-import { useState } from "react";
-import { useTranslation } from "@/app/i18n/client";
-import { useRouter } from "next/navigation";
-import Header from "@/components/dashboard/Header";
-import Sidebar from "@/components/dashboard/Sidebar";
+
+import { useEffect, useState } from "react";
+
 import CardFour from "@/components/dashboard/CardFour.tsx";
 import CardOne from "@/components/dashboard/CardOne.tsx";
 import CardThree from "@/components/dashboard/CardThree.tsx";
 import CardTwo from "@/components/dashboard/CardTwo.tsx";
 import ChartOne from "@/components/dashboard/ChartOne.tsx";
-import ChartThree from "@/components/dashboard/ChartThree.tsx";
 import ChartTwo from "@/components/dashboard/ChartTwo.tsx";
+import { GetRevenueInfo } from "@/lib/requests/dashboard";
+import React from "react";
 
-export default function Page({ params: { lng } }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+export default function Page() {
+  const [revenueInfo, setRevenueInfo] = useState({
+    totalRevenue: 0,
+    totalOrders: 0,
+    totalCustomers: 0,
+    totalProducts: 0,
+  });
+
+  useEffect(() => {
+    async function getRevenueInfo() {
+      const data = await GetRevenueInfo();
+      setRevenueInfo(data.data);
+    }
+    getRevenueInfo();
+  }, []);
 
   return (
-    <div className="dark:bg-gray-300-2 dark:text-bodydark">
-      <div className="flex h-screen overflow-hidden">
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <main>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-                <CardOne />
-                <CardTwo />
-                <CardThree />
-                <CardFour />
-              </div>
-              <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-                <ChartOne />
-                <ChartTwo />
-                <ChartThree />
-              </div>
-            </div>
-          </main>
-        </div>
+    <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+        <CardOne totalRevenue={revenueInfo.totalRevenue} />
+        <CardTwo totalCustomer={revenueInfo.totalCustomers} />
+        <CardThree />
+        <CardFour />
+      </div>
+      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+        <ChartOne />
+        <ChartTwo />
       </div>
     </div>
   );

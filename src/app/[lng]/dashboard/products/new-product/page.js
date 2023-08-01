@@ -44,7 +44,7 @@ export default function ({ params: { lng } }) {
       productData,
     ).then(() => {
       alert("Product created");
-      router.push(`/${lng}/products`);
+      router.push(`/${lng}/dashboard/products`);
     }
     ).catch((e) => {
       console.log(e);
@@ -56,10 +56,10 @@ export default function ({ params: { lng } }) {
 
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="pb-3 pt-2 border-b-2 border-gray-800">
           <div className="flex w-full text-2xl px-2">
-            <BackButton href={`/${lng}/products`} />
+            <BackButton href={`/${lng}/dashboard/products`} />
             {t("Product")}: {productData?.name}
           </div>
         </div>

@@ -55,7 +55,9 @@ export default function ({
   };
 
   return (
-    <Link href={isLoading ? "" : `/${lng}/products/product-details/${id}`}>
+    <Link
+      href={isLoading ? "" : `/${lng}/dashboard/products/product-details/${id}`}
+    >
       <div className="relative flex flex-grow w-full p-4 min-h-[180px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
         <div className="w-full relative">
           <h2 className="text-lg font-bold mb-2">

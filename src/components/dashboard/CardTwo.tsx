@@ -1,5 +1,5 @@
 import { useState } from "react";
-const CardTwo = () => {
+const CardTwo = ({ totalCustomer }) => {
   const style = `
     a.number-link {
       color:#155e75;
@@ -42,7 +42,7 @@ div.view-detail:hover:after{
 
   const [timespan, setTimespan] = useState("hôm nay"); // State for time span
   const timespans = ["tuần trước", "hôm qua", "hôm nay", "tuần này"];
-  const [customer, setCustomer] = useState(5000000); // State for customer
+  const [customer, setCustomer] = useState(68); // State for customer
   const customerList = [361, 52, 68, 532];
 
   // Function to handle previous time span
@@ -97,7 +97,7 @@ div.view-detail:hover:after{
         </div>
         <div className="flex">
           <span className="text-title-xl font-bold text-black dark:text-white">
-            1268
+            {totalCustomer}
           </span>
         </div>
       </div>

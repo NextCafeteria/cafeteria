@@ -1,5 +1,5 @@
 import { useState } from "react";
-const CardOne = () => {
+const CardOne = ({ totalRevenue }) => {
   const style = `
     a.number-link {
       color:#155e75;
@@ -85,7 +85,7 @@ div.view-detail:hover:after{
         </div>
         <div className="flex">
           <span className="text-title-xl font-bold text-black dark:text-white">
-            180,000,000đ
+            {totalRevenue.toLocaleString("vi-VN")}đ
           </span>
         </div>
       </div>

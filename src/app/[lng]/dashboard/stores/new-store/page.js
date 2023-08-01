@@ -21,7 +21,7 @@ export default function NewStores({ params: { lng, itemId } }) {
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("New Store")}
           <XButton />
@@ -67,7 +67,7 @@ export default function NewStores({ params: { lng, itemId } }) {
           CreateStore(
             { name, address, phone },
             (store) => {
-              router.push(`/${lng}/stores`);
+              router.push(`/${lng}/dashboard/stores`);
             },
             (e) => {
               console.log(e);
