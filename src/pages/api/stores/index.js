@@ -1,7 +1,8 @@
-import dbService from "@/services/Database";
-import { getDocs, collection, query, addDoc, where } from "firebase/firestore";
-import { getServerSession } from "next-auth/next";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+
 import { authOptions } from "../auth/[...nextauth]";
+import dbService from "@/services/Database";
+import { getServerSession } from "next-auth/next";
 
 export default async function handler(req, res) {
   // Check authentication

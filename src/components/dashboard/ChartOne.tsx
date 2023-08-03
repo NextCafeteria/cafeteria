@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from "react";
+
 import { ApexOptions } from "apexcharts";
-import React, { useState, useEffect } from "react";
 import ReactApexChart from "@components/ApexChart";
-const randomColor = require("randomcolor");
+import randomColor from "randomcolor";
 
 const color1 = randomColor({ hue: "blue", luminosity: "dark" });
 const color2 = randomColor({ hue: "purple", luminosity: "light" });

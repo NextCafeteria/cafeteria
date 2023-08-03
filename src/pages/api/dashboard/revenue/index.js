@@ -28,6 +28,16 @@ export default async function handler(req, res) {
         ORDER_STATUS_TYPE_TO_ORDER_STATUS[OrderStatusType.INACTIVE]
       )
     );
+    // Query stores
+    const qOrder = query(collection(dbService.getDB(), "orders"));
+
+    // Return empty array if no store found
+    if ((await getDocs(q)).empty) {
+      return res.status(200).json({ success: true, data: [] });
+    }
+
+    // Return store data
+    const Storedocs = (await getDocs(qOrder)).docs;
 
     // Total revenue
     let totalRevenue = 0;
@@ -36,6 +46,18 @@ export default async function handler(req, res) {
       totalRevenue += doc.data().totalPrice;
     });
 
+    //Total Revenue by Store
+    const revenueByStore = {};
+    docs.forEach((doc) => {
+      const orderId = doc.data().storeID;
+      if (revenueByStore[orderId]) {
+        revenueByMonth[orderId] += doc.data().totalPrice;
+      } else {
+        revenueByMonth[orderId] = doc.data().totalPrice;
+      }
+    });
+    //
+    revenueByStore.forEach((store) => {});
     // Total orders
     const totalOrders = docs.length;
 
@@ -69,6 +91,7 @@ export default async function handler(req, res) {
         totalCustomers,
         totalProducts,
         revenueByMonth,
+        revenueByStore,
       },
     });
   }
