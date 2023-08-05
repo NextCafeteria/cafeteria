@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import Logo from "@public/images/icons/icon-144x144.png";
+import Logo from "@public/images/icons/android-icon-192x192.png";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
 
