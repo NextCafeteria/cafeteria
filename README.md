@@ -1,7 +1,7 @@
 <p align="center">
   <img alt="Cafeteria" style="width: 128px; max-width: 100%; height: auto;" src="./public/images/icons/icon-128x128.png"/>
   <h1 align="center">☕ Cafeteria App ☕</h1>
-  <p align="center" style="font-weight: bold">Online ordering system for small coffee shops!</p>
+  <p align="center" style="font-weight: bold">Online ordering and store management for coffeshops</p>
 </p>
 
 <img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="docs/screenshot1.png"/>
