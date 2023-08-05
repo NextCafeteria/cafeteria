@@ -48,6 +48,8 @@ export default async function handler(req, res) {
 
     //Total Revenue by Store
     const revenueByStore = {};
+    const revenueByMonth = {};
+
     docs.forEach((doc) => {
       const orderId = doc.data().storeID;
       if (revenueByStore[orderId]) {
@@ -56,8 +58,7 @@ export default async function handler(req, res) {
         revenueByMonth[orderId] = doc.data().totalPrice;
       }
     });
-    //
-    revenueByStore.forEach((store) => {});
+
     // Total orders
     const totalOrders = docs.length;
 
@@ -69,7 +70,6 @@ export default async function handler(req, res) {
       docs.map((doc) => doc.data().items.map((item) => item.productId))
     ).size;
 
-    const revenueByMonth = {};
     docs.forEach((doc) => {
       const orderDate = new Date(doc.data().timestamp);
       const month = orderDate.getMonth();
@@ -83,6 +83,22 @@ export default async function handler(req, res) {
       }
     });
 
+    // Sort revenueByMonth in descending order by keys (recent months first)
+    const sortedRevenueByMonth = Object.fromEntries(
+      Object.entries(revenueByMonth).sort(
+        (a, b) => new Date(b[0]) - new Date(a[0])
+      )
+    );
+
+    // Get data for the most recent 12 months
+    const mostRecentMonths = Object.keys(sortedRevenueByMonth).slice(0, 12);
+
+    // Create an array with revenue data for the most recent 12 months
+    const revenueDataForRecentMonths = mostRecentMonths.map((monthKey) => ({
+      month: monthKey,
+      revenue: sortedRevenueByMonth[monthKey],
+    }));
+
     return res.status(200).json({
       success: true,
       data: {
@@ -91,6 +107,7 @@ export default async function handler(req, res) {
         totalCustomers,
         totalProducts,
         revenueByMonth,
+        revenueDataForRecentMonths,
         revenueByStore,
       },
     });
