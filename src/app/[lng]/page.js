@@ -15,10 +15,10 @@ export default function Home({ params: { lng } }) {
 
   const productCss = `
     .product {
-    width: 380px;
-    min-height:182px;
+      width: 380px;
+      min-height:182px;
     }
-    @media screen and (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     .product {
         width: min(max(280px, 35vw), 380px);
       }

@@ -73,7 +73,7 @@ const ChartTwo: React.FC = () => {
   const [state, setState] = useState<ChartTwoState>({
     series: [
       {
-        name: "Bán",
+        name: "Doanh số",
         data: [44, 55, 41, 67, 22, 43, 65],
       },
       {
@@ -98,8 +98,8 @@ const ChartTwo: React.FC = () => {
               id="#"
               className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
             >
-              <option value="">Tuần Này</option>
-              <option value="">Tuần Trước</option>
+              <option value="">Tuần này</option>
+              <option value="">Tuần trước</option>
             </select>
             <span className="absolute top-1/2 right-3 z-10 -translate-y-1/2">
               <svg
