@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-
 import CardOne from "@/components/dashboard/CardOne.tsx";
 import CardTwo from "@/components/dashboard/CardTwo.tsx";
 import CardThree from "@/components/dashboard/CardThree.tsx";
 import CardFour from "@/components/dashboard/CardFour.tsx";
+import ChartOne from "@/components/dashboard/ChartOne.tsx";
+import ChartTwo from "@/components/dashboard/ChartTwo.tsx";
 
 import { GetRevenueInfo } from "@/lib/requests/dashboard";
 import React from "react";
