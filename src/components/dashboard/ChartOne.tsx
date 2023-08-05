@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { ApexOptions } from "apexcharts";
+
 import ReactApexChart from "@components/ApexChart";
 import randomColor from "randomcolor";
 
@@ -91,18 +92,18 @@ const options: ApexOptions = {
   xaxis: {
     type: "category",
     categories: [
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
+      "T9",
+      "T10",
+      "T11",
+      "T12",
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7",
+      "T8",
     ],
     axisBorder: {
       show: false,
