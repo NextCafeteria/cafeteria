@@ -1,5 +1,5 @@
 import { useState } from "react";
-const CardOne = ({ totalRevenue }) => {
+const CardOne = ({ totalRevenue }: { totalRevenue: number }) => {
   const style = `
     a.number-link {
       color:#155e75;

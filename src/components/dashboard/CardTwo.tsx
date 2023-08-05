@@ -1,5 +1,5 @@
 import { useState } from "react";
-const CardTwo = ({ totalCustomer }) => {
+const CardTwo = ({ totalCustomer }: { totalCustomer: number }) => {
   const style = `
     a.number-link {
       color:#155e75;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { ApexOptions } from "apexcharts";
-
 import ReactApexChart from "@components/ApexChart";
 import randomColor from "randomcolor";
 

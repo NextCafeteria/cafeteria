@@ -44,6 +44,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/randomcolor": "^0.5.7",
     "autoprefixer": "^10.4.14",
     "classnames": "^2.3.2",
     "daisyui": "^3.1.7",
