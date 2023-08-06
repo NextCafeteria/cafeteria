@@ -8,7 +8,6 @@ import { Roboto } from "next/font/google";
 
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
-import { useTranslation } from "@/app/i18n/client";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { GetCommonSettings } from "@/lib/requests/settings";
@@ -26,7 +25,6 @@ import MainMenu from "@/components/MainMenu";
 import { SWRConfig } from "swr";
 
 export default function RootLayout({ children, params: { lng } }) {
-  const { t } = useTranslation(lng, "common");
   const pathname = usePathname();
   const isDashboard = pathname.split("/")[2] === "dashboard";
   const DEFAULT_THEME = "cupcake";

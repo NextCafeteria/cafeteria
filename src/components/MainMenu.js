@@ -26,11 +26,11 @@ function MainMenuUser({ lng }) {
   }`;
   return (
     <>
-      <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary">
+      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary">
         <style>{navCss}</style>
         <div
           className={
-            "nav-item flex flex-col items-center p-2 clickable text-center text-primary" +
+            "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}`
               ? " bg-[#ffffffdd] rounded-xl"
               : " bg-[#dddddd88] rounded-xl")
@@ -53,7 +53,7 @@ function MainMenuUser({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color: currentPath === `/${lng}` ? activeTabColor : "#333333",
             }}
@@ -63,7 +63,7 @@ function MainMenuUser({ lng }) {
         </div>
         <div
           className={
-            "nav-item flex flex-col items-center p-2 clickable text-center" +
+            "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/orders`
               ? " bg-[#ffffffdd] rounded-xl"
               : " bg-[#dddddd88] rounded-xl")
@@ -88,7 +88,7 @@ function MainMenuUser({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color:
                 currentPath === `/${lng}/orders` ? activeTabColor : "#333333",
@@ -99,7 +99,7 @@ function MainMenuUser({ lng }) {
         </div>
         <div
           className={
-            "nav-item flex flex-col items-center p-2 clickable text-center" +
+            "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/cart`
               ? " bg-[#ffffffdd] rounded-xl"
               : " bg-[#dddddd88] rounded-xl")
@@ -133,7 +133,7 @@ function MainMenuUser({ lng }) {
         </div>
         <div
           className={
-            "nav-item flex flex-col items-center p-2 clickable text-center" +
+            "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/user`
               ? " bg-[#ffffffdd] rounded-xl"
               : " bg-[#dddddd88] rounded-xl")
@@ -155,7 +155,7 @@ function MainMenuUser({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color:
                 currentPath === `/${lng}/user` ? activeTabColor : "#333333",
@@ -190,10 +190,10 @@ function MainMenuStaff({ lng }) {
 
   return (
     <>
-      <div className="nav-bar flex justify-evenly w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary text-primary">
+      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary">
         <div
           className={
-            "flex flex-col items-center p-2 clickable text-center" +
+            "md:mb-4 md:py-4 flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}`
               ? " bg-[#ffffffdd] rounded-xl"
               : " bg-[#dddddd88] rounded-xl")
@@ -216,7 +216,7 @@ function MainMenuStaff({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color: currentPath === `/${lng}` ? activeTabColor : "#333333",
             }}
@@ -226,7 +226,7 @@ function MainMenuStaff({ lng }) {
         </div>
         <div
           className={
-            "flex flex-col items-center p-2 clickable" +
+            "md:mb-4 md:py-4 flex flex-col items-center p-2 clickable" +
             (currentPath.startsWith(`/${lng}/staffs/orders`)
               ? " bg-[#ffffff66] rounded-xl"
               : "")
@@ -253,7 +253,7 @@ function MainMenuStaff({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color: currentPath.startsWith(`/${lng}/staffs/orders`)
                 ? activeTabColor
@@ -265,7 +265,7 @@ function MainMenuStaff({ lng }) {
         </div>
         <div
           className={
-            "flex flex-col items-center p-2 clickable text-center" +
+            "md:mb-4 md:py-4 flex flex-col items-center p-2 clickable text-center" +
             (currentPath === `/${lng}/user`
               ? " bg-[#ffffffdd] rounded-xl"
               : " bg-[#dddddd88] rounded-xl")
@@ -287,7 +287,7 @@ function MainMenuStaff({ lng }) {
             />
           </svg>
           <span
-            className="flex justify-center text-sm md:text-xl mt-2"
+            className="flex justify-center text-sm mt-2"
             style={{
               color:
                 currentPath === `/${lng}/user` ? activeTabColor : "#333333",
