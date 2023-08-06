@@ -54,7 +54,7 @@ export default function Cart({ params: { lng } }) {
         <div className="flex mb-2 max-w-[1000px]">
           <input
             ref={customerEmail}
-            className="w-full border-2 border-gray-400 p-2 rounded-md max-w-[500px]"
+            className="w-full border-[1px] border-gray-600 p-2 rounded-md max-w-[500px]"
             type="text"
             placeholder={t("Customer email")}
           />
