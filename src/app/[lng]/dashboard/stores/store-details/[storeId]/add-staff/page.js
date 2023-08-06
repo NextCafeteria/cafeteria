@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Rating from "@/components/Rating";
 import BackButton from "@/components/buttons/BackButton";
 
-import { GetStore, AddStaff } from "@/lib/requests/stores";
+import { useGetStore, AddStaff } from "@/lib/requests/stores";
 
 export default function NewStores({ params: { lng, storeId } }) {
   const router = useRouter();
@@ -16,20 +16,13 @@ export default function NewStores({ params: { lng, storeId } }) {
     router.push(`/${lng}/login`);
   }
 
-  const [storeData, setstoreData] = useState(null);
-  useEffect(() => {
-    GetStore(
-      storeId,
-      (data) => {
-        setstoreData(data);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get stores");
-        router.push(`/${lng}/dashboard/stores`);
-      }
-    );
-  }, []);
+  const { store, error, isLoading } = useGetStore(storeId);
+
+  if (error) {
+    console.log(error);
+    alert("Could not get store");
+    router.push(`/${lng}/dashboard/stores`);
+  }
 
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("staff");
@@ -41,14 +34,14 @@ export default function NewStores({ params: { lng, storeId } }) {
         <div className="pb-3 pt-2 border-b-2 border-gray-800">
           <div className="flex w-full bstore-b-2 bstore-gray-800 text-2xl px-2">
             <BackButton href={`/${lng}/dashboard/stores`} />
-            {t("Store")}: {storeData?.name}
+            {t("Store")}: {store?.name}
           </div>
           <div className="flex flex-col items-left w-full pl-[50px] text-sm">
-            {storeData?.address} - {storeData?.phone}
+            {store?.address} - {store?.phone}
           </div>
           <div className="flex flex-row items-left w-full pl-[50px] text-sm">
-            <Rating value={storeData?.rating} /> {"  "} {storeData?.rating}/5{" "}
-            {t("stars")} - {storeData?.totalRatingTimes || 0} {t("reviews")}
+            <Rating value={store?.rating} /> {"  "} {store?.rating}/5{" "}
+            {t("stars")} - {store?.totalRatingTimes || 0} {t("reviews")}
           </div>
         </div>
         <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
