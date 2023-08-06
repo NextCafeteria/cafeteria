@@ -30,24 +30,18 @@ export async function CreateStore(inputData, onSuccess = null, onError = null) {
   }
 }
 
-export async function GetStore(storeId, onSuccess = null, onError = null) {
-  const response = await fetch(`/api/stores/${storeId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+export function useGetStore(storeId) {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading, mutate } = useSWR(
+    `/api/stores/${storeId}`,
+    fetcher
+  );
+  return {
+    store: data?.data,
+    error,
+    isLoading,
+    mutateStore: mutate,
+  };
 }
 
 export async function AddStaff(
