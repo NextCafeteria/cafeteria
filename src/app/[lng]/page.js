@@ -1,9 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
-import LangSelector from "@/components/LangSelector";
 import { useGetProducts } from "@/lib/requests/products";
 import ProductCardSkeleton from "@/components/skeletons/ProductCard";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
 export default function Home({ params: { lng } }) {
   const router = useRouter();
@@ -31,11 +32,7 @@ export default function Home({ params: { lng } }) {
     <main className="main flex justify-center p-2 pb-[200px]">
       <style>{productCss}</style>
       <div className="max-w-[600px] md:max-w-[1000px] mx-auto font-mono text-sm">
-        <div className="block w-full justify-center border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
-          {t("title")}
-          <LangSelector />
-        </div>
-
+        <Header />
         <div className="menu flex flex-wrap justify-center w-full md:gap-5 md:grid md:grid-cols-2">
           {isLoading
             ? Array.from({ length: 4 }, (e, i) => i).map((i) => (
