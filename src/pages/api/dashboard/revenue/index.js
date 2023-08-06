@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
     //Total Revenue by Store
     const revenueByStore = {};
-    const revenueByMonth = {};
+    const revenueByDay = {};
 
     // Total orders
     const totalOrders = docs.length;
@@ -52,14 +52,15 @@ export default async function handler(req, res) {
 
     docs.forEach((doc) => {
       const orderDate = new Date(doc.data().timestamp);
+      const date = orderDate.getDay();
       const month = orderDate.getMonth();
       const year = orderDate.getFullYear();
 
-      const monthKey = `${year}-${month}`;
-      if (revenueByMonth[monthKey]) {
-        revenueByMonth[monthKey] += doc.data().totalPrice;
+      const dayKey = `${year}-${month}-${date}`;
+      if (revenueByDay[dayKey]) {
+        revenueByDay[dayKey] += doc.data().totalPrice;
       } else {
-        revenueByMonth[monthKey] = doc.data().totalPrice;
+        revenueByDay[dayKey] = doc.data().totalPrice;
       }
 
       const orderId = doc.data().storeId;
@@ -77,7 +78,7 @@ export default async function handler(req, res) {
         totalOrders,
         totalCustomers,
         totalProducts,
-        revenueByMonth,
+        revenueByDay,
         revenueByStore,
       },
     });
