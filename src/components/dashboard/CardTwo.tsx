@@ -1,5 +1,11 @@
 import { useState } from "react";
-const CardTwo = ({ totalCustomer }: { totalCustomer: number }) => {
+const CardTwo = ({
+  totalCustomer,
+  lng,
+}: {
+  totalCustomer: number;
+  lng: any;
+}) => {
   const style = `
     a.number-link {
       color:#155e75;
@@ -101,7 +107,7 @@ div.view-detail:hover:after{
           </span>
         </div>
       </div>
-      <div className="mt-4 flex gap-[0.4rem] items-start justify-between">
+      {/* <div className="mt-4 flex gap-[0.4rem] items-start justify-between">
         <div className="flex flex-col ms-1 w-[96px]">
           <span className="text-md font-bold text-center ms-[-1rem]">
             +{customer.toLocaleString("vi-VN")}
@@ -178,10 +184,13 @@ div.view-detail:hover:after{
           </span>
           <span className="text-md font-bold ms-1">142,000đ</span>
         </div>
-      </div>
+      </div> */}
       <div className="view-detail-wrapper clickable card-head absolute bottom-0 left-0 w-full flex gap-1 justify-center items-center h-[2rem] border-t border-stroke  shadow-default dark:border-strokedark dark:bg-gray-800">
         <div className="view-detail w-full h-full flex">
-          <a className="m-auto z-10 text-cyan-600 select-none hover:underline">
+          <a
+            className="m-auto z-10 text-cyan-600 select-none hover:underline"
+            href={`/${lng}/dashboard/customers-360`}
+          >
             Xem Khách hàng 360°
           </a>
         </div>

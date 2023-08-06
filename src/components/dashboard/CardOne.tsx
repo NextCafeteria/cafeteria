@@ -85,11 +85,11 @@ div.view-detail:hover:after{
         </div>
         <div className="flex">
           <span className="text-title-xl font-bold text-black dark:text-white">
-            {totalRevenue.toLocaleString("vi-VN")}đ
+            {Math.round(totalRevenue).toLocaleString("vi-VN")}đ
           </span>
         </div>
       </div>
-      <div className="mt-4 flex gap-[0.4rem] items-start justify-between">
+      {/* <div className="mt-4 flex gap-[0.4rem] items-start justify-between">
         <div className="flex flex-col ms-1">
           <span className="text-md font-bold">
             +{revenue.toLocaleString("vi-VN")}đ
@@ -165,7 +165,7 @@ div.view-detail:hover:after{
             Xem chi tiết doanh thu
           </a>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

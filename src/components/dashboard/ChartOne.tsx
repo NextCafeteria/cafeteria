@@ -4,145 +4,165 @@ import { ApexOptions } from "apexcharts";
 import ReactApexChart from "@components/ApexChart";
 import randomColor from "randomcolor";
 
-const color1 = randomColor({ hue: "blue", luminosity: "dark" });
-const color2 = randomColor({ hue: "purple", luminosity: "light" });
-const color3 = randomColor({ hue: "green", luminosity: "dark" });
-const colors = [color1, color2, color3];
+const ChartOne = ({
+  monthlyRevenueByStore,
+  storeIds,
+  totalRevenue,
+}: {
+  monthlyRevenueByStore: { [key: string]: { [key: string]: number } };
+  storeIds: any;
+  totalRevenue: number;
+}) => {
+  const colors = [];
+  for (let i = 0; i < storeIds.length; i++) {
+    colors.push(randomColor({ luminosity: "dark" }));
+  }
 
-const options: ApexOptions = {
-  legend: {
-    show: false,
-    position: "top",
-    horizontalAlign: "left",
-  },
-  colors: colors,
-  chart: {
-    fontFamily: "Satoshi, sans-serif",
-    height: 335,
-    type: "area",
-    dropShadow: {
-      enabled: true,
-      color: "#623CEA14",
-      top: 10,
-      blur: 4,
-      left: 0,
-      opacity: 0.1,
-    },
-
-    toolbar: {
+  const allSeries = [] as any;
+  for (let i = 0; i < storeIds.length; i++) {
+    const storeId = storeIds[i];
+    const storeName = "Chi nhánh " + (i + 1).toString();
+    const storeData = [];
+    for (let j = 0; j < 12; j++) {
+      const month = j + 1;
+      const year = 2023;
+      const key = `${year}-${month}`;
+      const value = +(
+        (100 * (monthlyRevenueByStore[storeId][key] || 0)) /
+        totalRevenue
+      ).toFixed(0);
+      storeData.push(value);
+    }
+    allSeries.push({
+      name: storeName,
+      data: storeData,
+    });
+  }
+  // alert(
+  //   JSON.stringify(allSeries) +
+  //     " " +
+  //     JSON.stringify(storeIds) +
+  //     " " +
+  //     JSON.stringify(totalRevenue)
+  // );
+  const options: ApexOptions = {
+    legend: {
       show: false,
+      position: "top",
+      horizontalAlign: "left",
     },
-  },
-  responsive: [
-    {
-      breakpoint: 1024,
-      options: {
-        chart: {
-          height: 300,
+    colors: colors,
+    chart: {
+      fontFamily: "Satoshi, sans-serif",
+      height: 335,
+      type: "area",
+      dropShadow: {
+        enabled: true,
+        color: "#623CEA14",
+        top: 10,
+        blur: 4,
+        left: 0,
+        opacity: 0.1,
+      },
+
+      toolbar: {
+        show: false,
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        options: {
+          chart: {
+            height: 300,
+          },
+        },
+      },
+      {
+        breakpoint: 1366,
+        options: {
+          chart: {
+            height: 350,
+          },
+        },
+      },
+    ],
+    stroke: {
+      width: [2, 2],
+      curve: "straight",
+    },
+    // labels: {
+    //   show: false,
+    //   position: "top",
+    // },
+    grid: {
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
         },
       },
     },
-    {
-      breakpoint: 1366,
-      options: {
-        chart: {
-          height: 350,
-        },
+    dataLabels: {
+      enabled: false,
+    },
+    markers: {
+      size: 4,
+      colors: "#fff",
+      strokeColors: colors,
+      strokeWidth: 3,
+      strokeOpacity: 0.9,
+      strokeDashArray: 0,
+      fillOpacity: 1,
+      discrete: [],
+      hover: {
+        size: undefined,
+        sizeOffset: 5,
       },
     },
-  ],
-  stroke: {
-    width: [2, 2],
-    curve: "straight",
-  },
-  // labels: {
-  //   show: false,
-  //   position: "top",
-  // },
-  grid: {
     xaxis: {
-      lines: {
-        show: true,
+      type: "category",
+      categories: [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9",
+        "T10",
+        "T11",
+        "T12",
+      ],
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
       },
     },
     yaxis: {
-      lines: {
-        show: true,
+      title: {
+        style: {
+          fontSize: "0px",
+        },
       },
+      min: 0,
+      max: 100,
     },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  markers: {
-    size: 4,
-    colors: "#fff",
-    strokeColors: colors,
-    strokeWidth: 3,
-    strokeOpacity: 0.9,
-    strokeDashArray: 0,
-    fillOpacity: 1,
-    discrete: [],
-    hover: {
-      size: undefined,
-      sizeOffset: 5,
-    },
-  },
-  xaxis: {
-    type: "category",
-    categories: [
-      "T9",
-      "T10",
-      "T11",
-      "T12",
-      "T1",
-      "T2",
-      "T3",
-      "T4",
-      "T5",
-      "T6",
-      "T7",
-      "T8",
-    ],
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  yaxis: {
-    title: {
-      style: {
-        fontSize: "0px",
-      },
-    },
-    min: 0,
-    max: 100,
-  },
-};
-const ChartOne: React.FC = () => {
-  const allSeries = [
-    {
-      name: "Chi nhánh Hà Nội",
-      data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
-    },
-    {
-      name: "Chi nhánh TP HCM",
-      data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51],
-    },
-    {
-      name: "Chi nhánh Đà Nẵng",
-      data: [17, 29, 35, 42, 18, 27, 36, 31, 23, 40, 47, 55],
-    },
-  ];
+  };
 
   const [series, setSeries] = useState(allSeries);
 
   const [storeVisibility, setStoreVisibility] = useState({
     store1: true,
     store2: true,
-    store3: true,
   });
 
   useEffect(() => {
@@ -153,9 +173,6 @@ const ChartOne: React.FC = () => {
     }
     if (storeVisibility.store2) {
       newSeries.push(allSeries[1]);
-    }
-    if (storeVisibility.store3) {
-      newSeries.push(allSeries[2]);
     }
 
     setSeries(newSeries);
@@ -176,22 +193,16 @@ const ChartOne: React.FC = () => {
     display: none !important; 
   }
   .bg-color1 {
-    background-color: ${color1} ;
+    background-color: ${colors[0]} ;
   }
   .bg-color2 {
-    background-color: ${color2};
-  }
-  .bg-color3 {
-    background-color: ${color3};
+    background-color: ${colors[1]};
   }
   .text-color1 {
-    color: ${color1};
+    color: ${colors[0]};
   }
   .text-color2 {
-    color: ${color2};
-  }
-  .text-color3 {
-    color: ${color3};
+    color: ${colors[1]};
   }
   `;
 
@@ -222,7 +233,7 @@ const ChartOne: React.FC = () => {
               </div>
             </div>
           )}
-          {storeVisibility.store3 && (
+          {/* {storeVisibility.store3 && (
             <div className="flex min-w-47.5">
               <span className="mt-1 mr-2 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-secondary">
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color3"></span>
@@ -231,7 +242,7 @@ const ChartOne: React.FC = () => {
                 <p className="font-semibold text-color3">Chi nhánh Đà Nẵng</p>
               </div>
             </div>
-          )}
+          )} */}
         </div>
         <div className="flex w-full max-w-45 justify-end">
           {/* <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
@@ -298,7 +309,7 @@ const ChartOne: React.FC = () => {
                   />
                   <label htmlFor="store-2">Chi nhánh TP HCM</label>
                 </div>
-                <div className="store-checkbox flex gap-1">
+                {/* <div className="store-checkbox flex gap-1">
                   <input
                     type="checkbox"
                     id="store-3"
@@ -308,7 +319,7 @@ const ChartOne: React.FC = () => {
                     onChange={handleCheckboxChange}
                   />
                   <label htmlFor="store-3">Chi nhánh Đà Nẵng</label>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
@@ -318,7 +329,7 @@ const ChartOne: React.FC = () => {
         <div id="chartOne" className="-ml-5">
           <ReactApexChart
             options={options}
-            series={series}
+            series={allSeries}
             type="area"
             height={350}
           />
