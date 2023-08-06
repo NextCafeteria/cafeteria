@@ -50,6 +50,19 @@ export async function GetStore(storeId, onSuccess = null, onError = null) {
   }
 }
 
+export async function UpdateStore(storeId, storeData) {
+  const response = await fetch(`/api/stores/${storeId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(storeData),
+  });
+
+  const data = await response.json();
+  return data;
+}
+
 export async function AddStaff(
   storeId,
   email,

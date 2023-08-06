@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import { GetStore } from "@/lib/requests/stores";
+import { GetStore, UpdateStore } from "@/lib/requests/stores";
 import { useSession } from "next-auth/react";
 import Rating from "@/components/RatingWithNumbers";
 import BackButton from "@/components/buttons/BackButton";
@@ -56,7 +56,72 @@ export default function ({ params: { lng, storeId } }) {
             />
           </div>
         </div>
-        <div className="text-xl font-bold mt-4 mb-4">{t("Staffs")}</div>
+        <div className="text-2xl font-bold mt-4 mb-4">
+          {t("Store settings")}
+        </div>
+        <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
+          <div className="flex flex-col items-begin justify-center w-full relative">
+            <p className="text-xl">{t("Store Name")}</p>
+            <input
+              type="text"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+              value={storeData?.name}
+              onChange={(e) => {
+                let newStoreData = { ...storeData };
+                newStoreData.name = e.target.value;
+                setstoreData(newStoreData);
+              }}
+            />
+            <p className="text-xl">{t("Address")}</p>
+            <input
+              type="text"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+              value={storeData?.address}
+              onChange={(e) => {
+                let newStoreData = { ...storeData };
+                newStoreData.address = e.target.value;
+                setstoreData(newStoreData);
+              }}
+            />
+            <p className="text-xl">{t("Phone")}</p>
+            <input
+              type="text"
+              className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+              value={storeData?.phone}
+              onChange={(e) => {
+                let newStoreData = { ...storeData };
+                newStoreData.phone = e.target.value;
+                setstoreData(newStoreData);
+              }}
+            />
+            <div className="flex w-full mt-4">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  if (!storeData?.name) {
+                    alert("Please fill the store name!");
+                    return;
+                  }
+                  UpdateStore(storeId, {
+                    name: storeData?.name,
+                    address: storeData?.address,
+                    phone: storeData?.phone,
+                  })
+                    .then((data) => {
+                      alert("Store updated successfully!");
+                    })
+                    .catch((e) => {
+                      console.log(e);
+                      alert("Could not update store");
+                    });
+                }}
+              >
+                {t("Save")}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="text-2xl font-bold mt-4 mb-4">{t("Staffs")}</div>
         {storeData?.staffs?.map((staff, id) => (
           <StaffCard
             key={id}

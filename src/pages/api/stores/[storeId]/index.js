@@ -7,6 +7,7 @@ import {
   where,
   collection,
   documentId,
+  updateDoc,
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]";
@@ -50,6 +51,30 @@ export default async function handler(req, res) {
       totalRatingTimes > 0 ? totalRatingStars / totalRatingTimes : 0;
 
     // Return all details of the store
+    return res.status(200).json({ success: true, data: data });
+  } else if (req.method === "PUT") {
+    const storeId = req.query.storeId;
+    const docRef = doc(dbService.getDB(), "stores", storeId);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return res.status(404).json({ error: "store not found" });
+    }
+    let data = { ...docSnap.data(), id: docSnap.id };
+
+    // Update store
+    const storeData = req.body;
+    if (storeData?.name) {
+      data.name = storeData.name;
+    }
+    if (storeData?.address) {
+      data.address = storeData.address;
+    }
+    if (storeData?.phone) {
+      data.phone = storeData.phone;
+    }
+
+    // Update store
+    await updateDoc(docRef, data);
     return res.status(200).json({ success: true, data: data });
   }
 }
