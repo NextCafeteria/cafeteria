@@ -37,8 +37,8 @@ export function useGetStore(storeId) {
     fetcher
   );
   const mutateStore = function (store, options) {
-    mutate({...data, data: store}, options);
-  }
+    mutate({ ...data, data: store }, options);
+  };
   return {
     store: data?.data,
     error,

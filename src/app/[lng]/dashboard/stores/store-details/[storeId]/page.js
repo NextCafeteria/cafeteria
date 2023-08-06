@@ -16,8 +16,8 @@ export default function ({ params: { lng, storeId } }) {
   }
 
   const { store, error, isLoading, mutateStore } = useGetStore(storeId);
-  function setStore(store){
-    mutateStore(store, {revalidate: false});
+  function setStore(store) {
+    mutateStore(store, { revalidate: false });
   }
   if (error) {
     console.log(error);
