@@ -63,6 +63,18 @@ export async function UpdateStore(storeId, storeData) {
   return data;
 }
 
+export async function DeleteStore(storeId) {
+  const response = await fetch(`/api/stores/${storeId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+  return data;
+}
+
 export async function AddStaff(
   storeId,
   email,
