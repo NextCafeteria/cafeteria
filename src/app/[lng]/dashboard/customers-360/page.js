@@ -45,27 +45,21 @@ export default function Cart({ params: { lng } }) {
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full md:w-full md:px-10 mx-auto font-mono text-sm">
-        <div className="flex w-full justify-between pb-3 pt-2 text-3xl mb-2">
+        <div className="flex w-full justify-between pb-3 pt-2 text-3xl mb-2 mt-4">
           {t("Customer 360°")}
         </div>
         <div className="text-md mb-4">
-          “Một mục tiêu luôn luôn đồng hành với sự phát triển của doanh nghiệp
-          đó là sở hữu được dịch vụ khách hàng không chỉ tốt mà phải biến nó
-          thành huyền thoại” –{" "}
-          <i>
-            Sam Walton là người thành lập tập đoàn bán lẻ Wal – Mart, ông được
-            mệnh danh là “ông vua bán lẻ ở Mỹ.
-          </i>
+          {t("View customer profile and recent orders.")}
         </div>
-        <div className="flex justify-between items-center mb-2 max-w-[1000px]">
+        <div className="flex mb-2 max-w-[1000px]">
           <input
             ref={customerEmail}
-            className="w-full border-2 border-gray-400 p-2"
+            className="w-full border-2 border-gray-400 p-2 rounded-md max-w-[500px]"
             type="text"
             placeholder={t("Customer email")}
           />
           <button
-            className="bg-blue-600 text-white p-2.5 ml-1 w-[250px]"
+            className="bg-blue-500 text-white p-2.5 ml-1 rounded-md"
             onClick={handleFindCustomer}
           >
             {t("View Customer Profile")}
@@ -79,15 +73,13 @@ export default function Cart({ params: { lng } }) {
         {customer && (
           <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full mb-6">
             <img
-              class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+              class="object-cover w-full h-96 md:h-auto md:w-48 rounded-xl m-2"
               src={customer.image}
               alt=""
             ></img>
             <div class="flex flex-col justify-between p-4 leading-normal">
-              <div className="text-2xl text-bold">
-                {t("Customer Profile")} &#128142;&#128142;&#128142;
-              </div>
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <div className="text-2xl text-bold mb-2">{t("Customer")}</div>
+              <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
                 {customer.name}
               </h5>
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">

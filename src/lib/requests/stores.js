@@ -36,12 +36,40 @@ export function useGetStore(storeId) {
     `/api/stores/${storeId}`,
     fetcher
   );
+  const mutateStore = function (store, options) {
+    mutate({...data, data: store}, options);
+  }
   return {
     store: data?.data,
     error,
     isLoading,
-    mutateStore: mutate,
+    mutateStore,
   };
+}
+
+export async function UpdateStore(storeId, storeData) {
+  const response = await fetch(`/api/stores/${storeId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(storeData),
+  });
+
+  const data = await response.json();
+  return data;
+}
+
+export async function DeleteStore(storeId) {
+  const response = await fetch(`/api/stores/${storeId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+  return data;
 }
 
 export async function AddStaff(

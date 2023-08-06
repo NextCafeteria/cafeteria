@@ -136,5 +136,16 @@
   "Features": "Các chức năng",
   "Management Dashboard": "Dashboard Quản lý",
   "Links": "Liên kết",
-  "Back to Store": "Quay lại cửa hàng"
+  "Back to Store": "Quay lại cửa hàng",
+  "New Store": "Cửa hàng mới",
+  "View customer profile and recent orders.": "Xem hồ sơ khách hàng và đơn hàng gần đây.",
+  "Customer": "Khách hàng",
+  "Create": "Tạo",
+  "Store Name": "Tên cửa hàng",
+  "Phone": "Số điện thoại",
+  "Store settings": "Cài đặt cửa hàng",
+  "Save": "Lưu",
+  "Could not update store": "Không thể cập nhật cửa hàng",
+  "Are you sure you want to delete this store? This action cannot be undone.": "Bạn có chắc chắn muốn xóa cửa hàng này? Hành động này không thể được hoàn tác.",
+  "Delete store": "Xóa cửa hàng"
 }

@@ -14,10 +14,6 @@ export default function Home({ params: { lng } }) {
   }
 
   const productCss = `
-    .product {
-      width: 380px;
-      min-height:182px;
-    }
   @media screen and (min-width: 768px) {
     .product {
         width: min(max(280px, 35vw), 380px);
@@ -40,7 +36,7 @@ export default function Home({ params: { lng } }) {
           <LangSelector />
         </div>
 
-        <div className="menu flex flex-wrap justify-center w-full md:gap-5 md:grid md:grid-cols-2 ">
+        <div className="menu flex flex-wrap justify-center w-full md:gap-5 md:grid md:grid-cols-2">
           {isLoading
             ? Array.from({ length: 4 }, (e, i) => i).map((i) => (
                 <div className="product w-full" key={i}>
