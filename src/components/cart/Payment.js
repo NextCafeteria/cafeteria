@@ -40,7 +40,7 @@ export default function Payment({
               let result = await handlePay();
               if (result) {
                 console.log("result: ", result);
-                if (result?.err) {
+                if (result?.error) {
                   setShowError(true);
                 }
               }

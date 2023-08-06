@@ -45,83 +45,54 @@ export function useGetOrders(customerId = null) {
   };
 }
 
-export async function GetStaffOrder(
-  orderId = null,
-  onSuccess = null,
-  onError = null
-) {
-  const response = await fetch(`/api/staffs/orders/${orderId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data?.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+export function useGetStaffOrder(orderId = null) {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading, mutate } = useSWR(
+    `/api/staffs/orders/${orderId}`,
+    fetcher
+  );
+  return {
+    order: data?.data,
+    error: error,
+    isLoading: isLoading,
+    mutateOrder: mutate,
+  };
 }
 
-async function GetStaffOrdersByStatus(
-  onSuccess = null,
-  onError = null,
-  status = null
-) {
-  const response = await fetch(`/api/staffs/orders?status_type=${status}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data?.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+function useGetStaffOrdersByStatus(status) {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading, mutate } = useSWR(
+    `/api/staffs/orders?status_type=${status}`,
+    fetcher
+  );
+  return {
+    orderItems: data?.data,
+    error: error,
+    isLoading: isLoading,
+    mutate,
+  };
 }
-export async function GetStaffQueuedOrders(onSuccess = null, onError = null) {
-  GetStaffOrdersByStatus(onSuccess, onError, "new");
+export function useGetStaffQueuedOrders() {
+  return useGetStaffOrdersByStatus("new");
 }
-export async function GetStaffProcessingOrders(
-  onSuccess = null,
-  onError = null
-) {
-  GetStaffOrdersByStatus(onSuccess, onError, "processing");
+export function useGetStaffProcessingOrders() {
+  return useGetStaffOrdersByStatus("processing");
 }
-export async function GetStaffInactiveOrders(onSuccess = null, onError = null) {
-  GetStaffOrdersByStatus(onSuccess, onError, "inactive");
+export function useGetStaffInactiveOrders() {
+  return useGetStaffOrdersByStatus("inactive");
 }
-export async function GetOrder(orderId, onSuccess = null, onError = null) {
-  const response = await fetch(`/api/customers/orders/${orderId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+export function useGetOrder(orderId) {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading, mutate } = useSWR(
+    `/api/customers/orders/${orderId}`,
+    fetcher
+  );
+  return {
+    order: data?.data,
+    error: error,
+    isLoading: isLoading,
+    mutateOrder: mutate,
+  };
 }
 
 export async function CancelOrder(orderId, onSuccess = null, onError = null) {
@@ -214,12 +185,7 @@ export async function RateOrder(
   }
 }
 
-export async function ResponseOrder(
-  orderId,
-  responseValue,
-  onSuccess = null,
-  onError = null
-) {
+export async function ResponseOrder(orderId, responseValue) {
   const response = await fetch(`/api/staffs/orders/${orderId}/response`, {
     method: "POST",
     headers: {
@@ -231,13 +197,5 @@ export async function ResponseOrder(
   });
 
   const data = await response.json();
-  if (data?.success) {
-    if (onSuccess) {
-      onSuccess(data.data);
-    }
-  } else {
-    if (onError) {
-      onError(data);
-    }
-  }
+  return data;
 }

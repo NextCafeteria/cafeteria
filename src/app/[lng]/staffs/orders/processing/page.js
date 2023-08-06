@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 
 import {
   CompleteOrder,
-  GetStaffProcessingOrders,
+  useGetStaffProcessingOrders,
   PrepareOrder,
 } from "@/lib/requests/orders";
 import { OrderStatus } from "@/lib/order_status";
@@ -26,10 +26,37 @@ export default function Cart({ params: { lng } }) {
   ) {
     router.push(`/${lng}`);
   }
-  const [orderItems, setOrderItems] = useState(null);
-  const [loading, setLoading] = useState({});
+
+  const { orderItems, isLoading, mutate } = useGetStaffProcessingOrders();
 
   function handleCompleteOrder(orderId) {
+    mutate(
+      async () => {
+        await CompleteOrder(
+          orderId,
+          () => {
+            router.push(`/${lng}/staffs/orders/inactive`);
+          },
+          (e) => {
+            console.log(e);
+            alert("Could not complete order");
+          }
+        );
+      },
+      {
+        optimisticData: {
+          data: orderItems.map((order) => {
+            if (order.id === orderId) {
+              return {
+                ...order,
+                status: OrderStatus.COMPLETED,
+              };
+            }
+            return order;
+          }),
+        },
+      }
+    );
     CompleteOrder(
       orderId,
       () => {
@@ -43,37 +70,33 @@ export default function Cart({ params: { lng } }) {
   }
 
   function handlePrepareOrder(orderId) {
-    setLoading({ ...loading, [orderId]: true });
-    PrepareOrder(
-      orderId,
-      () => {
-        fetchOrders();
+    mutate(
+      async () => {
+        await PrepareOrder(
+          orderId,
+          () => {},
+          (e) => {
+            console.log(e);
+            alert("Could not prepare order");
+          }
+        );
       },
-      (e) => {
-        console.log(e);
-        alert("Could not prepare order");
+      {
+        optimisticData: {
+          data: orderItems.map((order) => {
+            if (order.id === orderId) {
+              return {
+                ...order,
+                status: OrderStatus.PREPARING,
+              };
+            }
+            return order;
+          }),
+        },
+        populateCache: false,
       }
     );
   }
-
-  function fetchOrders() {
-    GetStaffProcessingOrders(
-      (orders) => {
-        setOrderItems(orders);
-        orders &&
-          orders.length > 0 &&
-          setLoading(orders.map((order) => ({ [order.id]: false })));
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get orders");
-      }
-    );
-  }
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -117,7 +140,7 @@ export default function Cart({ params: { lng } }) {
               order={order}
               orderId={orderId}
               lng={lng}
-              isLoading={loading[order.id]}
+              isLoading={order.loading}
               handleActionOrder={
                 order.status === OrderStatus.PREPARING
                   ? (orderId) => {
@@ -129,7 +152,7 @@ export default function Cart({ params: { lng } }) {
               }
             />
           ))
-        ) : orderItems === null ? (
+        ) : isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
             <OrderCardStaff
               order={null}

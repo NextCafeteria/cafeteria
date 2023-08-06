@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import { GetOrder, CancelOrder } from "@/lib/requests/orders";
+import { useGetOrder, CancelOrder } from "@/lib/requests/orders";
 import {
   ORDER_STATUS_TO_BG_COLOR,
   ORDER_STATUS_TO_TEXT,
@@ -19,21 +19,13 @@ export default function ({ params: { lng, orderId } }) {
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
-  const [orderData, setOrderData] = useState(null);
 
-  useEffect(() => {
-    GetOrder(
-      orderId,
-      (data) => {
-        setOrderData(data);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get orders");
-        router.push(`/${lng}/orders`);
-      }
-    );
-  }, []);
+  const { order: orderData, isLoading, error } = useGetOrder(orderId);
+  if (error) {
+    console.log(error);
+    alert("Could not get orders");
+    router.push(`/${lng}/orders`);
+  }
 
   const { t } = useTranslation(lng, "common");
   const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[orderData?.status];
@@ -160,7 +152,7 @@ export default function ({ params: { lng, orderId } }) {
         )}
         {orderData ? (
           <></>
-        ) : orderData === null ? (
+        ) : isLoading ? (
           <p className="text-md">{t("Loading...")}</p>
         ) : (
           <p className="text-sm">{t("No data")}</p>

@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
-import { PlaceOrder, GetOrder } from "@/lib/requests/orders";
+import { PlaceOrder, useGetOrder } from "@/lib/requests/orders";
 import { PopulateCart } from "@/lib/requests/cart";
 import { useSession } from "next-auth/react";
 import AddressPicker from "@/components/AddressPicker";
@@ -22,6 +22,8 @@ export default function Cart({ params: { lng } }) {
   const [cartData, setCartData] = useState(null);
   const [storeId, setStoreId] = useState(null);
   const [orderPlaced, setOrderPlaced] = useState({});
+
+  const { order, mutateOrder } = useGetOrder(orderPlaced?.id);
   const [deliveryAddress, setDeliveryAddress] = useState(() => {
     let address = localStorage.getItem("lastDeliveryAddress", null);
     if (address) {
@@ -52,26 +54,14 @@ export default function Cart({ params: { lng } }) {
   }
 
   async function handlePay() {
-    let err = null;
-    await GetOrder(
-      orderPlaced.id,
-      (data) => {
-        console.log("onSuccess");
-        if (data?.paid) {
-          setHidePayment(true);
-          localStorage.setItem("cart", "[]");
-          router.push(`/${lng}/orders`);
-        } else {
-          console.log("errr");
-          err = true;
-        }
-      },
-      (e) => {
-        console.log(e);
-        router.push(`/${lng}/login`);
-      }
-    );
-    return { err: err };
+    mutateOrder();
+    if (order?.paid) {
+      setHidePayment(true);
+      localStorage.setItem("cart", "[]");
+      router.push(`/${lng}/orders`);
+    } else {
+      return { error: true };
+    }
   }
   useEffect(() => {
     getItemsWithPriceFromLocalStorage();
