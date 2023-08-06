@@ -29,19 +29,33 @@ export default function RootLayout({ children, params: { lng } }) {
   const { t } = useTranslation(lng, "common");
   const pathname = usePathname();
   const isDashboard = pathname.split("/")[2] === "dashboard";
+  const DEFAULT_THEME = "cupcake";
 
   // Get common settings from local storage
   const [commonSettings, setCommonSettings] = useState(() => {
     if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("commonSettings"));
+      let settings = JSON.parse(localStorage.getItem("commonSettings", "{}"));
+      // Set theme from local storage
+      document.documentElement.setAttribute(
+        "data-theme",
+        settings?.theme || DEFAULT_THEME
+      );
+      return;
     }
   });
   useEffect(() => {
     GetCommonSettings()
       .then((data) => {
         setCommonSettings(data);
-        localStorage.setItem("commonSettings", JSON.stringify(data));
-        setCommonSettings(data);
+        // Set theme from common settings
+        if (typeof window !== "undefined") {
+          localStorage.setItem("commonSettings", JSON.stringify(data));
+        }
+        // Set theme
+        document.documentElement.setAttribute(
+          "data-theme",
+          data?.theme || DEFAULT_THEME
+        );
       })
       .catch((e) => {
         console.log(e);
@@ -49,7 +63,7 @@ export default function RootLayout({ children, params: { lng } }) {
   }, []);
 
   return (
-    <html lang={lng} dir={dir(lng)}>
+    <html lang={lng} dir={dir(lng)} data-theme="cupcake">
       <head>
         <title>{commonSettings?.brandName}</title>
         <meta name="apple-mobile-web-app-capable" content="yes" />
