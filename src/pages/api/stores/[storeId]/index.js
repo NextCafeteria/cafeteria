@@ -8,6 +8,7 @@ import {
   collection,
   documentId,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]";
@@ -76,5 +77,17 @@ export default async function handler(req, res) {
     // Update store
     await updateDoc(docRef, data);
     return res.status(200).json({ success: true, data: data });
+  } else if (req.method === "DELETE") {
+    const storeId = req.query.storeId;
+    const docRef = doc(dbService.getDB(), "stores", storeId);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return res.status(404).json({ error: "store not found" });
+    }
+    let data = { ...docSnap.data(), id: docSnap.id };
+
+    // Delete store
+    await deleteDoc(docRef);
+    return res.status(200).json({ success: true });
   }
 }

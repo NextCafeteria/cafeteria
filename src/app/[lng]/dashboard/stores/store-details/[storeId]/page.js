@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import { GetStore, UpdateStore } from "@/lib/requests/stores";
+import { GetStore, UpdateStore, DeleteStore } from "@/lib/requests/stores";
 import { useSession } from "next-auth/react";
 import Rating from "@/components/RatingWithNumbers";
 import BackButton from "@/components/buttons/BackButton";
@@ -117,6 +117,31 @@ export default function ({ params: { lng, storeId } }) {
                 }}
               >
                 {t("Save")}
+              </button>
+              <button
+                className="btn bg-red-500 text-white ml-2"
+                onClick={() => {
+                  // Confirm
+                  if (
+                    !confirm(
+                      "Are you sure you want to delete this store? This action cannot be undone."
+                    )
+                  ) {
+                    return;
+                  }
+
+                  DeleteStore(storeId)
+                    .then((data) => {
+                      alert("Store deleted successfully!");
+                      router.push(`/${lng}/dashboard/stores`);
+                    })
+                    .catch((e) => {
+                      console.log(e);
+                      alert("Could not delete store");
+                    });
+                }}
+              >
+                {t("Delete store")}
               </button>
             </div>
           </div>
