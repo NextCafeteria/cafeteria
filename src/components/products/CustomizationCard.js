@@ -12,12 +12,13 @@ export default function ({ lng, id, customization, updateCustomization }) {
             type="text"
             value={customization.name}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-            placeholder="Option name"
+            placeholder="Customization name"
             required
             onChange={(e) => {
-              let customizationCopy = { ...customization };
-              customizationCopy.name = e.target.value;
-              updateCustomization(id, customizationCopy);
+              updateCustomization(id, {
+                ...customization,
+                name: e.target.value,
+              });
             }}
           />
         </p>
@@ -46,10 +47,16 @@ export default function ({ lng, id, customization, updateCustomization }) {
                       placeholder="Option name"
                       required
                       onChange={(e) => {
-                        let customizationCopy = { ...customization };
-                        customizationCopy.options[optionId].name =
-                          e.target.value;
-                        updateCustomization(id, customizationCopy);
+                        updateCustomization(id, {
+                          ...customization,
+                          options: {
+                            ...customization.options,
+                            [optionId]: {
+                              ...customization.options[optionId],
+                              name: e.target.value,
+                            },
+                          },
+                        });
                       }}
                     />
                   </div>
@@ -61,10 +68,16 @@ export default function ({ lng, id, customization, updateCustomization }) {
                       placeholder="Price"
                       required
                       onChange={(e) => {
-                        let customizationCopy = { ...customization };
-                        customizationCopy.options[optionId].price =
-                          e.target.value;
-                        updateCustomization(id, customizationCopy);
+                        updateCustomization(id, {
+                          ...customization,
+                          options: {
+                            ...customization.options,
+                            [optionId]: {
+                              ...customization.options[optionId],
+                              price: e.target.value,
+                            },
+                          },
+                        });
                       }}
                     />
                   </div>
@@ -77,10 +90,16 @@ export default function ({ lng, id, customization, updateCustomization }) {
                         : " bg-gray-400 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300")
                     }
                     onClick={() => {
-                      let customizationCopy = { ...customization };
-                      customizationCopy.options[optionId].isAvailable =
-                        !isAvailable;
-                      updateCustomization(id, customizationCopy);
+                      updateCustomization(id, {
+                        ...customization,
+                        options: {
+                          ...customization.options,
+                          [optionId]: {
+                            ...customization.options[optionId],
+                            isAvailable: !isAvailable,
+                          },
+                        },
+                      });
                     }}
                   >
                     {isAvailable ? t("Available") : t("Unavailable")}
@@ -89,7 +108,10 @@ export default function ({ lng, id, customization, updateCustomization }) {
                     type="button"
                     className="focus:outline-none text-white bg-gray-400 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700"
                     onClick={() => {
-                      let customizationCopy = { ...customization };
+                      let customizationCopy = {
+                        ...customization,
+                        options: { ...customization.options },
+                      };
                       delete customizationCopy.options[optionId];
                       updateCustomization(id, customizationCopy);
                     }}
@@ -117,19 +139,22 @@ export default function ({ lng, id, customization, updateCustomization }) {
         type="button"
         className="focus:outline-none bg-green-600 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2:bg-red-700 w-full mt-1"
         onClick={() => {
-          let optionId = uuidv4();
-          let customizationCopy = { ...customization };
-          customizationCopy.options[optionId] = {
-            name: "",
-            price: 0,
-            order:
-              Math.max(
-                ...Object.keys(customizationCopy.options).map(
-                  (optionId) => customizationCopy.options[optionId].order
-                )
-              ) + 1,
-          };
-          updateCustomization(id, customizationCopy);
+          updateCustomization(id, {
+            ...customization,
+            options: {
+              ...customization.options,
+              [uuidv4()]: {
+                name: "",
+                price: 0,
+                order:
+                  Math.max(
+                    ...Object.keys(customization.options).map(
+                      (optionId) => customization.options[optionId].order
+                    )
+                  ) + 1,
+              },
+            },
+          });
         }}
       >
         {t("Add Option")}

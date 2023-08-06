@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Role is invalid" });
     }
 
-    const productRef = doc(db, "products", productId);
+    const productRef = doc(dbService.getDB(), "products", productId);
     const productSnap = await getDoc(productRef);
     if (!productSnap.exists()) {
       return res.status(404).json({ error: "Product not found" });

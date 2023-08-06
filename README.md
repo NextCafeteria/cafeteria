@@ -1,23 +1,19 @@
 <p align="center">
-  <img alt="Cafeteria" style="width: 128px; max-width: 100%; height: auto;" src="./public/images/icons/icon-128x128.png"/>
+  <img alt="Cafeteria" style="width: 128px; max-width: 100%; height: auto;" src="./public/images/icons/android-icon-192x192.png"/>
   <h1 align="center">☕ Cafeteria App ☕</h1>
-  <p align="center" style="font-weight: bold">Online ordering system for small coffee shops!</p>
+  <p align="center" style="font-weight: bold">Online ordering and store management for coffee shops</p>
 </p>
 
 <img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="docs/screenshot1.png"/>
 
 <img align="center" alt="Cafeteria" style="max-width: 500px; height: auto;" src="docs/screenshot2.png"/>
 
-- **Deployed at:** [https://cafenow.me](https://cafenow.me).
+- **Demo site:** [https://cafenow.me](https://cafenow.me).
+- **Documentation:** [https://cafeteria-docs.vercel.app/](https://cafeteria-docs.vercel.app/).
 - **Frontend:** Next.js with Javascript, Tailwind CSS.
 - **Database:** Google Firebase.
 - **Authentication:** NextAuth.js with Google OAuth.
 - **Deployment:** Vercel.
-- **Developers:**
-  - [Trinh Thu Hai](https://github.com/haitt00).
-  - [Nguyen Viet Anh](https://github.com/vietanhdev).
-  - [Mach Dieu Bang](https://github.com/BangMach).
-  - [Bui Son Dong](https://github.com/perplexingcode).
 
 ## 1. Design
 

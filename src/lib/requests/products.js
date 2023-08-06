@@ -26,19 +26,21 @@ export async function CreateProduct(inputData) {
   });
 }
 
-export async function GetProduct(productId) {
-  return await fetch(`/api/products/${productId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(async (res) => {
-    if (res.status === 200) {
-      const data = await res.json();
-      return data?.data;
-    }
-    throw new Error("Could not get product");
-  });
+export function useGetProduct(productId) {
+  const { fetcher } = useSWRConfig();
+  const { data, error, isLoading, mutate } = useSWR(
+    `/api/products/${productId}`,
+    fetcher
+  );
+  const mutateProduct = function (product, options) {
+    mutate({ ...data, data: product }, options);
+  };
+  return {
+    product: data?.data,
+    error,
+    isLoading,
+    mutateProduct,
+  };
 }
 
 export async function DeleteProduct(productId) {

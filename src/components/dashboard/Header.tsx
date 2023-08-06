@@ -2,7 +2,7 @@ import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownUser from "./DropdownUser";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@public/images/icons/icon-144x144.png";
+import Logo from "@public/images/icons/android-icon-192x192.png";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;

@@ -6,6 +6,17 @@ function roundUp(value, decimals = 2) {
 }
 
 export function populateCart(cart, products) {
+  if (!cart || !products) {
+    let data = {
+      price: 0,
+      tax: 0,
+      total: 0,
+      quantity: 0,
+      items: [],
+    };
+    return data;
+  }
+
   // Calculate price
   let price = 0.0;
   let tax = 0.0;
