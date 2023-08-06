@@ -9,9 +9,6 @@ import CardFour from "@/components/dashboard/CardFour.tsx";
 import ChartOne from "@/components/dashboard/ChartOne.tsx";
 import ChartTwo from "@/components/dashboard/ChartTwo.tsx";
 
-import ChartOne from "@/components/dashboard/ChartOne.tsx";
-import ChartTwo from "@/components/dashboard/ChartTwo.tsx";
-
 import { GetRevenueInfo } from "@/lib/requests/dashboard";
 import React from "react";
 
