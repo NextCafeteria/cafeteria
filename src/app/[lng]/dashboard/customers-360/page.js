@@ -46,7 +46,7 @@ export default function Cart({ params: { lng } }) {
     <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full md:w-full md:px-10 mx-auto font-mono text-sm">
         <div className="flex w-full justify-between pb-3 pt-2 text-3xl mb-2 mt-4">
-          {t("Customer 360°")}
+          {t("Customers 360°")}
         </div>
         <div className="text-md mb-4">
           {t("View customer profile and recent orders.")}
