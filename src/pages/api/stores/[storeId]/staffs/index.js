@@ -80,7 +80,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "UserId is required" });
     }
 
-    const storeRef = doc(db, "stores", storeId);
+    const storeRef = doc(dbService.getDB(), "stores", storeId);
     const storeSnap = await getDoc(storeRef);
     if (!storeSnap.exists()) {
       return res.status(404).json({ error: "Store not found" });
