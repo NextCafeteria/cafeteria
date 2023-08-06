@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { GetProduct } from "@/lib/requests/products";
+import { useGetProduct } from "@/lib/requests/products";
 import XButton from "@/components/buttons/XButton";
 
 export default function PickOptions({ params: { lng, itemId } }) {
@@ -21,9 +21,6 @@ export default function PickOptions({ params: { lng, itemId } }) {
     router.push(`/${lng}`);
   }
 
-  // Set total price
-  const [totalPrice, setTotalPrice] = useState(0.0);
-
   // Quantity
   const [quantity, setQuantity] = useState(1);
 
@@ -31,17 +28,14 @@ export default function PickOptions({ params: { lng, itemId } }) {
   const [selectedOptions, setSelectedOptions] = useState({});
 
   // Get product data
-  const [product, setProduct] = useState(() => {
-    GetProduct(itemId)
-      .then((data) => {
-        setTotalPrice(data.price);
-        setProduct(data);
-      })
-      .catch((e) => {
-        router.push(`/${lng}`);
-      });
-  });
-
+  const { product, error, isLoading } = useGetProduct(itemId);
+  // Set total price
+  const [totalPrice, setTotalPrice] = useState(0.0);
+  if (error) {
+    console.log(error);
+    alert("Could not get product");
+    router.push(`/${lng}`);
+  }
   useEffect(() => {
     const options = {}; // { customizationId: optionId }
     if (product?.customizations) {
@@ -57,6 +51,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
         }
       });
       setSelectedOptions(options);
+      setTotalPrice(product?.price);
     }
   }, [product]);
 
