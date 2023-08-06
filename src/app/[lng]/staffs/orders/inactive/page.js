@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useSession } from "next-auth/react";
 
-import { GetStaffInactiveOrders } from "@/lib/requests/orders";
+import { useGetStaffInactiveOrders } from "@/lib/requests/orders";
 import XButton from "@/components/buttons/XButton";
 import OrderCardStaff from "@/components/orders/OrderCardStaff";
 
@@ -21,19 +21,7 @@ export default function Cart({ params: { lng } }) {
   ) {
     router.push(`/${lng}`);
   }
-  const [orderItems, setOrderItems] = useState(null);
-
-  useEffect(() => {
-    GetStaffInactiveOrders(
-      (orders) => {
-        setOrderItems(orders);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get orders");
-      }
-    );
-  }, []);
+  const { orderItems, isLoading } = useGetStaffInactiveOrders();
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -81,7 +69,7 @@ export default function Cart({ params: { lng } }) {
               handleActionOrder={(orderId) => {}}
             />
           ))
-        ) : orderItems === null ? (
+        ) : isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
             <OrderCardStaff
               order={null}

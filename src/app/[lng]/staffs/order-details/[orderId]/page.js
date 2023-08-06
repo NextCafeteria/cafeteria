@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import {
-  GetStaffOrder,
+  useGetStaffOrder,
   PrepareOrder,
   ConfirmOrder,
   CompleteOrder,
@@ -30,7 +30,19 @@ export default function StaffOrder({ params: { lng, orderId } }) {
   if (session?.data?.user && !isStaff && !isAdmin) {
     router.push(`/${lng}`);
   }
-  const [orderData, setOrderData] = useState(null);
+  // const [orderData, setOrderData] = useState(null);
+  const {
+    order: orderData,
+    isLoading,
+    error,
+    mutateOrder,
+  } = useGetStaffOrder(orderId);
+
+  if (error) {
+    console.log(error);
+    alert("Could not get order");
+    router.push(`/${lng}/staffs/orders`);
+  }
 
   function handleConfirmOrder({ orderId }) {
     ConfirmOrder(
@@ -73,36 +85,28 @@ export default function StaffOrder({ params: { lng, orderId } }) {
 
   function handleSendResponse() {
     const responseValue = document.getElementById("response").value;
-    ResponseOrder(
-      orderId,
-      responseValue,
-      (data) => {
-        fetchOrder();
+    mutateOrder(
+      async () => {
+        const data = await ResponseOrder(orderId, responseValue);
+        if (!data?.success) {
+          console.log(e);
+          alert("Could not send response");
+        }
       },
-      (e) => {
-        console.log(e);
-        alert("Could not send response");
+      {
+        optimisticData: {
+          data: {
+            ...orderData,
+            staffComment: {
+              staffId: -1,
+              value: responseValue,
+            },
+          },
+        },
+        populateCache: false,
       }
     );
   }
-
-  function fetchOrder() {
-    GetStaffOrder(
-      orderId,
-      (data) => {
-        setOrderData(data);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get orders");
-        router.push(`/${lng}/staffs/orders`);
-      }
-    );
-  }
-
-  useEffect(() => {
-    fetchOrder();
-  }, []);
 
   const { t } = useTranslation(lng, "common");
   const orderStatusBg = ORDER_STATUS_TO_BG_COLOR[orderData?.status];

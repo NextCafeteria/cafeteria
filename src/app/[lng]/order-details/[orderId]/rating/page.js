@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
-import { GetOrder, RateOrder } from "@/lib/requests/orders";
+import { useGetOrder, RateOrder } from "@/lib/requests/orders";
 
 import BackButton from "@/components/buttons/BackButton";
 import RatingInput from "@/components/RatingInput";
@@ -10,7 +10,12 @@ export default function OrderRating({ params: { lng, orderId } }) {
   const router = useRouter();
   const { t } = useTranslation(lng, "common");
 
-  const [orderData, setOrderData] = useState(null);
+  const { order: orderData, isLoading, error } = useGetOrder(orderId);
+  if (error) {
+    console.log(error);
+    alert("Could not get order");
+    router.push(`/${lng}/orders`);
+  }
   const [rating, setRating] = useState(0);
 
   function handleSendRating() {
@@ -28,20 +33,6 @@ export default function OrderRating({ params: { lng, orderId } }) {
       }
     );
   }
-
-  useEffect(() => {
-    GetOrder(
-      orderId,
-      (data) => {
-        setOrderData(data);
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get orders");
-        router.push(`/${lng}/orders`);
-      }
-    );
-  }, []);
 
   const orderTime = new Date(orderData?.timestamp).toLocaleString();
   const itemsWithPrice = orderData?.items;

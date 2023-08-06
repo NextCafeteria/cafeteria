@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useSession } from "next-auth/react";
 
-import { GetStaffQueuedOrders, ConfirmOrder } from "@/lib/requests/orders";
+import { useGetStaffQueuedOrders, ConfirmOrder } from "@/lib/requests/orders";
 import XButton from "@/components/buttons/XButton";
 import OrderCardStaff from "@/components/orders/OrderCardStaff";
+import { OrderStatus } from "@/lib/order_status";
 
 export default function Orders({ params: { lng } }) {
   const router = useRouter();
@@ -21,37 +22,44 @@ export default function Orders({ params: { lng } }) {
   ) {
     router.push(`/${lng}`);
   }
-  const [orderItems, setOrderItems] = useState(null);
-  const [loading, setLoading] = useState({});
+
+  const { orderItems, isLoading, error, mutate } = useGetStaffQueuedOrders();
+  if (error) {
+    console.log(error);
+    alert("Could not get orders");
+  }
 
   function handleConfirmOrder(orderId) {
-    setLoading({ ...loading, [orderId]: true });
-    ConfirmOrder(
-      orderId,
-      () => {
-        router.push(`/${lng}/staffs/orders/processing`);
+    const optmisticOrders = [...orderItems];
+
+    mutate(
+      async () => {
+        await ConfirmOrder(
+          orderId,
+          () => {
+            router.push(`/${lng}/staffs/orders/processing`);
+          },
+          (e) => {
+            console.log(e);
+            alert("Could not process order");
+          }
+        );
       },
-      (e) => {
-        console.log(e);
-        alert("Could not process order");
+      {
+        optimisticData: {
+          data: orderItems.map((order) => {
+            if (order.id === orderId) {
+              return {
+                ...order,
+                status: OrderStatus.CONFIRMED,
+              };
+            }
+            return order;
+          }),
+        },
       }
     );
   }
-
-  useEffect(() => {
-    GetStaffQueuedOrders(
-      (orders) => {
-        setOrderItems(orders);
-        orders &&
-          orders.length > 0 &&
-          setLoading(orders.map((order) => ({ [order.id]: false })));
-      },
-      (e) => {
-        console.log(e);
-        alert("Could not get orders");
-      }
-    );
-  }, []);
 
   const { t } = useTranslation(lng, "common");
   return (
@@ -95,11 +103,11 @@ export default function Orders({ params: { lng } }) {
               order={order}
               orderId={orderId}
               lng={lng}
-              isLoading={loading[order.id]}
+              isLoading={order.loading}
               handleActionOrder={(orderId) => handleConfirmOrder(orderId)}
             />
           ))
-        ) : orderItems === null ? (
+        ) : isLoading ? (
           Array.from({ length: 3 }, (e, i) => i).map((i) => (
             <OrderCardStaff
               order={null}
