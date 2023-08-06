@@ -26,7 +26,7 @@ function MainMenuUser({ lng }) {
   }`;
   return (
     <>
-      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary">
+      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary md:min-w-[100px]">
         <style>{navCss}</style>
         <div
           className={
@@ -190,7 +190,7 @@ function MainMenuStaff({ lng }) {
 
   return (
     <>
-      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary">
+      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary md:min-w-[100px]">
         <div
           className={
             "md:mb-4 md:py-4 flex flex-col items-center p-2 clickable text-center" +
