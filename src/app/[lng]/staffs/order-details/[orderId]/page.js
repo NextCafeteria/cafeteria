@@ -30,7 +30,6 @@ export default function StaffOrder({ params: { lng, orderId } }) {
   if (session?.data?.user && !isStaff && !isAdmin) {
     router.push(`/${lng}`);
   }
-  // const [orderData, setOrderData] = useState(null);
   const {
     order: orderData,
     isLoading,
@@ -200,7 +199,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
         )}
         {orderData ? (
           <></>
-        ) : orderData === null ? (
+        ) : isLoading ? (
           <p className="text-md">{t("Loading...")}</p>
         ) : (
           <p className="text-sm">{t("No data")}</p>

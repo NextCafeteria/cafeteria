@@ -4,6 +4,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { useGetProducts } from "@/lib/requests/products";
 import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
 export default function Home({ params: { lng } }) {
@@ -47,47 +48,51 @@ export default function Home({ params: { lng } }) {
                     ? true
                     : product.isAvailable;
                 return (
-                  <div
-                    key={key}
-                    className="product md:w-[380px] clickable flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
-                    onClick={() => {
-                      if (!isAvailable) return;
-                      router.push(`/${lng}/pick-item-options/${product.id}`);
-                    }}
+                  <Link
+                    href={
+                      isAvailable
+                        ? `/${lng}/pick-item-options/${product.id}`
+                        : ""
+                    }
                   >
-                    <div className="product-details flex flex-col items-begin justify-center w-fit relative">
-                      <p className="text-xl font-bold mb-[1px]">
-                        {t(product.name)}
-                      </p>
-                      <p className="text-sm font-bold">
-                        {" "}
-                        {product.price.toLocaleString("vi-VN")}đ
-                      </p>
-                      <p className="text-sm h-[2.25rem] mr-1 mt-[3px]">
-                        {t(product.description)}
-                      </p>
-                      <button
-                        className={
-                          "mt-2 text-sm text-white h-[1rem] btn btn-sm" +
-                          (isAvailable
-                            ? " btn-primary"
-                            : " bg-gray-500 cursor-not-allowed hover:bg-gray-500")
-                        }
-                      >
-                        {t("Add to cart")}
-                      </button>
+                    <div
+                      key={key}
+                      className="product md:w-[380px] clickable flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
+                    >
+                      <div className="product-details flex flex-col items-begin justify-center w-fit relative">
+                        <p className="text-xl font-bold mb-[1px]">
+                          {t(product.name)}
+                        </p>
+                        <p className="text-sm font-bold">
+                          {" "}
+                          {product.price.toLocaleString("vi-VN")}đ
+                        </p>
+                        <p className="text-sm h-[2.25rem] mr-1 mt-[3px]">
+                          {t(product.description)}
+                        </p>
+                        <button
+                          className={
+                            "mt-2 text-sm text-white h-[1rem] btn btn-sm" +
+                            (isAvailable
+                              ? " btn-primary"
+                              : " bg-gray-500 cursor-not-allowed hover:bg-gray-500")
+                          }
+                        >
+                          {t("Add to cart")}
+                        </button>
+                      </div>
+                      <div className="img h-[148px] w-[148px] rounded-sm">
+                        <img
+                          src={product.image}
+                          alt={t(product.name)}
+                          className={
+                            "w-full h-full object-cover rounded" +
+                            (isAvailable ? "" : " grayscale")
+                          }
+                        />
+                      </div>
                     </div>
-                    <div className="img h-[148px] w-[148px] rounded-sm">
-                      <img
-                        src={product.image}
-                        alt={t(product.name)}
-                        className={
-                          "w-full h-full object-cover rounded" +
-                          (isAvailable ? "" : " grayscale")
-                        }
-                      />
-                    </div>
-                  </div>
+                  </Link>
                 );
               })}
         </div>
