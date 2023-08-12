@@ -171,6 +171,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                       t(optionId)
                                     );
                                     input.checked = true;
+                                    updateOption(customizationId, optionId);
                                   }}
                                 >
                                   <input
@@ -186,14 +187,6 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                       selectedOptions[customizationId] ==
                                       optionId
                                     }
-                                    onChange={(e) => {
-                                      if (!isAvailable) {
-                                        return;
-                                      }
-                                      if (e.target.checked) {
-                                        updateOption(customizationId, optionId);
-                                      }
-                                    }}
                                   />
                                   <label
                                     className={
@@ -201,7 +194,6 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                       (!isAvailable ? " text-gray-400" : "")
                                     }
                                     htmlFor={t(option.name)}
-                                    onClick={() => {}}
                                   >
                                     {t(option.name)} (
                                     {Number(option.price)?.toLocaleString(
