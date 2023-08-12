@@ -1,13 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useTranslation } from "@/app/i18n/client";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import Skeleton from "react-loading-skeleton";
+
 import {
   GetCommonSettings,
   UpdateCommonSettings,
 } from "@/lib/requests/settings";
+import { useEffect, useState } from "react";
+
+import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useTranslation } from "@/app/i18n/client";
 
 export default function ({ params: { lng, storeId } }) {
   const router = useRouter();
@@ -111,6 +113,12 @@ export default function ({ params: { lng, storeId } }) {
                     🧚‍♀️
                   </span>{" "}
                   Fantasy
+                </option>
+                <option value="retro">
+                  <span role="img" aria-label="retro">
+                    ⌛
+                  </span>{" "}
+                  Retro
                 </option>
               </select>
             )}
