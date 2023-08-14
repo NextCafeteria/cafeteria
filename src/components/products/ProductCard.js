@@ -1,12 +1,12 @@
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Skeleton from "react-loading-skeleton";
-
 import {
   DeleteProduct,
   ToggleProductAvailability,
 } from "@/lib/requests/products";
+
+import Image from "next/image";
+import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
+import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 
 export default function ({
@@ -64,7 +64,7 @@ export default function ({
             {isLoading ? <Skeleton width={70} /> : t(name)}
           </h2>
           <p className="text-sm mt-2 mb-2">
-            {isLoading ? <Skeleton width={200} /> : description}
+            {isLoading ? <Skeleton width={200} /> : t(description)}
           </p>
           <p className="text-sm mt-2 mb-2">
             <b>{t("Base Price")}:</b>{" "}

@@ -1,16 +1,18 @@
 "use client";
-import { SessionProvider } from "next-auth/react";
 
 import "../globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Roboto } from "next/font/google";
+import { useEffect, useState } from "react";
 
+import { GetCommonSettings } from "@/lib/requests/settings";
+import MainMenu from "@/components/MainMenu";
+import { Roboto } from "next/font/google";
+import { SWRConfig } from "swr";
+import { SessionProvider } from "next-auth/react";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { GetCommonSettings } from "@/lib/requests/settings";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -21,13 +23,11 @@ const roboto = Roboto({
   subsets: ["latin-ext"],
   weight: ["100", "300", "400", "500", "700", "900"],
 });
-import MainMenu from "@/components/MainMenu";
-import { SWRConfig } from "swr";
 
 export default function RootLayout({ children, params: { lng } }) {
   const pathname = usePathname();
   const isDashboard = pathname.split("/")[2] === "dashboard";
-  const DEFAULT_THEME = "cupcake";
+  const DEFAULT_THEME = "light";
 
   // Get common settings from local storage
   const [commonSettings, setCommonSettings] = useState(() => {

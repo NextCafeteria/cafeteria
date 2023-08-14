@@ -1,15 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useTranslation } from "@/app/i18n/client";
-import { useGetProducts } from "@/lib/requests/products";
+
+import Link from "next/link";
 import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import { useGetProducts } from "@/lib/requests/products";
+import { useTranslation } from "@/app/i18n/client";
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
 export default function Home({ params: { lng } }) {
-  const router = useRouter();
-
   const { products, error, isLoading } = useGetProducts();
   if (error) {
     console.log(error);
