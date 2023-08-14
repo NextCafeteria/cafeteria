@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
@@ -8,6 +8,8 @@ import {
   ToggleProductAvailability,
 } from "@/lib/requests/products";
 import { useTranslation } from "@/app/i18n/client";
+import { toast } from "react-toastify";
+import ConfirmModal from "../modals/ConfirmModal";
 
 export default function ({
   lng,
@@ -21,37 +23,18 @@ export default function ({
   isLoading,
 }) {
   const { t } = useTranslation(lng, "common");
+  const modalDeleteRef = useRef();
+  const modalToggleRef = useRef();
   const [localIsAvailable, setLocalIsAvailable] = useState(
     isAvailable === undefined ? true : isAvailable
   );
 
   const handleDeleteProduct = () => {
-    if (confirm(t("Are you sure you want to delete this product?"))) {
-      DeleteProduct(id)
-        .then(() => {
-          alert(t("Product deleted"));
-          window.location.reload();
-        })
-        .catch((e) => {
-          console.log(e);
-          alert(t("Could not delete product"));
-        });
-    }
+    modalDeleteRef.current.showModal();
   };
 
   const handleToggleAvailability = () => {
-    if (
-      confirm(t("Are you sure you want to toggle this product's availability?"))
-    ) {
-      ToggleProductAvailability(id)
-        .then(() => {
-          setLocalIsAvailable(!localIsAvailable);
-        })
-        .catch((e) => {
-          console.log(e);
-          alert(t("Could not toggle product availability"));
-        });
-    }
+    modalToggleRef.current.showModal();
   };
 
   return (
@@ -124,6 +107,39 @@ export default function ({
           </button>
         </div>
       </div>
+      <ConfirmModal
+        lng={lng}
+        modalRef={modalDeleteRef}
+        title={t("Confirm Delete")}
+        msg={t("Are you sure you want to delete this product?")}
+        handleConfirm={() => {
+          DeleteProduct(id)
+            .then(() => {
+              toast.success(t("Product deleted"));
+              window.location.reload();
+            })
+            .catch((e) => {
+              console.log(e);
+              toast.error(t("Could not delete product"));
+            });
+        }}
+      />
+      <ConfirmModal
+        lng={lng}
+        modalRef={modalToggleRef}
+        title={t("Confirm Toggle")}
+        msg={t("Are you sure you want to toggle this product's availability?")}
+        handleConfirm={() => {
+          ToggleProductAvailability(id)
+            .then(() => {
+              setLocalIsAvailable(!localIsAvailable);
+            })
+            .catch((e) => {
+              console.log(e);
+              toast.error(t("Could not toggle product availability"));
+            });
+        }}
+      />
     </Link>
   );
 }

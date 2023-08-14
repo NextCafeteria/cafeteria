@@ -8,6 +8,7 @@ import {
 } from "@/lib/requests/orders";
 import { OrderStatus } from "@/lib/order_status";
 import OrderCardStaff from "@/components/orders/OrderCardStaff";
+import { toast } from "react-toastify";
 
 export default function Cart({ params: { lng } }) {
   const { orderItems, isLoading, mutate } = useGetStaffProcessingOrders();
@@ -22,7 +23,7 @@ export default function Cart({ params: { lng } }) {
           },
           (e) => {
             console.log(e);
-            alert("Could not complete order");
+            toast.error("Could not complete order");
           }
         );
       },
@@ -47,7 +48,7 @@ export default function Cart({ params: { lng } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not complete order");
+        toast.error("Could not complete order");
       }
     );
   }
@@ -60,7 +61,7 @@ export default function Cart({ params: { lng } }) {
           () => {},
           (e) => {
             console.log(e);
-            alert("Could not prepare order");
+            toast.error("Could not prepare order");
           }
         );
       },

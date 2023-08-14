@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useGetStores } from "@/lib/requests/stores";
+import { toast } from "react-toastify";
 
 // Component for picking delivery address
 export default function AddressPicker({
@@ -20,7 +21,7 @@ export default function AddressPicker({
   const { stores, error, isLoading } = useGetStores();
   if (error) {
     console.log(error);
-    alert("Could not get stores");
+    toast.error("Could not get stores");
   }
 
   useEffect(() => {

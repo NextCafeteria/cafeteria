@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react";
 import BackButton from "@/components/buttons/BackButton";
 import Rating from "@/components/Rating";
 import Comment from "@/components/Comment";
+import { toast } from "react-toastify";
 
 export default function StaffOrder({ params: { lng, orderId } }) {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
 
   if (error) {
     console.log(error);
-    alert("Could not get order");
+    toast.error("Could not get order");
     router.push(`/${lng}/staffs/orders`);
   }
 
@@ -51,7 +52,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not process order");
+        toast.error("Could not process order");
       }
     );
   }
@@ -64,7 +65,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not complete order");
+        toast.error("Could not complete order");
       }
     );
   }
@@ -77,7 +78,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not prepare order");
+        toast.error("Could not prepare order");
       }
     );
   }
@@ -89,7 +90,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
         const data = await ResponseOrder(orderId, responseValue);
         if (!data?.success) {
           console.log(e);
-          alert("Could not send response");
+          toast.error("Could not send response");
         }
       },
       {

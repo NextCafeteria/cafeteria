@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import XButton from "@/components/buttons/XButton";
 
 import { CreateStore } from "@/lib/requests/stores";
+import { toast } from "react-toastify";
 
 export default function NewStores({ params: { lng, itemId } }) {
   const router = useRouter();
@@ -60,7 +61,7 @@ export default function NewStores({ params: { lng, itemId } }) {
         className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] p-2 md:rounded-md flex flex-row items-stretch justify-between px-8"
         onClick={() => {
           if (!name || !address || !phone) {
-            alert("Please fill in all the fields!");
+            toast.error("Please fill in all the fields!");
             return;
           }
 
@@ -71,7 +72,7 @@ export default function NewStores({ params: { lng, itemId } }) {
             },
             (e) => {
               console.log(e);
-              alert("Could not create store! Please try again.");
+              toast.error("Could not create store! Please try again.");
             }
           );
         }}

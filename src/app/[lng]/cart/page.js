@@ -10,6 +10,7 @@ const addressOptions = require("@/data/address_options.json");
 import XButton from "@/components/buttons/XButton";
 import CartItemCard from "@/components/cart/CartItemCard";
 import Payment from "@/components/cart/Payment";
+import { toast } from "react-toastify";
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
   const session = useSession();
@@ -72,7 +73,7 @@ export default function Cart({ params: { lng } }) {
     const cart = JSON.parse(localStorage.getItem("cart", "[]"));
     localStorage.setItem("lastDeliveryAddress", deliveryAddress);
     if (!storeId) {
-      alert(t("Please select a store"));
+      toast.error(t("Please select a store"));
       return;
     }
     PlaceOrder(
@@ -84,7 +85,7 @@ export default function Cart({ params: { lng } }) {
         setHidePayment(false);
       },
       (e) => {
-        alert(t("Order failed"));
+        toast.error(t("Order failed"));
       }
     );
   }

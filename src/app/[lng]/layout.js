@@ -23,6 +23,8 @@ const roboto = Roboto({
 });
 import MainMenu from "@/components/MainMenu";
 import { SWRConfig } from "swr";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({ children, params: { lng } }) {
   const pathname = usePathname();
@@ -130,6 +132,7 @@ export default function RootLayout({ children, params: { lng } }) {
           <SessionProvider>
             {children}
             {!isDashboard && <MainMenu lng={lng} />}
+            <ToastContainer autoClose={5000} hideProgressBar />
           </SessionProvider>
         </SWRConfig>
       </body>

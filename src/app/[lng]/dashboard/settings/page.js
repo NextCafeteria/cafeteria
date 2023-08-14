@@ -10,7 +10,7 @@ import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "@/app/i18n/client";
-
+import { toast } from "react-toastify";
 export default function ({ params: { lng, storeId } }) {
   const router = useRouter();
   const session = useSession();
@@ -128,13 +128,13 @@ export default function ({ params: { lng, storeId } }) {
               className="btn btn-primary"
               onClick={() => {
                 if (!commonSettings?.brandName) {
-                  alert(t("Please fill the brand name!"));
+                  toast.error(t("Please fill the brand name!"));
                   return;
                 }
 
                 UpdateCommonSettings("common", commonSettings)
                   .then((data) => {
-                    alert(t("Common settings updated successfully!"));
+                    toast.success(t("Common settings updated successfully!"));
                     // Save to local storage
                     localStorage.setItem(
                       "commonSettings",
@@ -143,7 +143,7 @@ export default function ({ params: { lng, storeId } }) {
                   })
                   .catch((e) => {
                     console.log(e);
-                    alert(t("Could not update common settings"));
+                    toast.error(t("Could not update common settings"));
                   });
               }}
             >

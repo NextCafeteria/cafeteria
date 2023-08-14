@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useTranslation } from "@/app/i18n/client";
 import { useGetProduct } from "@/lib/requests/products";
 import XButton from "@/components/buttons/XButton";
+import { toast } from "react-toastify";
 
 export default function PickOptions({ params: { lng, itemId } }) {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function PickOptions({ params: { lng, itemId } }) {
   const [totalPrice, setTotalPrice] = useState(0.0);
   if (error) {
     console.log(error);
-    alert("Could not get product");
+    toast.error("Could not get product");
     router.push(`/${lng}`);
   }
   useEffect(() => {

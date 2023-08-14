@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import { useGetStore, UpdateStore, DeleteStore } from "@/lib/requests/stores";
@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import Rating from "@/components/RatingWithNumbers";
 import BackButton from "@/components/buttons/BackButton";
 import StaffCard from "@/components/stores/StaffCard";
+import { toast } from "react-toastify";
+import ConfirmModal from "@/components/modals/ConfirmModal";
 
 export default function ({ params: { lng, storeId } }) {
   const router = useRouter();
@@ -21,12 +23,13 @@ export default function ({ params: { lng, storeId } }) {
   }
   if (error) {
     console.log(error);
-    alert("Could not get store");
+    toast.error("Could not get store");
     router.push(`/${lng}/dashboard/stores`);
   }
 
   const { t } = useTranslation(lng, "common");
 
+  const modalRef = useRef();
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
@@ -92,7 +95,7 @@ export default function ({ params: { lng, storeId } }) {
                 className="btn btn-primary"
                 onClick={() => {
                   if (!store?.name) {
-                    alert("Please fill the store name!");
+                    toast.error("Please fill the store name!");
                     return;
                   }
                   UpdateStore(storeId, {
@@ -101,11 +104,11 @@ export default function ({ params: { lng, storeId } }) {
                     phone: store?.phone,
                   })
                     .then((data) => {
-                      alert("Store updated successfully!");
+                      toast.success("Store updated successfully!");
                     })
                     .catch((e) => {
                       console.log(e);
-                      alert("Could not update store");
+                      toast.error("Could not update store");
                     });
                 }}
               >
@@ -114,24 +117,7 @@ export default function ({ params: { lng, storeId } }) {
               <button
                 className="btn bg-red-500 text-white ml-2"
                 onClick={() => {
-                  // Confirm
-                  if (
-                    !confirm(
-                      "Are you sure you want to delete this store? This action cannot be undone."
-                    )
-                  ) {
-                    return;
-                  }
-
-                  DeleteStore(storeId)
-                    .then((data) => {
-                      alert("Store deleted successfully!");
-                      router.push(`/${lng}/dashboard/stores`);
-                    })
-                    .catch((e) => {
-                      console.log(e);
-                      alert("Could not delete store");
-                    });
+                  modalRef.current.showModal();
                 }}
               >
                 {t("Delete store")}
@@ -167,6 +153,25 @@ export default function ({ params: { lng, storeId } }) {
           <span className="text-2xl">+ {t("Add Staff")}</span>
         </div>
       </div>
+      <ConfirmModal
+        lng={lng}
+        title={"Confirm Delete"}
+        msg={
+          "Are you sure you want to delete this store? This action cannot be undone."
+        }
+        handleConfirm={() => {
+          DeleteStore(storeId)
+            .then((data) => {
+              toast.success("Store deleted successfully!");
+              router.push(`/${lng}/dashboard/stores`);
+            })
+            .catch((e) => {
+              console.log(e);
+              toast.error("Could not delete store");
+            });
+        }}
+        modalRef={modalRef}
+      />
     </main>
   );
 }
