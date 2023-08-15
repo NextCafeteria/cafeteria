@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  GetCommonSettings,
+  useGetCommonSettings,
   UpdateCommonSettings,
 } from "@/lib/requests/settings";
 import { useEffect, useState } from "react";
@@ -18,17 +18,14 @@ export default function ({ params: { lng, storeId } }) {
     router.push(`/${lng}/login`);
   }
 
-  const [commonSettings, setCommonSettings] = useState(null);
-
-  useEffect(() => {
-    GetCommonSettings()
-      .then((data) => {
-        setCommonSettings(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const {
+    data: commonSettings,
+    error,
+    mutateSettings,
+  } = useGetCommonSettings();
+  if (error) {
+    console.log(error);
+  }
 
   const { t } = useTranslation(lng, "common");
 
@@ -52,7 +49,7 @@ export default function ({ params: { lng, storeId } }) {
                 onChange={(e) => {
                   let newCommonSettings = { ...commonSettings };
                   newCommonSettings.brandName = e.target.value;
-                  setCommonSettings(newCommonSettings);
+                  mutateSettings(newCommonSettings, { revalidate: false });
                 }}
               />
             )}
@@ -68,7 +65,7 @@ export default function ({ params: { lng, storeId } }) {
                 onChange={(e) => {
                   let newCommonSettings = { ...commonSettings };
                   newCommonSettings.brandDescription = e.target.value;
-                  setCommonSettings(newCommonSettings);
+                  mutateSettings(newCommonSettings, { revalidate: false });
                 }}
               />
             )}
@@ -82,12 +79,7 @@ export default function ({ params: { lng, storeId } }) {
                 onChange={(e) => {
                   let newCommonSettings = { ...commonSettings };
                   newCommonSettings.theme = e.target.value;
-                  setCommonSettings(newCommonSettings);
-                  // Set theme
-                  document.documentElement.setAttribute(
-                    "data-theme",
-                    e.target.value
-                  );
+                  mutateSettings(newCommonSettings, { revalidate: false });
                 }}
               >
                 <option value="cupcake">
