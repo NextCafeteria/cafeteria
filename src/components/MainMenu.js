@@ -34,8 +34,8 @@ function MainMenuUser({ lng }) {
             className={
               "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
               (currentPath === `/${lng}`
-                ? " bg-[#ffffffdd] rounded-xl"
-                : " bg-[#dddddd88] rounded-xl")
+                ? " bg-[#ffffffff] rounded-xl"
+                : " bg-[#ffffffcc] rounded-xl")
             }
           >
             <svg
@@ -66,8 +66,8 @@ function MainMenuUser({ lng }) {
             className={
               "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
               (currentPath === `/${lng}/orders`
-                ? " bg-[#ffffffdd] rounded-xl"
-                : " bg-[#dddddd88] rounded-xl")
+                ? " bg-[#ffffffff] rounded-xl"
+                : " bg-[#ffffffcc] rounded-xl")
             }
             onClick={() => {
               router.push(`/${lng}/orders`);
@@ -104,8 +104,8 @@ function MainMenuUser({ lng }) {
             className={
               "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
               (currentPath === `/${lng}/cart`
-                ? " bg-[#ffffffdd] rounded-xl"
-                : " bg-[#dddddd88] rounded-xl")
+                ? " bg-[#ffffffff] rounded-xl"
+                : " bg-[#ffffffcc] rounded-xl")
             }
           >
             <svg
@@ -139,8 +139,8 @@ function MainMenuUser({ lng }) {
             className={
               "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
               (currentPath === `/${lng}/user`
-                ? " bg-[#ffffffdd] rounded-xl"
-                : " bg-[#dddddd88] rounded-xl")
+                ? " bg-[#ffffffff] rounded-xl"
+                : " bg-[#ffffffcc] rounded-xl")
             }
           >
             <svg
@@ -198,8 +198,8 @@ function MainMenuStaff({ lng }) {
             className={
               "md:mb-4 md:py-4 flex flex-col items-center p-2 clickable text-center" +
               (currentPath === `/${lng}`
-                ? " bg-[#ffffffdd] rounded-xl"
-                : " bg-[#dddddd88] rounded-xl")
+                ? " bg-[#ffffffff] rounded-xl"
+                : " bg-[#ffffffcc] rounded-xl")
             }
           >
             <svg
@@ -268,8 +268,8 @@ function MainMenuStaff({ lng }) {
             className={
               "md:mb-4 md:py-4 flex flex-col items-center p-2 clickable text-center" +
               (currentPath === `/${lng}/user`
-                ? " bg-[#ffffffdd] rounded-xl"
-                : " bg-[#dddddd88] rounded-xl")
+                ? " bg-[#ffffffff] rounded-xl"
+                : " bg-[#ffffffcc] rounded-xl")
             }
             onClick={() => {
               router.push(`/${lng}/user`);

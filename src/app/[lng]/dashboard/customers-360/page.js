@@ -1,12 +1,11 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { GetCustomer } from "@/lib/requests/customers360";
 import { useGetOrders } from "@/lib/requests/orders";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import XButton from "@/components/buttons/XButton";
 import OrderCard from "@/components/orders/OrderCard";
 
 export default function Cart({ params: { lng } }) {
@@ -59,7 +58,7 @@ export default function Cart({ params: { lng } }) {
             placeholder={t("Customer email")}
           />
           <button
-            className="bg-blue-500 text-white p-2.5 ml-1 rounded-md"
+            className="btn btn-primary text-white p-2.5 ml-1 rounded-md"
             onClick={handleFindCustomer}
           >
             {t("View Customer Profile")}
