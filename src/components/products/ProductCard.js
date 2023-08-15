@@ -1,15 +1,15 @@
-import { useState, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Skeleton from "react-loading-skeleton";
-
 import {
   DeleteProduct,
   ToggleProductAvailability,
 } from "@/lib/requests/products";
-import { useTranslation } from "@/app/i18n/client";
-import { toast } from "react-toastify";
+import { useRef, useState } from "react";
+
 import ConfirmModal from "../modals/ConfirmModal";
+import Image from "next/image";
+import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
+import { useTranslation } from "@/app/i18n/client";
 
 export default function ({
   lng,
@@ -47,7 +47,7 @@ export default function ({
             {isLoading ? <Skeleton width={70} /> : t(name)}
           </h2>
           <p className="text-sm mt-2 mb-2">
-            {isLoading ? <Skeleton width={200} /> : description}
+            {isLoading ? <Skeleton width={200} /> : t(description)}
           </p>
           <p className="text-sm mt-2 mb-2">
             <b>{t("Base Price")}:</b>{" "}
