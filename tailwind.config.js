@@ -200,7 +200,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ["cupcake", "light", "valentine", "retro"],
+    themes: ["cupcake", "light", "valentine", "fantasy", "retro"],
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
