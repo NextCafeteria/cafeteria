@@ -6,6 +6,7 @@ import { useGetOrder, RateOrder } from "@/lib/requests/orders";
 
 import BackButton from "@/components/buttons/BackButton";
 import RatingInput from "@/components/RatingInput";
+import { toast } from "react-toastify";
 export default function OrderRating({ params: { lng, orderId } }) {
   const router = useRouter();
   const { t } = useTranslation(lng, "common");
@@ -13,7 +14,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
   const { order: orderData, isLoading, error } = useGetOrder(orderId);
   if (error) {
     console.log(error);
-    alert("Could not get order");
+    toast.error("Could not get order");
     router.push(`/${lng}/orders`);
   }
   const [rating, setRating] = useState(0);
@@ -29,7 +30,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not create rating");
+        toast.error("Could not create rating");
       }
     );
   }

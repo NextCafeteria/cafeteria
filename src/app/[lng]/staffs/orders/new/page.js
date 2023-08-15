@@ -4,12 +4,13 @@ import { useTranslation } from "@/app/i18n/client";
 import { useGetStaffQueuedOrders, ConfirmOrder } from "@/lib/requests/orders";
 import OrderCardStaff from "@/components/orders/OrderCardStaff";
 import { OrderStatus } from "@/lib/order_status";
+import { toast } from "react-toastify";
 
 export default function Orders({ params: { lng } }) {
   const { orderItems, isLoading, error, mutate } = useGetStaffQueuedOrders();
   if (error) {
     console.log(error);
-    alert("Could not get orders");
+    toast.error("Could not get orders");
   }
 
   function handleConfirmOrder(orderId) {
@@ -24,7 +25,7 @@ export default function Orders({ params: { lng } }) {
           },
           (e) => {
             console.log(e);
-            alert("Could not process order");
+            toast.error("Could not process order");
           }
         );
       },

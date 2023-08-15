@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { useGetStores } from "@/lib/requests/stores";
 import StoreCard from "@/components/stores/StoreCard";
+import { toast } from "react-toastify";
 
 export default function StoreManagement({ params: { lng } }) {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function StoreManagement({ params: { lng } }) {
   const { stores, error, isLoading } = useGetStores();
   if (error) {
     console.log(e);
-    alert("Could not get the stores.");
+    toast.error("Could not get the stores.");
   }
 
   const { t } = useTranslation(lng, "common");

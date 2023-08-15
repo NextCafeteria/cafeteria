@@ -2,6 +2,7 @@ import { useState } from "react";
 import dbService from "@/services/Database";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { uuidv4 } from "@/lib/utils";
+import { toast } from "react-toastify";
 
 export default function ImageUploader({
   styles,
@@ -28,9 +29,11 @@ export default function ImageUploader({
     const allowedTypes = ["image/jpeg", "image/png"];
     const maxSize = 1024 * 1024; // 1MB
     if (!allowedTypes.includes(fileType)) {
-      alert("Invalid file type. Only JPEG and PNG image files are allowed");
+      toast.error(
+        "Invalid file type. Only JPEG and PNG image files are allowed"
+      );
     } else if (fileSize > maxSize) {
-      alert("File size too large. Only files up to 1MB are allowed");
+      toast.error("File size too large. Only files up to 1MB are allowed");
     } else {
       handleUploadStart();
       setIsUploading(true);

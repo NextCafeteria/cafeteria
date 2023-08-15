@@ -8,6 +8,7 @@ import Rating from "@/components/Rating";
 import BackButton from "@/components/buttons/BackButton";
 
 import { useGetStore, AddStaff } from "@/lib/requests/stores";
+import { toast } from "react-toastify";
 
 export default function NewStores({ params: { lng, storeId } }) {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function NewStores({ params: { lng, storeId } }) {
 
   if (error) {
     console.log(error);
-    alert("Could not get store");
+    toast.error("Could not get store");
     router.push(`/${lng}/dashboard/stores`);
   }
 
@@ -75,7 +76,7 @@ export default function NewStores({ params: { lng, storeId } }) {
         className="btn btn-primary mb-2 w-full max-w-[700px] fixed bottom-[90px]  md:bottom-[20px] h-[50px] md:rounded-md text-white flex flex-row items-stretch justify-between px-8"
         onClick={() => {
           if (!email) {
-            alert("Please fill in all the fields!");
+            toast.error("Please fill in all the fields!");
             return;
           }
 
@@ -89,7 +90,7 @@ export default function NewStores({ params: { lng, storeId } }) {
             },
             (e) => {
               console.log(e);
-              alert("Could not add staff");
+              toast.error("Could not add staff");
             }
           );
         }}

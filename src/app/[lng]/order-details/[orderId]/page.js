@@ -23,7 +23,7 @@ export default function ({ params: { lng, orderId } }) {
   const { order: orderData, isLoading, error } = useGetOrder(orderId);
   if (error) {
     console.log(error);
-    alert("Could not get orders");
+    toast.error("Could not get orders");
     router.push(`/${lng}/orders`);
   }
 
@@ -49,7 +49,7 @@ export default function ({ params: { lng, orderId } }) {
       },
       (e) => {
         console.log(e);
-        alert("Could not cancel order");
+        toast.error("Could not cancel order");
       }
     );
   }

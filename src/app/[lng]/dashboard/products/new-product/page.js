@@ -11,6 +11,7 @@ import BackButton from "@/components/buttons/BackButton";
 import CustomizationCard from "@/components/products/CustomizationCard";
 import ImageUploader from "@/components/ImageUploader";
 import { uuidv4 } from "@/lib/utils";
+import { toast } from "react-toastify";
 
 export default function ({ params: { lng } }) {
   const router = useRouter();
@@ -43,12 +44,12 @@ export default function ({ params: { lng } }) {
     CreateProduct(
       productData,
     ).then(() => {
-      alert("Product created");
+      toast.success("Product created");
       router.push(`/${lng}/dashboard/products`);
     }
     ).catch((e) => {
       console.log(e);
-      alert("Could not update product");
+      toast.error("Could not update product");
     });
   };
 
