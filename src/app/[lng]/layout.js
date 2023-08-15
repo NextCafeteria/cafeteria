@@ -10,7 +10,7 @@ import { dir } from "i18next";
 import { languages } from "../i18n/settings";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { GetCommonSettings } from "@/lib/requests/settings";
+import { useGetCommonSettings } from "@/lib/requests/settings";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -23,45 +23,20 @@ const roboto = Roboto({
 });
 import MainMenu from "@/components/MainMenu";
 import { SWRConfig } from "swr";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({ children, params: { lng } }) {
   const pathname = usePathname();
   const isDashboard = pathname.split("/")[2] === "dashboard";
-  const DEFAULT_THEME = "cupcake";
 
-  // Get common settings from local storage
-  const [commonSettings, setCommonSettings] = useState(() => {
-    if (typeof window !== "undefined") {
-      let settings = JSON.parse(localStorage.getItem("commonSettings", "{}"));
-      // Set theme from local storage
-      document.documentElement.setAttribute(
-        "data-theme",
-        settings?.theme || DEFAULT_THEME
-      );
-      return;
-    }
-  });
-  useEffect(() => {
-    GetCommonSettings()
-      .then((data) => {
-        setCommonSettings(data);
-        // Set theme from common settings
-        if (typeof window !== "undefined") {
-          localStorage.setItem("commonSettings", JSON.stringify(data));
-        }
-        // Set theme
-        document.documentElement.setAttribute(
-          "data-theme",
-          data?.theme || DEFAULT_THEME
-        );
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const { data: commonSettings, error } = useGetCommonSettings();
+  if (error) {
+    console.log(error);
+  }
 
   return (
-    <html lang={lng} dir={dir(lng)} data-theme="cupcake">
+    <html lang={lng} dir={dir(lng)} data-theme={commonSettings?.theme}>
       <head>
         <title>{commonSettings?.brandName}</title>
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -130,6 +105,7 @@ export default function RootLayout({ children, params: { lng } }) {
           <SessionProvider>
             {children}
             {!isDashboard && <MainMenu lng={lng} />}
+            <ToastContainer autoClose={5000} hideProgressBar />
           </SessionProvider>
         </SWRConfig>
       </body>

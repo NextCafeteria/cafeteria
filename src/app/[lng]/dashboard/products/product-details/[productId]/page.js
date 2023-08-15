@@ -6,7 +6,7 @@ import { useGetProduct, UpdateProduct } from "@/lib/requests/products";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
-
+import { toast } from "react-toastify";
 import BackButton from "@/components/buttons/BackButton";
 import CustomizationCard from "@/components/products/CustomizationCard";
 import ImageUploader from "@/components/ImageUploader";
@@ -26,7 +26,7 @@ export default function ({ params: { lng, productId } }) {
   if (isLoading) console.log("loading");
   if (error) {
     console.log(error);
-    alert("Could not get product");
+    toast.error("Could not get product");
     router.push(`/${lng}/dashboard/products`);
   }
   const setProductData = function (productData) {
@@ -58,12 +58,12 @@ export default function ({ params: { lng, productId } }) {
       productId,
       product,
     ).then(() => {
-      alert("Product updated");
+      toast.success("Product updated");
       router.push(`/${lng}/dashboard/products`);
     }
     ).catch((e) => {
       console.log(e);
-      alert("Could not update product");
+      toast.error("Could not update product");
     });
   };
 
