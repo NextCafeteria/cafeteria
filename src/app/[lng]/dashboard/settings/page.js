@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  GetCommonSettings,
+  useGetCommonSettings,
   UpdateCommonSettings,
 } from "@/lib/requests/settings";
 import { useEffect, useState } from "react";
@@ -18,17 +18,10 @@ export default function ({ params: { lng, storeId } }) {
     router.push(`/${lng}/login`);
   }
 
-  const [commonSettings, setCommonSettings] = useState(null);
-
-  useEffect(() => {
-    GetCommonSettings()
-      .then((data) => {
-        setCommonSettings(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const { data: commonSettings, error } = useGetCommonSettings();
+  if (error) {
+    console.log(error);
+  }
 
   const { t } = useTranslation(lng, "common");
 

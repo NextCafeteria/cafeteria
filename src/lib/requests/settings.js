@@ -1,15 +1,20 @@
 import useSWR, { useSWRConfig } from "swr";
 
-export async function GetCommonSettings(settingSet = "common") {
-  const response = await fetch(`/api/settings/${settingSet}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export function useGetCommonSettings(settingSet = "common") {
+  let settings = JSON.parse(localStorage.getItem("commonSettings", "{}"));
 
-  const data = await response.json();
-  return data.data;
+  const { fetcher } = useSWRConfig();
+  let { data, error } = useSWR(`/api/settings/${settingSet}`, fetcher);
+
+  if (data) {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("commonSettings", JSON.stringify(data.data));
+    }
+  }
+  return {
+    data: data ? data.data : settings,
+    error,
+  };
 }
 
 export async function UpdateCommonSettings(settingSet, newSettingData) {
