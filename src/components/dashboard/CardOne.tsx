@@ -7,7 +7,7 @@ const CardOne = ({ totalRevenue }: { totalRevenue: number }) => {
     .text-timespan {
       white-space: nowrap;
     }
-    
+
 .view-detail-wrapper{
   position: absolute;
   bottom: 0;
@@ -85,85 +85,8 @@ div.view-detail:hover:after{
         </div>
         <div className="flex">
           <span className="text-title-xl font-bold text-black dark:text-white">
-            {totalRevenue.toLocaleString("vi-VN")}đ
+            {Math.round(totalRevenue).toLocaleString("vi-VN")}đ
           </span>
-        </div>
-      </div>
-      <div className="mt-4 flex gap-[0.4rem] items-start justify-between">
-        <div className="flex flex-col ms-1">
-          <span className="text-md font-bold">
-            +{revenue.toLocaleString("vi-VN")}đ
-          </span>
-          <div className="flex gap-1 items-center justify-center mt-1 ms-[-5px]">
-            <div className="w-[20px] select-none">
-              {timespans.indexOf(timespan) > 0 && (
-                <div
-                  className="clickable flex items-center h-5 bg-cyan-50 p-1 border border-stroke dark:border-strokedark dark:bg-gray-800"
-                  onClick={handlePrevTimespan}
-                >
-                  <svg
-                    fill="#000000"
-                    height="full"
-                    width="full"
-                    version="1.1"
-                    id="XMLID_287_"
-                    viewBox="0 0 24 24"
-                  >
-                    <g id="next">
-                      <g>
-                        <polygon points="17.2,23.7 18.6,22.3 8.3,12 18.6,1.7 17.2,0.3 5.5,12 		" />
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-              )}
-            </div>
-            <span className="text-timespan text-xs select-none">
-              {timespan}
-            </span>
-            <div className="w-[20px]  select-none">
-              {timespans.indexOf(timespan) < timespans.length - 1 && (
-                <div
-                  className="clickable flex items-center h-5 bg-cyan-50 p-1 border border-stroke dark:border-strokedark dark:bg-gray-800"
-                  onClick={handleNextTimespan}
-                >
-                  <svg
-                    fill="#000000"
-                    height="full"
-                    width="full"
-                    version="1.1"
-                    id="XMLID_287_"
-                    viewBox="0 0 24 24"
-                  >
-                    <g id="next">
-                      <g>
-                        <polygon points="6.8,23.7 5.4,22.3 15.7,12 5.4,1.7 6.8,0.3 18.5,12 		" />
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="self-stretch w-[1px] bg-gray-200"></div>
-        <div className="flex flex-col">
-          <span className="text font-bold text-black dark:text-white select-none">
-            Lợi nhuận ước tính:
-          </span>
-          <a
-            className="number-link text-md font-bold underline ms-1 clickable"
-            title="Click để xem bảng cân đối kế toán"
-          >
-            32,000,000đ
-          </a>
-        </div>
-      </div>
-      <div className="view-detail-wrapper clickable card-head absolute bottom-0 left-0 w-full flex gap-1 justify-center items-center h-[2rem] border-t border-stroke  shadow-default dark:border-strokedark dark:bg-gray-800">
-        <div className="view-detail w-full h-full flex">
-          <a className="m-auto z-10 text-cyan-600 select-none hover:underline">
-            Xem chi tiết doanh thu
-          </a>
         </div>
       </div>
     </div>

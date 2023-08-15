@@ -173,7 +173,7 @@ const ChartOne: React.FC = () => {
   };
 
   const style = `.apexcharts-series > path:first-child {
-    display: none !important; 
+    display: none !important;
   }
   .bg-color1 {
     background-color: ${color1} ;
@@ -196,7 +196,7 @@ const ChartOne: React.FC = () => {
   `;
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-gray-800 sm:px-7.5 xl:col-span-8">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-gray-800 sm:px-7.5 xl:col-span-12">
       <style>{style}</style>
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
@@ -234,17 +234,6 @@ const ChartOne: React.FC = () => {
           )}
         </div>
         <div className="flex w-full max-w-45 justify-end">
-          {/* <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-            <button className="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-gray-800 dark:text-white dark:hover:bg-gray-800">
-              Day
-            </button>
-            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-gray-800">
-              Week
-            </button>
-            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-gray-800">
-              Month
-            </button>
-          </div> */}
           <div className="select-store relative">
             <div
               className="front p-2  whitespace-nowrap select-none"
