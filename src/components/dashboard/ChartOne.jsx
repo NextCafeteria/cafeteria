@@ -9,7 +9,7 @@ const color2 = randomColor({ hue: "purple", luminosity: "light" });
 const color3 = randomColor({ hue: "green", luminosity: "dark" });
 const colors = [color1, color2, color3];
 
-const options: ApexOptions = {
+const options = {
   legend: {
     show: false,
     position: "top",
@@ -121,19 +121,34 @@ const options: ApexOptions = {
     max: 100,
   },
 };
-const ChartOne: React.FC = () => {
+const ChartOne = (revenueByMonth) => {
+  const arrayA = Object.keys(revenueByMonth).sort();
+  const arrayB = Object.values(revenueByMonth).sort();
+
+  console.log("hellooooo");
+  console.log(arrayA);
+  console.log(arrayB);
+
+  const obj = { id: 1, country: "Chile", city: "Santiago" };
+
+  const valuesArray = [];
+
+  for (const key in obj) {
+    valuesArray.push(obj[key]);
+  }
+
   const allSeries = [
     {
       name: "Chi nhánh Hà Nội",
-      data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
+      data: arrayB,
     },
     {
       name: "Chi nhánh TP HCM",
-      data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51],
+      data: arrayB,
     },
     {
       name: "Chi nhánh Đà Nẵng",
-      data: [17, 29, 35, 42, 18, 27, 36, 31, 23, 40, 47, 55],
+      data: arrayB,
     },
   ];
 
@@ -161,7 +176,7 @@ const ChartOne: React.FC = () => {
     setSeries(newSeries);
   }, [storeVisibility]);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (event) => {
     setStoreVisibility({
       ...storeVisibility,
       [event.target.name]: event.target.checked,
