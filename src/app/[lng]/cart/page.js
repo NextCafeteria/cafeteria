@@ -11,6 +11,9 @@ import XButton from "@/components/buttons/XButton";
 import CartItemCard from "@/components/cart/CartItemCard";
 import Payment from "@/components/cart/Payment";
 import { toast } from "react-toastify";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
+
 export default function Cart({ params: { lng } }) {
   const router = useRouter();
   const session = useSession();
@@ -19,6 +22,7 @@ export default function Cart({ params: { lng } }) {
     return <></>;
   }
 
+  const { data: commonSettings } = useGetCommonSettings();
   const [hidePayment, setHidePayment] = useState(true);
   const [cartData, setCartData] = useState(null);
   const [storeId, setStoreId] = useState(null);
@@ -130,21 +134,37 @@ export default function Cart({ params: { lng } }) {
                   <div className="flex justify-between w-full pt-4">
                     <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
                     <p className="text-sm font-bold mb-2">
-                      {cartData?.price?.toLocaleString("vi-VN")}đ
+                      {cartData?.price &&
+                        formatPrice(
+                          cartData?.price,
+                          commonSettings?.currencyPrefix,
+                          commonSettings?.currencySuffix,
+                          commonSettings?.currencyDecimal
+                        )}
                     </p>
                   </div>
                   <div className="flex justify-between w-full">
                     <p className="text-sm font-bold mb-2">{t("Tax")}</p>
                     <p className="text-sm font-bold mb-2">
-                      {cartData?.tax && cartData?.tax?.toLocaleString("vi-VN")}đ
+                      {cartData?.tax &&
+                        formatPrice(
+                          cartData?.tax,
+                          commonSettings?.currencyPrefix,
+                          commonSettings?.currencySuffix,
+                          commonSettings?.currencyDecimal
+                        )}
                     </p>
                   </div>
                   <div className="flex justify-between w-full border-b-2 border-gray-800">
                     <p className="text-sm font-bold mb-2">{t("Total")}</p>
                     <p className="text-sm font-bold mb-2">
                       {cartData?.tax &&
-                        cartData?.total?.toLocaleString("vi-VN")}
-                      đ
+                        formatPrice(
+                          cartData?.total,
+                          commonSettings?.currencyPrefix,
+                          commonSettings?.currencySuffix,
+                          commonSettings?.currencyDecimal
+                        )}
                     </p>
                   </div>
                 </>
@@ -166,7 +186,13 @@ export default function Cart({ params: { lng } }) {
             {t("Place Order!")}
           </span>
           <span className="text-2xl float-right">
-            {cartData?.total?.toLocaleString("vi-VN")}đ
+            {cartData?.total &&
+              formatPrice(
+                cartData?.total,
+                commonSettings?.currencyPrefix,
+                commonSettings?.currencySuffix,
+                commonSettings?.currencyDecimal
+              )}
           </span>
         </div>
       )}

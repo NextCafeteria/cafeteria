@@ -151,5 +151,14 @@
   "Brand color": "Màu chủ đạo",
   "Please fill the brand name!": "Vui lòng điền tên thương hiệu!",
   "Common settings updated successfully!": "Cài đặt chung đã được cập nhật thành công!",
-  "Could not update common settings": "Không thể cập nhật cài đặt chung"
+  "Could not update common settings": "Không thể cập nhật cài đặt chung",
+  "Theme": "Giao diện",
+  "Currency Settings": "Cài đặt tiền tệ",
+  "Currency": "Tiền tệ",
+  "Currency Prefix": "Tiền tố tiền tệ",
+  "Currency Suffix": "Tiền tố tiền tệ",
+  "Currency Decimal": "Số chữ số thập phân",
+  "Prefix": "Tiền tố",
+  "Suffix": "Hậu tố",
+  "Decimal": "Thập phân"
 }

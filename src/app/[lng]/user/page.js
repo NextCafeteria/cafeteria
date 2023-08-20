@@ -175,26 +175,26 @@ export default function Page({ params: { lng } }) {
           </div>
         </div>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-[1px] text-md hover:bg-white rounded-md">
         <Link href={`/${lng}`}>{t("Browse products")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-[1px] text-md hover:bg-white rounded-md">
         <Link href={`/${lng}/orders`}>{t("My orders")}</Link>
       </div>
-      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-[1px] text-md hover:bg-white rounded-md">
         <Link href={`/${lng}/cart`}>{t("Cart")}</Link>
       </div>
       {(session?.data?.user?.isStaff || session?.data?.user?.isAdmin) && (
-        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+        <div className="min-h-20 p-4 border-b-[1px] text-md hover:bg-white rounded-md">
           <a href={`/${lng}/staffs/orders`}>{t("Manage orders")}</a>
         </div>
       )}
       {session?.data?.user?.isAdmin && (
-        <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+        <div className="min-h-20 p-4 border-b-[1px] text-md hover:bg-white rounded-md">
           <a href={`/${lng}/dashboard`}>{t("Management Dashboard")}</a>
         </div>
       )}
-      <div className="min-h-20 p-4 border-b-2 text-md hover:bg-gray-200">
+      <div className="min-h-20 p-4 border-b-[1px] text-md hover:bg-white rounded-md">
         <Link
           href="https://github.com/NextCafeteria/cafeteria/issues"
           target="_blank"
@@ -203,7 +203,7 @@ export default function Page({ params: { lng } }) {
         </Link>
       </div>
       <button
-        className="w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded mt-4"
+        className="w-full bg-primary font-bold py-2 px-4 rounded mt-4 text-white"
         onClick={() => {
           signOut().then(() => {
             router.push(`/${lng}/login`);

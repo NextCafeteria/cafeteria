@@ -1,22 +1,32 @@
 import Image from "next/image";
 
 import { useTranslation } from "@/app/i18n/client";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function CartItemCard({ lng, item, index, handeDelete }) {
   const { name, price, quantity } = item;
   const { t } = useTranslation(lng, "common");
+  const { data: commonSettings } = useGetCommonSettings();
 
   return (
     <div
       className={
-        "p-4 border-b-2 relative" + (index % 2 === 0 ? " bg-gray-100" : "")
+        "p-4 border-b-2 relative bg-white" +
+        (index % 2 === 0 ? " bg-gray-100" : "")
       }
       key={index}
     >
       <div className="flex justify-between w-full pb-1 pt-2">
         <p className="text-sm font-bold">{t(name)}</p>
         <p className="text-sm font-bold">
-          {quantity} x {price?.toLocaleString("vi-VN")}đ
+          {quantity} x{" "}
+          {formatPrice(
+            price,
+            commonSettings?.currencyPrefix,
+            commonSettings?.currencySuffix,
+            commonSettings?.currencyDecimal
+          )}
         </p>
       </div>
       <Image

@@ -5,7 +5,7 @@ export default function ({ lng, id, customization, updateCustomization }) {
   const { t } = useTranslation(lng, "common");
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
+    <div className="relative flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-[1px] border-gray-600 rounded-md bg-white hover:bg-gray-200 mb-2">
       <div className="flex flex-col items-begin justify-center w-full relative">
         <p className="text-sm font-bold mb-2 pr-2">
           <input

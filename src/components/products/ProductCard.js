@@ -10,6 +10,8 @@ import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import { useTranslation } from "@/app/i18n/client";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function ({
   lng,
@@ -23,6 +25,7 @@ export default function ({
   isLoading,
 }) {
   const { t } = useTranslation(lng, "common");
+  const { data: commonSettings } = useGetCommonSettings();
   const modalDeleteRef = useRef();
   const modalToggleRef = useRef();
   const [localIsAvailable, setLocalIsAvailable] = useState(
@@ -41,7 +44,7 @@ export default function ({
     <Link
       href={isLoading ? "" : `/${lng}/dashboard/products/product-details/${id}`}
     >
-      <div className="relative flex flex-grow w-full p-4 min-h-[180px] mx-1 border-[1px] border-gray-600 rounded-md hover:bg-gray-200 mb-2">
+      <div className="relative flex flex-grow w-full p-4 min-h-[180px] mx-1 border-[1px] border-gray-600 rounded-md bg-white hover:bg-gray-200 mb-2">
         <div className="w-full relative">
           <h2 className="text-lg font-bold mb-2">
             {isLoading ? <Skeleton width={70} /> : t(name)}
@@ -54,7 +57,12 @@ export default function ({
             {isLoading ? (
               <Skeleton width={50} />
             ) : (
-              price?.toLocaleString("vi-VN") + "đ"
+              formatPrice(
+                price,
+                commonSettings?.currencyPrefix,
+                commonSettings?.currencySuffix,
+                commonSettings?.currencyDecimal
+              )
             )}
           </p>
           <p className="text-sm mt-2 mb-2">

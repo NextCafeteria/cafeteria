@@ -4,7 +4,6 @@ import {
   useGetCommonSettings,
   UpdateCommonSettings,
 } from "@/lib/requests/settings";
-import { useEffect, useState } from "react";
 
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
@@ -37,14 +36,14 @@ export default function ({ params: { lng, storeId } }) {
         </div>
         <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
           <div className="flex flex-col items-begin justify-center w-full relative">
-            <p className="text-xl">{t("Brand name")}</p>
+            <p className="text-md">{t("Brand name")}</p>
             {commonSettings === null ? (
               <Skeleton height={30} className="mb-2" />
             ) : (
               <input
                 placeholder={t("Brand name")}
                 type="text"
-                className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+                className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2 input"
                 value={commonSettings?.brandName}
                 onChange={(e) => {
                   let newCommonSettings = { ...commonSettings };
@@ -53,14 +52,14 @@ export default function ({ params: { lng, storeId } }) {
                 }}
               />
             )}
-            <p className="text-xl">{t("Description")}</p>
+            <p className="text-md">{t("Description")}</p>
             {commonSettings === null ? (
               <Skeleton height={30} className="mb-2" />
             ) : (
               <input
                 placeholder={t("Description")}
                 type="text"
-                className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+                className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2 input"
                 value={commonSettings?.brandDescription}
                 onChange={(e) => {
                   let newCommonSettings = { ...commonSettings };
@@ -69,12 +68,12 @@ export default function ({ params: { lng, storeId } }) {
                 }}
               />
             )}
-            <p className="text-xl">{t("Theme")}</p>
+            <p className="text-md">{t("Theme")}</p>
             {commonSettings === null ? (
               <Skeleton height={30} className="mb-2" />
             ) : (
               <select
-                className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2"
+                className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2 input"
                 value={commonSettings?.theme}
                 onChange={(e) => {
                   let newCommonSettings = { ...commonSettings };
@@ -113,6 +112,53 @@ export default function ({ params: { lng, storeId } }) {
                   Retro
                 </option>
               </select>
+            )}
+            <div className="flex w-full justify-between pb-3 pt-2 text-xl mb-2 mt-4">
+              {t("Currency Settings")}
+            </div>
+            {commonSettings === null ? (
+              <Skeleton height={30} className="mb-2" />
+            ) : (
+              <div className="relative">
+                <div className="w-[100px]">{t("Prefix")} </div>
+                <input
+                  placeholder={t("Currency Prefix")}
+                  type="text"
+                  className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2 input"
+                  value={commonSettings?.currencyPrefix}
+                  onChange={(e) => {
+                    let newCommonSettings = { ...commonSettings };
+                    newCommonSettings.currencyPrefix = e.target.value;
+                    mutateSettings(newCommonSettings, { revalidate: false });
+                  }}
+                />
+                <div>{t("Suffix")} </div>
+                <input
+                  placeholder={t("Currency Suffix")}
+                  type="text"
+                  className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2 input"
+                  value={commonSettings?.currencySuffix}
+                  onChange={(e) => {
+                    let newCommonSettings = { ...commonSettings };
+                    newCommonSettings.currencySuffix = e.target.value;
+                    mutateSettings(newCommonSettings, { revalidate: false });
+                  }}
+                />
+                <div>{t("Decimal")} </div>
+                <input
+                  placeholder={t("Currency Decimal")}
+                  type="number"
+                  min={0}
+                  max={2}
+                  className="w-full border-[1px] border-gray-600 rounded-md p-2 mb-2 input"
+                  value={commonSettings?.currencyDecimal || 0}
+                  onChange={(e) => {
+                    let newCommonSettings = { ...commonSettings };
+                    newCommonSettings.currencyDecimal = e.target.value;
+                    mutateSettings(newCommonSettings, { revalidate: false });
+                  }}
+                />
+              </div>
             )}
           </div>
           <div className="flex w-full mt-4">

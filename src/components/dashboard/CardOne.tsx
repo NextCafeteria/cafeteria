@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
+
 const CardOne = ({ totalRevenue }: { totalRevenue: number }) => {
   const style = `
     a.number-link {
@@ -39,6 +42,8 @@ div.view-detail:hover:after{
   width: 100%;
 }
   `;
+
+  const { data: commonSettings } = useGetCommonSettings();
 
   const [timespan, setTimespan] = useState("hôm nay"); // State for time span
   const timespans = ["tuần trước", "hôm qua", "hôm nay", "tuần này"];
@@ -85,7 +90,12 @@ div.view-detail:hover:after{
         </div>
         <div className="flex">
           <span className="text-title-xl font-bold text-black dark:text-white">
-            {Math.round(totalRevenue).toLocaleString("vi-VN")}đ
+            {formatPrice(
+              totalRevenue,
+              commonSettings?.currencyPrefix,
+              commonSettings?.currencySuffix,
+              commonSettings?.currencyDecimal
+            )}
           </span>
         </div>
       </div>

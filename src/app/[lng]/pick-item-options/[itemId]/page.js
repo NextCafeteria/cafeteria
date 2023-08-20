@@ -8,6 +8,8 @@ import { useTranslation } from "@/app/i18n/client";
 import { useGetProduct } from "@/lib/requests/products";
 import XButton from "@/components/buttons/XButton";
 import { toast } from "react-toastify";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function PickOptions({ params: { lng, itemId } }) {
   const router = useRouter();
@@ -16,6 +18,8 @@ export default function PickOptions({ params: { lng, itemId } }) {
     router.push(`/${lng}/login`);
     return <></>;
   }
+
+  const { data: commonSettings } = useGetCommonSettings();
 
   // If item id is not valid, redirect to home page
   if (!itemId) {
@@ -105,12 +109,18 @@ export default function PickOptions({ params: { lng, itemId } }) {
             <XButton />
           </div>
           <div className="flex flex-col items-center justify-center w-full p-2 min-h-[100px] my-1 mx-0 rounded-md">
-            <div className="product-content flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md">
+            <div className="product-content flex items-center justify-between bg-white w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md">
               <div className="flex flex-col items-begin justify-center w-fit relative">
                 <p className="text-xl font-bold">{t(product?.name)}</p>
                 <p className="text-sm">{t(product?.description)}</p>
                 <p className="text-sm">
-                  {t("Base price")}: {product?.price?.toLocaleString("vi-VN")}đ
+                  {t("Base price")}:{" "}
+                  {formatPrice(
+                    product?.price,
+                    commonSettings?.currencyPrefix,
+                    commonSettings?.currencySuffix,
+                    commonSettings?.currencyDecimal
+                  )}
                 </p>
               </div>
               <div className="h-32 w-32 rounded-sm">
@@ -197,10 +207,13 @@ export default function PickOptions({ params: { lng, itemId } }) {
                                     htmlFor={t(option.name)}
                                   >
                                     {t(option.name)} (
-                                    {Number(option.price)?.toLocaleString(
-                                      "vi-VN"
+                                    {formatPrice(
+                                      option.price,
+                                      commonSettings?.currencyPrefix,
+                                      commonSettings?.currencySuffix,
+                                      commonSettings?.currencyDecimal
                                     )}
-                                    đ)
+                                    )
                                   </label>
                                 </div>
                               );
@@ -253,7 +266,12 @@ export default function PickOptions({ params: { lng, itemId } }) {
         >
           <span className="text-2xl">+ {t("Add to cart")}</span>
           <span className="text-2xl float-right">
-            {totalPrice?.toLocaleString("vi-VN")}đ
+            {formatPrice(
+              totalPrice,
+              commonSettings?.currencyPrefix,
+              commonSettings?.currencySuffix,
+              commonSettings?.currencyDecimal
+            )}
           </span>
         </div>
       </main>

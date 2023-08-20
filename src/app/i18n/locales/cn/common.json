@@ -150,5 +150,14 @@
   "Brand color": "品牌颜色",
   "Please fill the brand name!": "请填写品牌名称！",
   "Common settings updated successfully!": "常用设置更新成功！",
-  "Could not update common settings": "无法更新常用设置"
+  "Could not update common settings": "无法更新常用设置",
+  "Theme": "主题",
+  "Currency Settings": "货币设置",
+  "Currency": "货币",
+  "Currency Prefix": "货币前缀",
+  "Currency Suffix": "货币后缀",
+  "Currency Decimal": "货币小数",
+  "Prefix": "前缀",
+  "Suffix": "后缀",
+  "Decimal": "小数"
 }

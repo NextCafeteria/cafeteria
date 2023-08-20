@@ -7,6 +7,8 @@ import {
 import { countTotalItems } from "@/lib/products";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function OrderCardStaffStaff({
   order,
@@ -16,6 +18,7 @@ export default function OrderCardStaffStaff({
   handleActionOrder,
 }) {
   const { t } = useTranslation(lng, "common");
+  const { data: commonSettings } = useGetCommonSettings();
 
   const status = order?.status;
   const totalPrice = order?.totalPrice;
@@ -32,7 +35,7 @@ export default function OrderCardStaffStaff({
       <div
         key={orderId}
         className={
-          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-100" +
+          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 bg-white hover:bg-gray-100" +
           (orderId % 2 === 0 ? " bg-gray-100" : "")
         }
       >
@@ -83,8 +86,20 @@ export default function OrderCardStaffStaff({
                   >
                     <p className="text-sm">{name}</p>
                     <p className="text-sm">
-                      {quantity} x {price?.toLocaleString("vi-VN")} ={" "}
-                      {itemTotalPrice?.toLocaleString("vi-VN")}đ
+                      {quantity} x{" "}
+                      {formatPrice(
+                        price,
+                        commonSettings?.currencyPrefix,
+                        commonSettings?.currencySuffix,
+                        commonSettings?.currencyDecimal
+                      )}{" "}
+                      ={" "}
+                      {formatPrice(
+                        itemTotalPrice,
+                        commonSettings?.currencyPrefix,
+                        commonSettings?.currencySuffix,
+                        commonSettings?.currencyDecimal
+                      )}
                     </p>
                   </div>
                 );
@@ -105,7 +120,12 @@ export default function OrderCardStaffStaff({
             {isLoading ? (
               <Skeleton width={70} />
             ) : (
-              `${t("Total")}: ${totalPrice}`
+              `${t("Total")}: ${formatPrice(
+                totalPrice,
+                commonSettings?.currencyPrefix,
+                commonSettings?.currencySuffix,
+                commonSettings?.currencyDecimal
+              )}`
             )}
           </p>
           {ORDER_STATUS_TO_PRIMARY_ACTION[status] &&

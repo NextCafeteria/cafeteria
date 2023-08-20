@@ -6,12 +6,16 @@ import dynamic from "next/dynamic";
 import { useGetProducts } from "@/lib/requests/products";
 import { useTranslation } from "@/app/i18n/client";
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function Home({ params: { lng } }) {
   const { products, error, isLoading } = useGetProducts();
   if (error) {
     console.log(error);
   }
+
+  const { data: commonSettings } = useGetCommonSettings();
 
   const productCss = `
   @media screen and (min-width: 768px) {
@@ -55,7 +59,7 @@ export default function Home({ params: { lng } }) {
                   >
                     <div
                       key={key}
-                      className="product md:w-[380px] clickable flex items-center justify-between w-full p-4 border-[1px] border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
+                      className="product md:w-[380px] clickable flex items-center justify-between w-full p-4 border-[1px] bg-white border-gray-600 min-h-[160px] my-1 mx-1 rounded-md"
                     >
                       <div className="product-details flex flex-col items-begin justify-center w-fit relative">
                         <p className="text-xl font-bold mb-[1px]">
@@ -63,7 +67,12 @@ export default function Home({ params: { lng } }) {
                         </p>
                         <p className="text-sm font-bold">
                           {" "}
-                          {product.price.toLocaleString("vi-VN")}đ
+                          {formatPrice(
+                            product.price,
+                            commonSettings?.currencyPrefix,
+                            commonSettings?.currencySuffix,
+                            commonSettings?.currencyDecimal
+                          )}
                         </p>
                         <p className="text-sm h-[2.25rem] mr-1 mt-[3px]">
                           {t(product.description)}

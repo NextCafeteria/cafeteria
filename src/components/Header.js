@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import LangSelector from "@/components/LangSelector";
 import { useGetCommonSettings } from "@/lib/requests/settings";
 
