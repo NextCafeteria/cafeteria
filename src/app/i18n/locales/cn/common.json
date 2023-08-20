@@ -159,5 +159,8 @@
   "Currency Decimal": "货币小数",
   "Prefix": "前缀",
   "Suffix": "后缀",
-  "Decimal": "小数"
+  "Decimal": "小数",
+  "Total Sales": "总收入",
+  "Number of Visitor": "客户数量",
+  "Customer 360": "360° 查看客户"
 }
