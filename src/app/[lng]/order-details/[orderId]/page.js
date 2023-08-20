@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import { useGetOrder, CancelOrder } from "@/lib/requests/orders";
@@ -12,6 +11,8 @@ import { useSession } from "next-auth/react";
 import BackButton from "@/components/buttons/BackButton";
 import Rating from "@/components/Rating";
 import Comment from "@/components/Comment";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function ({ params: { lng, orderId } }) {
   const router = useRouter();
@@ -19,6 +20,8 @@ export default function ({ params: { lng, orderId } }) {
   if (session && session.status === "unauthenticated") {
     router.push(`/${lng}/login`);
   }
+
+  const { data: commonSettings } = useGetCommonSettings();
 
   const { order: orderData, isLoading, error } = useGetOrder(orderId);
   if (error) {
@@ -98,7 +101,13 @@ export default function ({ params: { lng, orderId } }) {
                 <div className="flex justify-between w-full pb-1 pt-2">
                   <p className="text-sm font-bold">{t(name)}</p>
                   <p className="text-sm font-bold">
-                    {quantity} x {price?.toLocaleString("vi-VN")}đ
+                    {quantity} x{" "}
+                    {formatPrice(
+                      price,
+                      commonSettings?.currencyPrefix,
+                      commonSettings?.currencySuffix,
+                      commonSettings?.currencyDecimal
+                    )}
                   </p>
                 </div>
                 <img src={item.image} className="w-16 h-auto rounded-md mb-4" />
@@ -133,19 +142,34 @@ export default function ({ params: { lng, orderId } }) {
             <div className="flex justify-between w-full pt-4">
               <p className="text-sm font-bold mb-2">{t("Before Tax")}</p>
               <p className="text-sm font-bold mb-2">
-                {price?.toLocaleString("vi-VN")}đ
+                {formatPrice(
+                  price,
+                  commonSettings?.currencyPrefix,
+                  commonSettings?.currencySuffix,
+                  commonSettings?.currencyDecimal
+                )}
               </p>
             </div>
             <div className="flex justify-between w-full">
               <p className="text-sm font-bold mb-2">{t("Tax")}</p>
               <p className="text-sm font-bold mb-2">
-                {tax?.toLocaleString("vi-VN")}đ
+                {formatPrice(
+                  tax,
+                  commonSettings?.currencyPrefix,
+                  commonSettings?.currencySuffix,
+                  commonSettings?.currencyDecimal
+                )}
               </p>
             </div>
             <div className="flex justify-between w-full border-b-2 border-gray-800">
               <p className="text-sm font-bold mb-2">{t("Total")}</p>
               <p className="text-sm font-bold mb-2">
-                {totalPrice?.toLocaleString("vi-VN")}đ
+                {formatPrice(
+                  totalPrice,
+                  commonSettings?.currencyPrefix,
+                  commonSettings?.currencySuffix,
+                  commonSettings?.currencyDecimal
+                )}
               </p>
             </div>
           </>

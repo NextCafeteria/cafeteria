@@ -6,3 +6,21 @@ export function uuidv4() {
     ).toString(16)
   );
 }
+
+export function formatPrice(price, prefix, suffix, decimal) {
+  let formatedPrice = price;
+  if (decimal) {
+    formatedPrice = formatedPrice.toFixed(decimal);
+  } else {
+    formatedPrice = formatedPrice.toFixed(0);
+  }
+  formatedPrice = formatedPrice.replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  formatedPrice = formatedPrice.replace(/\d(?=(\d{3})+$)/g, "$&,");
+  if (prefix) {
+    formatedPrice = prefix + formatedPrice;
+  }
+  if (suffix) {
+    formatedPrice = formatedPrice + suffix;
+  }
+  return formatedPrice;
+}

@@ -28,7 +28,6 @@ const roboto = Roboto({
 export default function RootLayout({ children, params: { lng } }) {
   const pathname = usePathname();
   const isDashboard = pathname.split("/")[2] === "dashboard";
-  const DEFAULT_THEME = "light";
 
   const { data: commonSettings, error } = useGetCommonSettings();
   if (error) {

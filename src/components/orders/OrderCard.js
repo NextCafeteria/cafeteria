@@ -6,9 +6,12 @@ import {
 import Link from "next/link";
 import { countItemsByName, countTotalItems } from "@/lib/products";
 import Skeleton from "react-loading-skeleton";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { formatPrice } from "@/lib/utils";
 
 export default function OrderCard({ lng, order, orderId, isLoading }) {
   const { t } = useTranslation(lng, "common");
+  const { data: commonSettings } = useGetCommonSettings();
 
   const status = order?.status;
   const totalPrice = order?.totalPrice;
@@ -20,14 +23,13 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
   const translatedStatus = t(itemStatusText);
 
   const itemNamesWithCount = isLoading ? [] : countItemsByName(itemsWithPrice);
-  // const totalNumberOfItems = countTotalItems(itemsWithPrice);
 
   return (
     <Link href={isLoading ? "" : `/${lng}/order-details/${order.id}`}>
       <div
         key={orderId}
         className={
-          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 hover:bg-gray-100" +
+          "flex flex-col items-center justify-center w-full p-4 min-h-[100px] mx-1 border-b-2 bg-white hover:bg-gray-100" +
           (orderId % 2 === 0 ? " bg-gray-50" : "")
         }
       >
@@ -75,7 +77,12 @@ export default function OrderCard({ lng, order, orderId, isLoading }) {
             {isLoading ? (
               <Skeleton width={50} />
             ) : (
-              totalPrice?.toLocaleString("vi-VN") + "đ"
+              formatPrice(
+                totalPrice,
+                commonSettings?.currencyPrefix,
+                commonSettings?.currencySuffix,
+                commonSettings?.currencyDecimal
+              )
             )}
           </p>
         </div>
