@@ -1,6 +1,11 @@
 import useSWR, { useSWRConfig } from "swr";
 
 export function useGetCommonSettings(settingSet = "common") {
+  let settings = {};
+  if (typeof window !== "undefined") {
+    settings = JSON.parse(localStorage.getItem("commonSettings", "{}"));
+  }
+
   const { fetcher } = useSWRConfig();
   let { data, error, mutate } = useSWR(`/api/settings/${settingSet}`, fetcher);
   if (data) {
@@ -8,7 +13,6 @@ export function useGetCommonSettings(settingSet = "common") {
       localStorage.setItem("commonSettings", JSON.stringify(data.data));
     }
   }
-
   const mutateSettings = function (settings, options) {
     mutate({ ...data, data: settings }, options);
   };

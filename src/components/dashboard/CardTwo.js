@@ -1,4 +1,6 @@
-const CardTwo = ({ totalCustomer }: { totalCustomer: number; lng: string }) => {
+import { useTranslation } from "@/app/i18n/client";
+
+const CardTwo = ({ lng, totalCustomer }) => {
   const style = `
     a.number-link {
       color:#155e75;
@@ -7,37 +9,38 @@ const CardTwo = ({ totalCustomer }: { totalCustomer: number; lng: string }) => {
       white-space: nowrap;
     }
 
-.view-detail-wrapper{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
+    .view-detail-wrapper{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
 
-div.view-detail{
-  position: relative;
-  transition: background-color .35s, transform .35s;
-}
+    div.view-detail{
+      position: relative;
+      transition: background-color .35s, transform .35s;
+    }
 
-div.view-detail:hover a{
-  color: #1e3a8a;
-}
+    div.view-detail:hover a{
+      color: #1e3a8a;
+    }
 
-div.view-detail:after{
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: #ccfbf1;
-  transition: all .35s;
-}
+    div.view-detail:after{
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: #ccfbf1;
+      transition: all .35s;
+    }
 
 
-div.view-detail:hover:after{
-  width: 100%;
-}
+    div.view-detail:hover:after{
+      width: 100%;
+    }
   `;
+  const { t } = useTranslation(lng, "common");
 
   return (
     <div className="relative pb-[3rem] rounded-sm  bg-white py-6 px-6 border border-stroke dark:border-strokedark dark:bg-gray-800 shadow-default">
@@ -68,7 +71,7 @@ div.view-detail:hover:after{
             </svg>
           </div>
           <span className="text-sm font-bold text-[#0f766e] mt-[0.2rem] leading-none select-none">
-            Khách hàng tới quán
+            {t("Number of Visitor")}
           </span>
         </div>
         <div className="flex">
@@ -83,7 +86,7 @@ div.view-detail:hover:after{
             className="m-auto z-10 text-cyan-600 select-none hover:underline"
             href={`dashboard/customers-360`}
           >
-            Xem Khách hàng 360°
+            {t("Customer 360")}
           </a>
         </div>
       </div>

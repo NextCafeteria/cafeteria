@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useGetCommonSettings } from "@/lib/requests/settings";
 import { formatPrice } from "@/lib/utils";
+import { useGetCommonSettings } from "@/lib/requests/settings";
+import { useState } from "react";
+import { useTranslation } from "@/app/i18n/client";
 
-const CardOne = ({ totalRevenue }: { totalRevenue: number }) => {
+const CardOne = ({ totalRevenue, lng }) => {
   const style = `
     a.number-link {
       color:#155e75;
@@ -67,6 +68,7 @@ div.view-detail:hover:after{
       setRevenue(revenueList[index + 1]);
     }
   };
+  const { t } = useTranslation(lng, "common");
 
   return (
     <div className="relative pb-[3rem] rounded-sm  bg-white py-6 px-6 border border-stroke dark:border-strokedark dark:bg-gray-800 shadow-default">
@@ -85,7 +87,7 @@ div.view-detail:hover:after{
             </svg>
           </div>
           <span className="text-sm font-bold text-[#0f766e] mt-[0.2rem] leading-none select-none">
-            Tổng doanh thu
+            {t("Total Sales")}
           </span>
         </div>
         <div className="flex">
