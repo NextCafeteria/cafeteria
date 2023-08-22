@@ -31,13 +31,10 @@ export default async function handler(req, res) {
     // Total revenue
     let totalRevenue = 0;
     const docs = (await getDocs(q)).docs;
+    // return res.status(200).json(docs);
     docs.forEach((doc) => {
       totalRevenue += doc.data().totalPrice;
     });
-
-    //Total Revenue by Store
-    const revenueByStore = {};
-    const revenueByMonth = {};
 
     // Total orders
     const totalOrders = docs.length;
@@ -50,25 +47,38 @@ export default async function handler(req, res) {
       docs.map((doc) => doc.data().items.map((item) => item.productId))
     ).size;
 
+    // Revenue by date
+    const revenueByDate = {};
+
+    // Revenue by date of each store
+    const storeIds = new Set(docs.map((doc) => doc.data().storeId));
+    const revenueByStore = {};
+    storeIds.forEach((storeId) => {
+      revenueByStore[storeId] = {};
+    });
+
     docs.forEach((doc) => {
       const orderDate = new Date(doc.data().timestamp);
+      const date = orderDate.getDay();
       const month = orderDate.getMonth();
       const year = orderDate.getFullYear();
 
-      const monthKey = `${year}-${month}`;
-      if (revenueByMonth[monthKey]) {
-        revenueByMonth[monthKey] += doc.data().totalPrice;
+      const dayKey = `${year}-${month}-${date}`;
+      const storeId = doc.data().storeId;
+
+      if (revenueByStore[storeId]?.[dayKey]) {
+        revenueByStore[storeId][dayKey] += doc.data().totalPrice;
       } else {
-        revenueByMonth[monthKey] = doc.data().totalPrice;
+        revenueByStore[storeId][dayKey] = doc.data().totalPrice;
       }
 
-      const orderId = doc.data().storeId;
-      if (revenueByStore[orderId]) {
-        revenueByStore[orderId] += doc.data().totalPrice;
-      } else {
-        revenueByStore[orderId] = doc.data().totalPrice;
+      if (revenueByDate[dayKey]) {
+        revenueByDate[dayKey] += doc.data().totalPrice;
       }
+      revenueByDate[dayKey] = doc.data().totalPrice;
     });
+
+    const monthlyRevenueByStore = getMonthlyRevenueByStore(revenueByStore);
 
     return res.status(200).json({
       success: true,
@@ -77,9 +87,40 @@ export default async function handler(req, res) {
         totalOrders,
         totalCustomers,
         totalProducts,
-        revenueByMonth,
-        revenueByStore,
+        // revenueByStore,
+        revenueByDate,
+        monthlyRevenueByStore,
+        storeIds: Array.from(storeIds),
       },
     });
   }
+}
+
+function getMonthlyRevenueByStore(revenueByStore) {
+  const result = {};
+
+  // Iterate through each store
+  for (const storeId in revenueByStore) {
+    const storeData = revenueByStore[storeId];
+    const storeRevenueByMonth = {};
+
+    // Iterate through each date in the store data
+    for (const date in storeData) {
+      const [year, month, _] = date.split("-");
+      const monthKey = `${year}-${month}`;
+
+      // If the monthKey doesn't exist, initialize it to 0
+      if (!storeRevenueByMonth[monthKey]) {
+        storeRevenueByMonth[monthKey] = 0;
+      }
+
+      // Add the revenue for the current date to the corresponding monthKey
+      storeRevenueByMonth[monthKey] += storeData[date];
+    }
+
+    // Add the store revenue by month to the result object
+    result[storeId] = storeRevenueByMonth;
+  }
+
+  return result;
 }
