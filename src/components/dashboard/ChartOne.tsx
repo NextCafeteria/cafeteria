@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { ApexOptions } from "apexcharts";
 import ReactApexChart from "@components/ApexChart";
 import randomColor from "randomcolor";
+import { useTranslation } from "@/app/i18n/client";
 
 const color1 = randomColor({ hue: "blue", luminosity: "dark" });
 const color2 = randomColor({ hue: "purple", luminosity: "light" });
@@ -121,7 +122,7 @@ const options: ApexOptions = {
     max: 100,
   },
 };
-const ChartOne: React.FC = () => {
+const ChartOne = ({ lng }: { lng: string }) => {
   const allSeries = [
     {
       name: "Chi nhánh Hà Nội",
@@ -194,6 +195,7 @@ const ChartOne: React.FC = () => {
     color: ${color3};
   }
   `;
+  const { t } = useTranslation(lng, "common");
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-gray-800 sm:px-7.5 xl:col-span-12">
@@ -207,7 +209,9 @@ const ChartOne: React.FC = () => {
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color1"></span>
               </span>
               <div className="w-full">
-                <p className="font-semibold text-color1">Chi nhánh Hà Nội</p>
+                <p className="font-semibold text-color1">
+                  {t("Ha Noi Branch")}
+                </p>
               </div>
             </div>
           )}
@@ -218,7 +222,9 @@ const ChartOne: React.FC = () => {
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color2"></span>
               </span>
               <div className="w-full">
-                <p className="font-semibold text-color2">Chi nhánh TP HCM</p>
+                <p className="font-semibold text-color2">
+                  {t("Ho Chi Minh Branch")}
+                </p>
               </div>
             </div>
           )}
@@ -228,7 +234,9 @@ const ChartOne: React.FC = () => {
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color3"></span>
               </span>
               <div className="w-full">
-                <p className="font-semibold text-color3">Chi nhánh Đà Nẵng</p>
+                <p className="font-semibold text-color3">
+                  {t("Da Nang Branch")}
+                </p>
               </div>
             </div>
           )}
@@ -240,7 +248,7 @@ const ChartOne: React.FC = () => {
               onClick={togglePopup}
             >
               <div className="front-content pr-5 clickable">
-                <h3>Lọc theo chi nhánh</h3>
+                <h3>{t("Filter By Branch")}</h3>
                 <span className="absolute top-1/2 right-3 z-10 -translate-y-1/2">
                   <svg
                     width="10"
@@ -274,7 +282,7 @@ const ChartOne: React.FC = () => {
                     checked={storeVisibility.store1}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="store-1">Chi nhánh Hà Nội</label>
+                  <label htmlFor="store-1">{t("Ha Noi Branch")}</label>
                 </div>
                 <div className="store-checkbox flex gap-1">
                   <input
@@ -285,7 +293,7 @@ const ChartOne: React.FC = () => {
                     checked={storeVisibility.store2}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="store-2">Chi nhánh TP HCM</label>
+                  <label htmlFor="store-2">{t("Ho Chi Minh Branch")}</label>
                 </div>
                 <div className="store-checkbox flex gap-1">
                   <input
@@ -296,7 +304,7 @@ const ChartOne: React.FC = () => {
                     checked={storeVisibility.store3}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="store-3">Chi nhánh Đà Nẵng</label>
+                  <label htmlFor="store-3">{t("Da Nang Branch")}</label>
                 </div>
               </div>
             )}
