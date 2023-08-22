@@ -195,7 +195,7 @@ const ChartOne = ({ lng }: { lng: string }) => {
     color: ${color3};
   }
   `;
-  const { t } = useTranslation(lng, "common");
+  const { t } = useTranslation(lng, "common") as { t: (key: string) => string };
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-gray-800 sm:px-7.5 xl:col-span-12">
