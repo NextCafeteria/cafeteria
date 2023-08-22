@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import CardOne from "@/components/dashboard/CardOne.js";
 import CardTwo from "@/components/dashboard/CardTwo.js";
+import ChartFive from "@/components/dashboard/ChartFive.tsx";
 import ChartOne from "@/components/dashboard/ChartOne.tsx";
 import { GetRevenueInfo } from "@/lib/requests/dashboard";
 import React from "react";
@@ -32,6 +33,7 @@ export default function Page({ params: { lng } }) {
       </div>
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne lng={lng} />
+        <ChartFive />
       </div>
     </div>
   );
