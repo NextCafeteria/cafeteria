@@ -15,6 +15,9 @@ export default function Page({ params: { lng } }) {
     totalOrders: 0,
     totalCustomers: 0,
     totalProducts: 0,
+    revenueByDate: {},
+    monthlyRevenueByStore: {},
+    storeIds: [],
   });
 
   useEffect(() => {

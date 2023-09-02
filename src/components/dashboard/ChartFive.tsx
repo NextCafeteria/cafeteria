@@ -14,6 +14,7 @@ const ChartFive = ({
   totalRevenue: number;
 }) => {
   const colors = [];
+  console.log(storeIds);
   for (let i = 0; i < storeIds.length; i++) {
     colors.push(randomColor({ luminosity: "dark" }));
   }
