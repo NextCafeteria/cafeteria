@@ -8,7 +8,7 @@ export function uuidv4() {
 }
 
 export function formatPrice(price, prefix, suffix, decimal) {
-  let formatedPrice = price;
+  let formatedPrice = parseFloat(price);
   if (decimal) {
     formatedPrice = formatedPrice.toFixed(decimal);
   } else {
