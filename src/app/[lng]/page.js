@@ -24,8 +24,13 @@ export default function Home({ params: { lng } }) {
       return;
     }
 
+    products.forEach((product) => {
+      product.translated_name = t(product.name);
+      product.translated_description = t(product.description);
+    });
+
     const fuse = new Fuse(products, {
-      keys: ["name", "description"],
+      keys: ["translated_name", "translated_description"],
     });
 
     const results = fuse.search(value);
