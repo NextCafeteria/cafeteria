@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import CardOne from "@/components/dashboard/CardOne.js";
 import CardTwo from "@/components/dashboard/CardTwo.js";
+import ChartFive from "@/components/dashboard/ChartFive.tsx";
 import ChartOne from "@/components/dashboard/ChartOne.tsx";
 import { GetRevenueInfo } from "@/lib/requests/dashboard";
 import React from "react";
@@ -14,6 +15,9 @@ export default function Page({ params: { lng } }) {
     totalOrders: 0,
     totalCustomers: 0,
     totalProducts: 0,
+    revenueByDate: {},
+    monthlyRevenueByStore: {},
+    storeIds: [],
   });
 
   useEffect(() => {
@@ -31,7 +35,12 @@ export default function Page({ params: { lng } }) {
         <CardTwo totalCustomer={revenueInfo.totalCustomers} lng={lng} />
       </div>
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
+        <ChartOne lng={lng} />
+        <ChartFive
+          monthlyRevenueByStore={revenueInfo.monthlyRevenueByStore}
+          storeIds={revenueInfo.storeIds}
+          totalRevenue={revenueInfo.totalRevenue}
+        />
       </div>
     </div>
   );

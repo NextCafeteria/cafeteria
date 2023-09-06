@@ -3,147 +3,167 @@ import React, { useEffect, useState } from "react";
 import { ApexOptions } from "apexcharts";
 import ReactApexChart from "@components/ApexChart";
 import randomColor from "randomcolor";
-import { useTranslation } from "@/app/i18n/client";
 
-const color1 = randomColor({ hue: "blue", luminosity: "dark" });
-const color2 = randomColor({ hue: "purple", luminosity: "light" });
-const color3 = randomColor({ hue: "green", luminosity: "dark" });
-const colors = [color1, color2, color3];
+const ChartFive = ({
+  monthlyRevenueByStore,
+  storeIds,
+  totalRevenue,
+}: {
+  monthlyRevenueByStore: { [key: string]: { [key: string]: number } };
+  storeIds: any;
+  totalRevenue: number;
+}) => {
+  const colors = [];
+  console.log(storeIds);
+  for (let i = 0; i < storeIds.length; i++) {
+    colors.push(randomColor({ luminosity: "dark" }));
+  }
 
-const options: ApexOptions = {
-  legend: {
-    show: false,
-    position: "top",
-    horizontalAlign: "left",
-  },
-  colors: colors,
-  chart: {
-    fontFamily: "Satoshi, sans-serif",
-    height: 335,
-    type: "area",
-    dropShadow: {
-      enabled: true,
-      color: "#623CEA14",
-      top: 10,
-      blur: 4,
-      left: 0,
-      opacity: 0.1,
-    },
-
-    toolbar: {
+  const allSeries = [] as any;
+  for (let i = 0; i < storeIds.length; i++) {
+    const storeId = storeIds[i];
+    const storeName = "Chi nhánh " + (i + 1).toString();
+    const storeData = [];
+    for (let j = 0; j < 12; j++) {
+      const month = j + 1;
+      const year = 2023;
+      const key = `${year}-${month}`;
+      const value = +(
+        (100 * (monthlyRevenueByStore[storeId][key] || 0)) /
+        totalRevenue
+      ).toFixed(0);
+      storeData.push(value);
+    }
+    allSeries.push({
+      name: storeName,
+      data: storeData,
+    });
+  }
+  // alert(
+  //   JSON.stringify(allSeries) +
+  //     " " +
+  //     JSON.stringify(storeIds) +
+  //     " " +
+  //     JSON.stringify(totalRevenue)
+  // );
+  const options: ApexOptions = {
+    legend: {
       show: false,
+      position: "top",
+      horizontalAlign: "left",
     },
-  },
-  responsive: [
-    {
-      breakpoint: 1024,
-      options: {
-        chart: {
-          height: 300,
+    colors: colors,
+    chart: {
+      fontFamily: "Satoshi, sans-serif",
+      height: 335,
+      type: "area",
+      dropShadow: {
+        enabled: true,
+        color: "#623CEA14",
+        top: 10,
+        blur: 4,
+        left: 0,
+        opacity: 0.1,
+      },
+
+      toolbar: {
+        show: false,
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        options: {
+          chart: {
+            height: 300,
+          },
+        },
+      },
+      {
+        breakpoint: 1366,
+        options: {
+          chart: {
+            height: 350,
+          },
+        },
+      },
+    ],
+    stroke: {
+      width: [2, 2],
+      curve: "straight",
+    },
+    // labels: {
+    //   show: false,
+    //   position: "top",
+    // },
+    grid: {
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
         },
       },
     },
-    {
-      breakpoint: 1366,
-      options: {
-        chart: {
-          height: 350,
-        },
+    dataLabels: {
+      enabled: false,
+    },
+    markers: {
+      size: 4,
+      colors: "#fff",
+      strokeColors: colors,
+      strokeWidth: 3,
+      strokeOpacity: 0.9,
+      strokeDashArray: 0,
+      fillOpacity: 1,
+      discrete: [],
+      hover: {
+        size: undefined,
+        sizeOffset: 5,
       },
     },
-  ],
-  stroke: {
-    width: [2, 2],
-    curve: "straight",
-  },
-  // labels: {
-  //   show: false,
-  //   position: "top",
-  // },
-  grid: {
     xaxis: {
-      lines: {
-        show: true,
+      type: "category",
+      categories: [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9",
+        "T10",
+        "T11",
+        "T12",
+      ],
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
       },
     },
     yaxis: {
-      lines: {
-        show: true,
+      title: {
+        style: {
+          fontSize: "0px",
+        },
       },
+      min: 0,
+      max: 100,
     },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  markers: {
-    size: 4,
-    colors: "#fff",
-    strokeColors: colors,
-    strokeWidth: 3,
-    strokeOpacity: 0.9,
-    strokeDashArray: 0,
-    fillOpacity: 1,
-    discrete: [],
-    hover: {
-      size: undefined,
-      sizeOffset: 5,
-    },
-  },
-  xaxis: {
-    type: "category",
-    categories: [
-      "T9",
-      "T10",
-      "T11",
-      "T12",
-      "T1",
-      "T2",
-      "T3",
-      "T4",
-      "T5",
-      "T6",
-      "T7",
-      "T8",
-    ],
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  yaxis: {
-    title: {
-      style: {
-        fontSize: "0px",
-      },
-    },
-    min: 0,
-    max: 100,
-  },
-};
-const ChartOne = ({ lng }: { lng: string }) => {
-  const allSeries = [
-    {
-      name: "Chi nhánh Hà Nội",
-      data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
-    },
-    {
-      name: "Chi nhánh TP HCM",
-      data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51],
-    },
-    {
-      name: "Chi nhánh Đà Nẵng",
-      data: [17, 29, 35, 42, 18, 27, 36, 31, 23, 40, 47, 55],
-    },
-  ];
+  };
 
   const [series, setSeries] = useState(allSeries);
 
   const [storeVisibility, setStoreVisibility] = useState({
     store1: true,
     store2: true,
-    store3: true,
   });
 
   useEffect(() => {
@@ -154,9 +174,6 @@ const ChartOne = ({ lng }: { lng: string }) => {
     }
     if (storeVisibility.store2) {
       newSeries.push(allSeries[1]);
-    }
-    if (storeVisibility.store3) {
-      newSeries.push(allSeries[2]);
     }
 
     setSeries(newSeries);
@@ -174,31 +191,24 @@ const ChartOne = ({ lng }: { lng: string }) => {
   };
 
   const style = `.apexcharts-series > path:first-child {
-    display: none !important;
+    display: none !important; 
   }
   .bg-color1 {
-    background-color: ${color1} ;
+    background-color: ${colors[0]} ;
   }
   .bg-color2 {
-    background-color: ${color2};
-  }
-  .bg-color3 {
-    background-color: ${color3};
+    background-color: ${colors[1]};
   }
   .text-color1 {
-    color: ${color1};
+    color: ${colors[0]};
   }
   .text-color2 {
-    color: ${color2};
-  }
-  .text-color3 {
-    color: ${color3};
+    color: ${colors[1]};
   }
   `;
-  const { t } = useTranslation(lng, "common") as { t: (key: string) => string };
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-gray-800 sm:px-7.5 xl:col-span-12">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-gray-800 sm:px-7.5 xl:col-span-8">
       <style>{style}</style>
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
@@ -209,9 +219,7 @@ const ChartOne = ({ lng }: { lng: string }) => {
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color1"></span>
               </span>
               <div className="w-full">
-                <p className="font-semibold text-color1">
-                  {t("Ha Noi Branch")}
-                </p>
+                <p className="font-semibold text-color1">Chi nhánh Hà Nội</p>
               </div>
             </div>
           )}
@@ -222,33 +230,40 @@ const ChartOne = ({ lng }: { lng: string }) => {
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color2"></span>
               </span>
               <div className="w-full">
-                <p className="font-semibold text-color2">
-                  {t("Ho Chi Minh Branch")}
-                </p>
+                <p className="font-semibold text-color2">Chi nhánh TP HCM</p>
               </div>
             </div>
           )}
-          {storeVisibility.store3 && (
+          {/* {storeVisibility.store3 && (
             <div className="flex min-w-47.5">
               <span className="mt-1 mr-2 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-secondary">
                 <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-color3"></span>
               </span>
               <div className="w-full">
-                <p className="font-semibold text-color3">
-                  {t("Da Nang Branch")}
-                </p>
+                <p className="font-semibold text-color3">Chi nhánh Đà Nẵng</p>
               </div>
             </div>
-          )}
+          )} */}
         </div>
         <div className="flex w-full max-w-45 justify-end">
+          {/* <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
+            <button className="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-gray-800 dark:text-white dark:hover:bg-gray-800">
+              Day
+            </button>
+            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-gray-800">
+              Week
+            </button>
+            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-gray-800">
+              Month
+            </button>
+          </div> */}
           <div className="select-store relative">
             <div
               className="front p-2  whitespace-nowrap select-none"
               onClick={togglePopup}
             >
               <div className="front-content pr-5 clickable">
-                <h3>{t("Filter By Branch")}</h3>
+                <h3>Lọc theo chi nhánh</h3>
                 <span className="absolute top-1/2 right-3 z-10 -translate-y-1/2">
                   <svg
                     width="10"
@@ -282,7 +297,7 @@ const ChartOne = ({ lng }: { lng: string }) => {
                     checked={storeVisibility.store1}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="store-1">{t("Ha Noi Branch")}</label>
+                  <label htmlFor="store-1">Chi nhánh Hà Nội</label>
                 </div>
                 <div className="store-checkbox flex gap-1">
                   <input
@@ -293,9 +308,9 @@ const ChartOne = ({ lng }: { lng: string }) => {
                     checked={storeVisibility.store2}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="store-2">{t("Ho Chi Minh Branch")}</label>
+                  <label htmlFor="store-2">Chi nhánh TP HCM</label>
                 </div>
-                <div className="store-checkbox flex gap-1">
+                {/* <div className="store-checkbox flex gap-1">
                   <input
                     type="checkbox"
                     id="store-3"
@@ -304,18 +319,18 @@ const ChartOne = ({ lng }: { lng: string }) => {
                     checked={storeVisibility.store3}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="store-3">{t("Da Nang Branch")}</label>
-                </div>
+                  <label htmlFor="store-3">Chi nhánh Đà Nẵng</label>
+                </div> */}
               </div>
             )}
           </div>
         </div>
       </div>
       <div>
-        <div id="chartOne" className="-ml-5">
+        <div id="chartFive" className="-ml-5">
           <ReactApexChart
             options={options}
-            series={series}
+            series={allSeries}
             type="area"
             height={350}
           />
@@ -325,4 +340,4 @@ const ChartOne = ({ lng }: { lng: string }) => {
   );
 };
 
-export default ChartOne;
+export default ChartFive;
