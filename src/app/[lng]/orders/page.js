@@ -24,7 +24,7 @@ export default function Cart({ params: { lng } }) {
   const { t } = useTranslation(lng, "common");
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[600px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="flex w-full justify-between border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           {t("Order History")}
           <XButton />
