@@ -41,7 +41,7 @@ export default function OrderRating({ params: { lng, orderId } }) {
   // implement a rating page for order
   return (
     <main className="flex justify-center p-2 pb-[200px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[600px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="flex w-full border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           <BackButton href={`/${lng}/order-details/${orderId}`} />
           {t("Rating")}

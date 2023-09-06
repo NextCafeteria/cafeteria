@@ -38,7 +38,7 @@ export default function ProductManagement({ params: { lng } }) {
   return (
     <main className="flex justify-center p-2 pb-[200px]">
       <style>{productCss}</style>
-      <div className="w-full max-w-[1000px] md:w-[1000px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[600px] md:w-[1000px] mx-auto font-mono text-sm">
         <div className="flex w-full justify-between pb-3 pt-2 text-3xl px-2 mb-2 mt-4">
           {t("Products")}
         </div>

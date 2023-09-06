@@ -59,7 +59,7 @@ export default function Home({ params: { lng } }) {
       <style>{productCss}</style>
       <div className="max-w-[600px] md:max-w-[1000px] mx-auto font-mono text-sm">
         <Header />
-        <div className="px-3 mt-4">
+        <div className="px-3 my-4">
           <input
             className="w-full border-[1px] border-gray-600 p-2 rounded-md max-[500px]"
             type="text"

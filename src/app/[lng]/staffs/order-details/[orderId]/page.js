@@ -128,7 +128,7 @@ export default function StaffOrder({ params: { lng, orderId } }) {
 
   return (
     <main className="flex justify-center p-2 pb-[100px]">
-      <div className="w-full max-w-[600px] md:w-[600px] mx-auto font-mono text-sm">
+      <div className="w-full max-w-[600px] md:w-[1000px] mx-auto font-mono text-sm">
         <p className="flex w-full border-b-2 border-gray-800 pb-3 pt-2 text-2xl px-2 mb-2">
           <BackButton />
           {t("Order")}
