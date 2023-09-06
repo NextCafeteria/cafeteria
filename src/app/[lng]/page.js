@@ -1,5 +1,5 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProductCardSkeleton from "@/components/skeletons/ProductCard";
 import dynamic from "next/dynamic";
@@ -8,12 +8,35 @@ import { useTranslation } from "@/app/i18n/client";
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 import { useGetCommonSettings } from "@/lib/requests/settings";
 import { formatPrice } from "@/lib/utils";
+import Fuse from "fuse.js";
 
 export default function Home({ params: { lng } }) {
   const { products, error, isLoading } = useGetProducts();
   if (error) {
     console.log(error);
   }
+
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    if (value.length === 0) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const fuse = new Fuse(products, {
+      keys: ["name", "description"],
+    });
+
+    const results = fuse.search(value);
+    const items = results.map((result) => result.item);
+    setFilteredProducts(items);
+  };
+
+  // First data load
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
 
   const { data: commonSettings } = useGetCommonSettings();
 
@@ -36,6 +59,14 @@ export default function Home({ params: { lng } }) {
       <style>{productCss}</style>
       <div className="max-w-[600px] md:max-w-[1000px] mx-auto font-mono text-sm">
         <Header />
+        <div className="px-3 mt-4">
+          <input
+            className="w-full border-[1px] border-gray-600 p-2 rounded-md max-[500px]"
+            type="text"
+            placeholder={t("Search Products")}
+            onChange={handleSearch}
+          />
+        </div>
         <div className="menu flex flex-wrap justify-center w-full md:gap-5 md:grid md:grid-cols-2">
           {isLoading
             ? Array.from({ length: 4 }, (e, i) => i).map((i) => (
@@ -43,8 +74,8 @@ export default function Home({ params: { lng } }) {
                   <ProductCardSkeleton />
                 </div>
               ))
-            : products &&
-              products.map((product, key) => {
+            : filteredProducts &&
+              filteredProducts.map((product, key) => {
                 const isAvailable =
                   product.isAvailable === undefined
                     ? true

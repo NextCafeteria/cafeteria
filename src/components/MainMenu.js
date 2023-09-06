@@ -27,12 +27,12 @@ function MainMenuUser({ lng }) {
   }`;
   return (
     <>
-      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary md:min-w-[100px]">
+      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary md:min-w-[120px] min-w-[50px]">
         <style>{navCss}</style>
         <Link href={`/${lng}`}>
           <div
             className={
-              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
+              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center min-w-[80px]" +
               (currentPath === `/${lng}`
                 ? " bg-[#ffffffff] rounded-xl"
                 : " bg-[#ffffffcc] rounded-xl")
@@ -64,7 +64,7 @@ function MainMenuUser({ lng }) {
         <Link href={`/${lng}/orders`}>
           <div
             className={
-              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
+              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center min-w-[80px]" +
               (currentPath === `/${lng}/orders`
                 ? " bg-[#ffffffff] rounded-xl"
                 : " bg-[#ffffffcc] rounded-xl")
@@ -102,7 +102,7 @@ function MainMenuUser({ lng }) {
         <Link href={`/${lng}/cart`}>
           <div
             className={
-              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
+              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center min-w-[80px]" +
               (currentPath === `/${lng}/cart`
                 ? " bg-[#ffffffff] rounded-xl"
                 : " bg-[#ffffffcc] rounded-xl")
@@ -137,7 +137,7 @@ function MainMenuUser({ lng }) {
         <Link href={`/${lng}/user`}>
           <div
             className={
-              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center" +
+              "md:mb-4 md:py-4 nav-item flex flex-col items-center p-2 clickable text-center min-w-[80px]" +
               (currentPath === `/${lng}/user`
                 ? " bg-[#ffffffff] rounded-xl"
                 : " bg-[#ffffffcc] rounded-xl")
@@ -192,7 +192,7 @@ function MainMenuStaff({ lng }) {
 
   return (
     <>
-      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary md:min-w-[100px]">
+      <div className="nav-bar flex justify-evenly md:justify-start md:pt-8 w-full fixed bottom-0 md:left-0 md:h-full md:w-auto md:flex-col h-[90px] border-t-[1px] md:border-t-0 md:border-r-[1px] rounded-t-xl md:rounded-none border-primary-500 p-2 bg-primary md:min-w-[120px]">
         <Link href={`/${lng}`}>
           <div
             className={
